@@ -5,11 +5,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.adapter.HomeAdapter
+import com.example.soosoocloset.adapter.LikeAdapter
+import com.example.soosoocloset.domain.Home
+import com.example.soosoocloset.domain.Like
 
 class LikeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_like, container, false)
+        val view = inflater.inflate(R.layout.fragment_like, container, false)
+        setHasOptionsMenu(true) // 상단바의 메뉴 허용
+
+        var likeList = arrayListOf<Like>(Like(), Like(), Like())
+        val rv_like : RecyclerView = view.findViewById(R.id.rv_like)
+        val likeAdapater = LikeAdapter(likeList)
+        val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
+
+        rv_like.adapter = likeAdapater
+        rv_like.layoutManager = layoutManager
+
+        return view
     }
+
 }
