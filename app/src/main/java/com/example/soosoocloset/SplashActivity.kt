@@ -10,6 +10,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        // 수현 초기화
+
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
