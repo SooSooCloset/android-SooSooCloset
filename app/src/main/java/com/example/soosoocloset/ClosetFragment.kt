@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.adapter.ClothAdapter
+import com.example.soosoocloset.adapter.HomeAdapter
 import com.example.soosoocloset.domain.Cloth
 
 // 설명: 메인 화면 하단바의 옷장 클릭 -> 옷장 화면
@@ -32,11 +33,18 @@ class ClosetFragment : Fragment() {
 
         var clothList = arrayListOf<Cloth>(Cloth(), Cloth(), Cloth(), Cloth(), Cloth()) // 테스트용 데이터
         val rv_closet : RecyclerView = view.findViewById(R.id.rv_closet) // 옷 리사이클러뷰
-        val clothAdpater = ClothAdapter(clothList) // 옷 리사이클러뷰의 어댑터
+        val clothAdapter = ClothAdapter(clothList) // 옷 리사이클러뷰의 어댑터
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 3) // 그리드 레이아웃 매니저
 
-        rv_closet.adapter = clothAdpater // 리사이클러뷰와 어댑터 연결
+        rv_closet.adapter = clothAdapter // 리사이클러뷰와 어댑터 연결
         rv_closet.layoutManager = layoutManager // 리사이클러뷰와 레이아웃 매니저 연결
+
+        // 옷 리스트의 아이템 클릭시
+        clothAdapter.setItemClickListener(object : ClothAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                startActivity(Intent(context, ClothActivity::class.java))
+            }
+        })
 
         return view
     }
