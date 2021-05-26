@@ -1,7 +1,10 @@
 package com.example.soosoocloset
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +28,25 @@ class CodiFragment : Fragment() {
 
         rv_codi.adapter = codiAdapater
         rv_codi.layoutManager = layoutManager
+
+        //화면전환
+        codiAdapater.setItemClickListener(object : CodiAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                startActivity(Intent(context, MyCodiActivity::class.java))
+            }
+        })
+
+        val toolbar: Toolbar = view.findViewById(R.id.toolbar) // 상단바
+        // 상단바 메뉴 클릭시
+        toolbar.setOnMenuItemClickListener{
+            when(it.itemId) {
+                R.id.item_addCodi -> {
+                    startActivity(Intent(context, AddCodiActivity::class.java)) // 코디 추가 화면으로 이동
+                    true
+                }
+                else -> false
+            }
+        }
 
         return view
     }

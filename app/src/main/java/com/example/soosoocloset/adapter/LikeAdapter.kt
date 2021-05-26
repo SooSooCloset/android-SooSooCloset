@@ -18,12 +18,23 @@ class LikeAdapter (val likeList: ArrayList<Like>) : RecyclerView.Adapter<Holder>
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        // 데이터 삽입
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
         // 리스트 개수 리턴
         return likeList.size
+    }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+    private lateinit var itemClickListener : OnItemClickListener
+
+    fun setItemClickListener(itemClickListener: OnItemClickListener) {
+        this.itemClickListener = itemClickListener
     }
 }
 
