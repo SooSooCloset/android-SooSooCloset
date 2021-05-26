@@ -11,6 +11,7 @@ import com.example.soosoocloset.domain.Cloth
 import com.example.soosoocloset.domain.Codi
 import kotlinx.android.synthetic.main.fragment_closet.*
 
+// author: Sumin, created: 21.05.19
 class CodiFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
