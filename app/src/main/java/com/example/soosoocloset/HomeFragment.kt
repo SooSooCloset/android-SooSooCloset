@@ -1,6 +1,8 @@
 package com.example.soosoocloset
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,11 +24,18 @@ class HomeFragment : Fragment() {
 
         var homeList = arrayListOf<Home>(Home(), Home(), Home())
         val rv_home : RecyclerView = view.findViewById(R.id.rv_home)
-        val homeAdapater = HomeAdapter(homeList)
+        val homeAdapter = HomeAdapter(homeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
 
-        rv_home.adapter = homeAdapater
         rv_home.layoutManager = layoutManager
+        rv_home.adapter = homeAdapter
+
+        // 홈 화면의 코디리스트 아이템 클릭시
+        homeAdapter.setItemClickListener(object : HomeAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                startActivity(Intent(context, CodiActivity::class.java))
+            }
+        })
 
         return view
     }

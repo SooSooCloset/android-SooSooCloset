@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +75,23 @@ class AddClosetActivity : AppCompatActivity() {
         })
     }
 
+    // 상단바와 메뉴를 연결하는 메소드
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.add_closet_menu, menu)
+        return true
+    }
+
+    // 상단바의 메뉴 클릭시 호출되는 메소드
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.item_finishCloset -> {
+                finish() // 액티비티 종료
+                return true
+            }
+            else -> {return super.onOptionsItemSelected(item)}
+        }
+    }
+
     // 권한을 설정하는 메소드
     fun settingPermission(select: Int){
         // 권한 객체 생성
@@ -115,6 +134,7 @@ class AddClosetActivity : AppCompatActivity() {
         }
     }
 
+    // 갤러리에서 사진을 선택할 수 있도록 하는 메소드
     fun startGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = MediaStore.Images.Media.CONTENT_TYPE

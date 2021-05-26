@@ -19,7 +19,9 @@ class ClothAdapter(val clothList : ArrayList<Cloth>) : RecyclerView.Adapter<Hold
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        // 데이터 삽입
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -27,6 +29,14 @@ class ClothAdapter(val clothList : ArrayList<Cloth>) : RecyclerView.Adapter<Hold
         return clothList.size
     }
 
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+    private lateinit var itemClickListener : OnItemClickListener
+
+    fun setItemClickListener(itemClickListener: OnItemClickListener) {
+        this.itemClickListener = itemClickListener
+    }
 }
 
 // 옷 아이템 뷰홀더
