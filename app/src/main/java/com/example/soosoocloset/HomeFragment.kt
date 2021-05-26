@@ -13,6 +13,7 @@ import com.example.soosoocloset.domain.Codi
 import com.example.soosoocloset.domain.Home
 import kotlinx.android.synthetic.main.fragment_closet.*
 
+// author: Sumin, created: 21.05.19
 class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

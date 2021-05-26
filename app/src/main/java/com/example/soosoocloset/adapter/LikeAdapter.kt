@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.domain.Like
 import com.example.soosoocloset.R
 
+// author: Sumin, created: 21.05.19
 class LikeAdapter (val likeList: ArrayList<Like>) : RecyclerView.Adapter<Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 레이아웃 생성

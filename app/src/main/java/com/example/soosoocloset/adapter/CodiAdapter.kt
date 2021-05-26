@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Codi
 
+// author: Sumin, created: 21.05.19
 class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<Holder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
