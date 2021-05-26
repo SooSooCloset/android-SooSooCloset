@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.soosoocloset">
     <!-- 카메라 & 갤러리 권한 -->
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -19,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SooSooCloset">
         <activity android:name=".MyinfoActivity"></activity>
+        <activity android:name=".MakeCodiActivity"/>
+        <activity android:name=".CodiActivity" />
+        <activity android:name=".FindIdActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".AddClosetActivity" />
         <activity android:name=".FindPwActivity" />
         <activity android:name=".LoginActivity" />
@@ -30,7 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+      
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.soosoocloset.fileprovider"
@@ -42,6 +43,7 @@
                 android:resource="@xml/provider_paths"
                 tools:replace="android:resource" />
         </provider>
+
     </application>
 
 </manifest>

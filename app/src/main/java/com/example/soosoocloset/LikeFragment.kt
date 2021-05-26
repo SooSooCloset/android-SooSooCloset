@@ -12,6 +12,7 @@ import com.example.soosoocloset.adapter.LikeAdapter
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.domain.Like
 
+// author: Sumin, created: 21.05.19
 class LikeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

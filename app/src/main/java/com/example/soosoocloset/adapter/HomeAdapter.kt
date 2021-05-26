@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
 
+// author: Sumin, created: 21.05.19
 class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         // 레이아웃 생성
