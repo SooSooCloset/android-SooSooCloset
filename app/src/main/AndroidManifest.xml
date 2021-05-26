@@ -18,9 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SooSooCloset">
+
         <activity android:name=".ClothActivity"></activity>
         <activity android:name=".MyinfoActivity" />
         <activity android:name=".MakeCodiActivity" />
+        <activity android:name=".MyCodiActivity"/>
+        <activity android:name=".AddCodiActivity"/>
         <activity android:name=".CodiActivity" />
         <activity android:name=".FindIdActivity" />
         <activity android:name=".RegisterActivity" />

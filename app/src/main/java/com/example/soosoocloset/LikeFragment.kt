@@ -1,5 +1,6 @@
 package com.example.soosoocloset
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.adapter.CodiAdapter
 import com.example.soosoocloset.adapter.HomeAdapter
 import com.example.soosoocloset.adapter.LikeAdapter
 import com.example.soosoocloset.domain.Home
@@ -26,6 +28,13 @@ class LikeFragment : Fragment() {
 
         rv_like.adapter = likeAdapater
         rv_like.layoutManager = layoutManager
+
+        //화면전환
+        likeAdapater.setItemClickListener(object : LikeAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                startActivity(Intent(context, CodiActivity::class.java))
+            }
+        })
 
         return view
     }

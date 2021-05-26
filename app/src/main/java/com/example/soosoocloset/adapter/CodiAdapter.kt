@@ -1,10 +1,13 @@
 package com.example.soosoocloset.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.MyCodiActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Codi
 
@@ -18,12 +21,23 @@ class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<Holder>
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        // 데이터 삽입
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
         // 리스트 개수 리턴
         return codiList.size
+    }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+    private lateinit var itemClickListener : OnItemClickListener
+
+    fun setItemClickListener(itemClickListener: OnItemClickListener) {
+        this.itemClickListener = itemClickListener
     }
 }
 
