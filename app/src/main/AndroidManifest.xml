@@ -21,7 +21,6 @@
 
         <activity android:name=".ClothActivity"></activity>
         <activity android:name=".MyinfoActivity" />
-        <activity android:name=".MakeCodiActivity" />
         <activity android:name=".MyCodiActivity"/>
         <activity android:name=".AddCodiActivity"/>
         <activity android:name=".CodiActivity" />

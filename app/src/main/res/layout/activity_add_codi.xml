@@ -63,6 +63,10 @@
                 android:text="상의"/>
 
             <!-- 하의 버튼 -->
+
+            <!-- 원피스 버튼 -->
+
+            <!-- 신발 버튼 -->
             <Button
                 android:id="@+id/btn_bottom"
                 android:layout_width="wrap_content"
@@ -71,9 +75,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="하의"/>
+                android:text="하의" />
 
-            <!-- 원피스 버튼 -->
             <Button
                 android:id="@+id/btn_onepiece"
                 android:layout_width="wrap_content"
@@ -82,9 +85,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="원피스"/>
+                android:text="원피스" />
 
-            <!-- 신발 버튼 -->
             <Button
                 android:id="@+id/btn_shoes"
                 android:layout_width="wrap_content"
@@ -123,10 +125,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/> -->
 
     <!-- 코디 설명 -->
     <TextView

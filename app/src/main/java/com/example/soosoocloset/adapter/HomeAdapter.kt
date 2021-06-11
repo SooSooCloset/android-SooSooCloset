@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.AddClosetActivity
@@ -14,15 +15,18 @@ import com.example.soosoocloset.R
 import kotlin.coroutines.coroutineContext
 
 // author: Sumin, created: 21.05.19
-class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<Holder>(){
+class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         // 레이아웃 생성
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_item, parent, false)
-        return Holder(view)
+        return HomeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        holder.nickname.text = homeList[position].nickname
+        holder.likeCount.text = homeList[position].likeCount
+
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
@@ -45,5 +49,6 @@ class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<Holder>
 
 class HomeViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     var cloth = view.findViewById<ImageView>(R.id.home_item_cloth)
-
+    var nickname = view.findViewById<TextView>(R.id.home_item_nickname)
+    var likeCount = view.findViewById<TextView>(R.id.home_item_likeCount)
 }

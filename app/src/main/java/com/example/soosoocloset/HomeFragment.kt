@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        var homeList = arrayListOf<Home>(Home(), Home(), Home())
+        var homeList = arrayListOf<Home>(Home("nickname1", "100"), Home("nickname2", "200"), Home("nickname3", "300"))
         val rv_home : RecyclerView = view.findViewById(R.id.rv_home)
         val homeAdapter = HomeAdapter(homeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
