@@ -31,9 +31,9 @@ class ClosetFragment : Fragment() {
             }
         }
 
-        var clothList = arrayListOf<Cloth>(Cloth(), Cloth(), Cloth(), Cloth(), Cloth()) // 테스트용 데이터
+        var clothList = arrayListOf<Cloth>(Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth")) // 테스트용 데이터
         val rv_closet : RecyclerView = view.findViewById(R.id.rv_closet) // 옷 리사이클러뷰
-        val clothAdapter = ClothAdapter(clothList) // 옷 리사이클러뷰의 어댑터
+        val clothAdapter = ClothAdapter(context!!, clothList) // 옷 리사이클러뷰의 어댑터
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 3) // 그리드 레이아웃 매니저
 
         rv_closet.adapter = clothAdapter // 리사이클러뷰와 어댑터 연결

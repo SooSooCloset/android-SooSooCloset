@@ -14,6 +14,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:background="#D3D3D3" />
+        android:src="#D3D3D3" />
 
 </RelativeLayout>

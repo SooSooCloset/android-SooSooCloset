@@ -10,14 +10,14 @@ import com.example.soosoocloset.domain.Like
 import com.example.soosoocloset.R
 
 // author: Sumin, created: 21.05.19
-class LikeAdapter (val likeList: ArrayList<Like>) : RecyclerView.Adapter<Holder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+class LikeAdapter (val likeList: ArrayList<Like>) : RecyclerView.Adapter<LikeViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikeViewHolder {
         // 레이아웃 생성
         val view = LayoutInflater.from(parent.context).inflate(R.layout.like_item, parent, false)
-        return Holder(view)
+        return LikeViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: LikeViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
@@ -38,6 +38,6 @@ class LikeAdapter (val likeList: ArrayList<Like>) : RecyclerView.Adapter<Holder>
     }
 }
 
-class LikeHolder(view : View) : RecyclerView.ViewHolder(view) {
+class LikeViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     var codi = view.findViewById<ImageView>(R.id.like_item_codi)
 }
