@@ -10,11 +10,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,6 +23,8 @@ import com.example.soosoocloset.domain.Cloth
 // author: Sumin
 // author: Soohyun, created: 21.06.13
 class AddCodiActivity : AppCompatActivity() {
+    lateinit var v:View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_codi)
@@ -38,6 +37,8 @@ class AddCodiActivity : AppCompatActivity() {
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
         var selectImage: String = "" // 선택된 이미지 명
+        val iv_codi_default = findViewById<ImageView>(R.id.iv_codi_default)
+
 
         // 아우터 버튼 클릭시
         btn_outer.setOnClickListener{
@@ -83,28 +84,20 @@ class AddCodiActivity : AppCompatActivity() {
             alertDialog.setView(view) // 다이얼로그에 뷰 배치
             alertDialog.show() // 다이얼로그를 보여줌
         }
-    }
 
-    //Drag and Drop
-    fun onTouch(v: ImageView, event: MotionEvent): Boolean {
-        val parentWidth = (v.parent as ViewGroup).width // 부모 View 의 Width
-        val parentHeight = (v.parent as ViewGroup).height // 부모 View 의 Height
-        if (event.action == MotionEvent.ACTION_MOVE) { //Drag
-            v.x = v.x + event.x - v.width / 2
-            v.y = v.y + event.y - v.height / 2
-        } else if (event.action == MotionEvent.ACTION_UP) { //Drop
-            if (v.x < 0) {
-                v.x = 0f
-            } else if (v.x + v.width > parentWidth) {
-                v.x = parentWidth - v.width.toFloat()
+        // 드래그 리스너
+        var draglistener = View.OnTouchListener(function = {view, motionEvent ->
+
+            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
+
+                view.y = motionEvent.rawY - view.height/2
+                view.x = motionEvent.rawX - view.width/2
             }
-            if (v.y < 0) {
-                v.y = 0f
-            } else if (v.y + v.height > parentHeight) {
-                v.y = parentHeight - v.height.toFloat()
-            }
-        }
-        return true
+
+            true
+
+        })
+        iv_codi_default.setOnTouchListener(draglistener) // 이미지와 리스너 연결
     }
 
 }
