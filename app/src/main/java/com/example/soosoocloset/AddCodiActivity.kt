@@ -3,18 +3,13 @@ package com.example.soosoocloset
 import android.content.Context
 import android.os.Bundle
 
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,7 +24,7 @@ class AddCodiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_codi)
-        
+
         val layout_add_codi = findViewById<ConstraintLayout>(R.id.layout_add_codi) // 코디 추가 화면의 레이아웃
         val btn_outer = findViewById<Button>(R.id.btn_outer) // 아우터 버튼
         val btn_top = findViewById<Button>(R.id.btn_top) // 상의 버튼
@@ -86,25 +81,5 @@ class AddCodiActivity : AppCompatActivity() {
     }
 
     //Drag and Drop
-    fun onTouch(v: ImageView, event: MotionEvent): Boolean {
-        val parentWidth = (v.parent as ViewGroup).width // 부모 View 의 Width
-        val parentHeight = (v.parent as ViewGroup).height // 부모 View 의 Height
-        if (event.action == MotionEvent.ACTION_MOVE) { //Drag
-            v.x = v.x + event.x - v.width / 2
-            v.y = v.y + event.y - v.height / 2
-        } else if (event.action == MotionEvent.ACTION_UP) { //Drop
-            if (v.x < 0) {
-                v.x = 0f
-            } else if (v.x + v.width > parentWidth) {
-                v.x = parentWidth - v.width.toFloat()
-            }
-            if (v.y < 0) {
-                v.y = 0f
-            } else if (v.y + v.height > parentHeight) {
-                v.y = parentHeight - v.height.toFloat()
-            }
-        }
-        return true
-    }
 
 }
