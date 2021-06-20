@@ -9,15 +9,15 @@ import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Codi
 
 // author: Sumin, created: 21.05.19
-class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<Holder>(){
+class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<CodiViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CodiViewHolder {
         // 레이아웃 생성
         val view = LayoutInflater.from(parent.context).inflate(R.layout.codi_item, parent, false)
-        return Holder(view)
+        return CodiViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: CodiViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
@@ -38,6 +38,6 @@ class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<Holder>
     }
 }
 
-class CodiHolder(view : View) : RecyclerView.ViewHolder(view) {
+class CodiViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     var cloth = view.findViewById<ImageView>(R.id.codi_item_cloth)
 }
