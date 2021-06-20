@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyCodiActivity">
+    tools:context=".MycodiActivity">
 
     //나의 코디 상세화면
     <!-- 상단바 -->
