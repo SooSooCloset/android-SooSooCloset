@@ -1,13 +1,10 @@
 package com.example.soosoocloset.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soosoocloset.MyCodiActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Codi
 

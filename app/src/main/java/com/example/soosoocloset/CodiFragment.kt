@@ -3,16 +3,12 @@ package com.example.soosoocloset
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.adapter.CodiAdapter
-import com.example.soosoocloset.domain.Cloth
 import com.example.soosoocloset.domain.Codi
-import kotlinx.android.synthetic.main.fragment_closet.*
 
 // author: Sumin, created: 21.05.19
 class CodiFragment : Fragment() {
@@ -32,7 +28,7 @@ class CodiFragment : Fragment() {
         //화면전환
         codiAdapater.setItemClickListener(object : CodiAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                startActivity(Intent(context, MyCodiActivity::class.java))
+                startActivity(Intent(context, MycodiActivity::class.java))
             }
         })
 
