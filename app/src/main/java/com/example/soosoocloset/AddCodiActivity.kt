@@ -1,34 +1,38 @@
 package com.example.soosoocloset
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-
-import android.view.LayoutInflater
-import android.widget.Button
-import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
+import kotlin.math.max
+import kotlin.math.min
 
 //설명: 코디 만들기 화면
 // author: Sumin
 // author: Soohyun, created: 21.06.13
+
 class AddCodiActivity : AppCompatActivity() {
-    lateinit var v:View
+    private lateinit var scaleGestureDetector: ScaleGestureDetector
+    private var scaleFactor = 1.0f
+    lateinit var imageView: ImageView // 기본 세팅 이미지
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_codi)
-        
+
         val layout_add_codi = findViewById<ConstraintLayout>(R.id.layout_add_codi) // 코디 추가 화면의 레이아웃
         val btn_outer = findViewById<Button>(R.id.btn_outer) // 아우터 버튼
         val btn_top = findViewById<Button>(R.id.btn_top) // 상의 버튼
@@ -37,8 +41,9 @@ class AddCodiActivity : AppCompatActivity() {
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
         var selectImage: String = "" // 선택된 이미지 명
-        val iv_codi_default = findViewById<ImageView>(R.id.iv_codi_default)
+        imageView = findViewById<ImageView>(R.id.iv_codi_default)
 
+        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
         // 아우터 버튼 클릭시
         btn_outer.setOnClickListener{
@@ -85,19 +90,31 @@ class AddCodiActivity : AppCompatActivity() {
             alertDialog.show() // 다이얼로그를 보여줌
         }
 
-        // 드래그 리스너
-        var draglistener = View.OnTouchListener(function = {view, motionEvent ->
+    }
 
-            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
+    override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
 
-                view.y = motionEvent.rawY - view.height/2
-                view.x = motionEvent.rawX - view.width/2
-            }
+        // 이미지 이동
+        if (motionEvent.action == MotionEvent.ACTION_MOVE) {
 
-            true
+            imageView.y = motionEvent.rawY - imageView.height/2
+            imageView.x = motionEvent.rawX - imageView.width/2
+        }
 
-        })
-        iv_codi_default.setOnTouchListener(draglistener) // 이미지와 리스너 연결
+        scaleGestureDetector.onTouchEvent(motionEvent) // 이미지 확대/축소
+
+        return true
+    }
+
+    // 확대/축소 리스너
+    private inner class ScaleListener : SimpleOnScaleGestureListener() {
+        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
+            scaleFactor *= scaleGestureDetector.scaleFactor
+            scaleFactor = max(0.1f, min(scaleFactor, 10.0f))
+            imageView.scaleX = scaleFactor
+            imageView.scaleY = scaleFactor
+            return true
+        }
     }
 
 }
