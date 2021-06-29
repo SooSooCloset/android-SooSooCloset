@@ -43,6 +43,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.gabrielbb:cutout:0.1.2'
     implementation 'gun0912.ted:tedpermission:2.2.3'
+    implementation 'com.outsbook.libs:canvaseditor:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

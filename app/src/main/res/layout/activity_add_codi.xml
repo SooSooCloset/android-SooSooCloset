@@ -111,20 +111,34 @@
 
     </HorizontalScrollView>
 
-    <ImageView
-        android:id="@+id/iv_codi_default"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="128dp"
-        android:background="@drawable/codi_default"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+    <com.outsbook.libs.canvaseditor.CanvasEditorView
+        android:id="@+id/canvasEditor"
+        android:layout_width="384dp"
+        android:layout_height="380dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintHorizontal_bias="0.229"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- 코디 설명 -->
+        <!-- 코디 설명 -->
+        <ImageView
+            android:id="@+id/iv_codi_default"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="128dp"
+            android:background="@drawable/codi_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.229"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.outsbook.libs.canvaseditor.CanvasEditorView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
