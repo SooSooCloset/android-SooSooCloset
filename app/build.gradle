@@ -42,7 +42,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.gabrielbb:cutout:0.1.2' // 배경 제거 라이브러리
-    implementation 'gun0912.ted:tedpermission:2.2.3'
+    implementation 'gun0912.ted:tedpermission:2.2.3' // 권한 체크 라이브러리
+    implementation 'com.outsbook.libs:canvaseditor:1.0.0' // 이미지 편집 라이브러리
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

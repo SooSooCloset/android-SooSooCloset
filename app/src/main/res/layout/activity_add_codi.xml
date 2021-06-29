@@ -111,46 +111,26 @@
 
     </HorizontalScrollView>
 
-    <!--
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_move"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layout_constraintTop_toBottomOf="@id/sv_cloth"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_codi_default"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/codi_default"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    -->
-
-    <ImageView
-        android:id="@+id/iv_codi_default"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="200dp"
-        android:src="@drawable/codi_default"
+    <!-- 코디 편집하는 부분 -->
+    <com.outsbook.libs.canvaseditor.CanvasEditorView
+        android:id="@+id/canvasEditor"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/sv_cloth">
+
+    </com.outsbook.libs.canvaseditor.CanvasEditorView>
 
     <!-- 코디 설명 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="20dp"
         android:text="코디 설명"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/sv_cloth"
+        app:layout_constraintTop_toBottomOf="@+id/canvasEditor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.1"/>
@@ -160,8 +140,8 @@
         android:id="@+id/et_codi_description"
         android:layout_width="338dp"
         android:layout_height="78dp"
-        android:layout_marginTop="430dp"
-        app:layout_constraintTop_toBottomOf="@+id/sv_cloth"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/canvasEditor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
