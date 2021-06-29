@@ -22,7 +22,7 @@ import kotlin.math.min
 
 //설명: 코디 만들기 화면
 // author: Sumin
-// author: Soohyun, created: 21.06.13
+// author: Soohyun, created: 21.06.29
 
 class AddCodiActivity : AppCompatActivity() {
     private lateinit var scaleGestureDetector: ScaleGestureDetector
@@ -40,8 +40,9 @@ class AddCodiActivity : AppCompatActivity() {
         val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
-        var selectImage: String = "" // 선택된 이미지 명
         imageView = findViewById<ImageView>(R.id.iv_codi_default)
+
+        var selectImage: String = "" // 선택된 이미지 명
 
         scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
@@ -89,7 +90,6 @@ class AddCodiActivity : AppCompatActivity() {
             alertDialog.setView(view) // 다이얼로그에 뷰 배치
             alertDialog.show() // 다이얼로그를 보여줌
         }
-
     }
 
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
@@ -106,7 +106,7 @@ class AddCodiActivity : AppCompatActivity() {
         return true
     }
 
-    // 확대/축소 리스너
+    // 이미지 확대/축소 리스너
     private inner class ScaleListener : SimpleOnScaleGestureListener() {
         override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
             scaleFactor *= scaleGestureDetector.scaleFactor
