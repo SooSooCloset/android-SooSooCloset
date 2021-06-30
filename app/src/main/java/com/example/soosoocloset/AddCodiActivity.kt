@@ -1,12 +1,14 @@
 package com.example.soosoocloset
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
+import java.io.FileOutputStream
 
 
 //설명: 코디 만들기 화면
@@ -28,10 +31,12 @@ class AddCodiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_codi)
-        canvasEditor = findViewById(R.id.canvasEditor)
 
-        val drawable = ContextCompat.getDrawable(this, R.drawable.codi_default)
-        drawable?.let{
+        //Image Drag, Rotate, Scale, Remove
+        canvasEditor = findViewById(R.id.canvasEditor)
+        canvasEditor.setPaintColor(0)
+        val drawable = ContextCompat.getDrawable(this, R.drawable.check)
+        drawable?.let {
             canvasEditor.addDrawableSticker(drawable)
         }
 
@@ -43,7 +48,25 @@ class AddCodiActivity : AppCompatActivity() {
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
         var selectImage: String = "" // 선택된 이미지 명
-        val iv_codi_default = findViewById<ImageView>(R.id.iv_codi_default)
+        val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
+        val capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
+
+        //코디 저장 버튼 클릭시
+        btn_save_codi.setOnClickListener {
+            //캡쳐
+            capture_target.buildDrawingCache();
+            val captureView : Bitmap = capture_target.getDrawingCache();
+            val fos: FileOutputStream?
+
+            //저장
+            try {
+                fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
+                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            } catch (e : Exception) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
+        }
 
         // 아우터 버튼 클릭시
         btn_outer.setOnClickListener {
@@ -101,17 +124,5 @@ class AddCodiActivity : AppCompatActivity() {
             alertDialog.setView(view) // 다이얼로그에 뷰 배치
             alertDialog.show() // 다이얼로그를 보여줌
         }
-
-        // 드래그 리스너
-        var draglistener = View.OnTouchListener(function = { view, motionEvent ->
-            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
-                view.y = motionEvent.rawY - view.height / 2
-                view.x = motionEvent.rawX - view.width / 2
-            }
-            true
-        })
-        iv_codi_default.setOnTouchListener(draglistener) // 이미지와 리스너 연결
-
     }
-
 }
