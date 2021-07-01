@@ -6,12 +6,13 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,6 +28,7 @@ import java.io.FileOutputStream
 
 class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var canvasEditor: CanvasEditorView // 코디 편집 뷰
+    lateinit var capture_target: View
     var selectImage: String = "" // 선택된 이미지 명
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,10 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             canvasEditor.addDrawableSticker(drawable)
         }
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
+        setSupportActionBar(toolbar) // 상단바를 액션바로 사용
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
+
         val btn_outer = findViewById<Button>(R.id.btn_outer) // 아우터 버튼
         val btn_top = findViewById<Button>(R.id.btn_top) // 상의 버튼
         val btn_bottom = findViewById<Button>(R.id.btn_bottom) // 하의 버튼
@@ -56,12 +62,12 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-        
-        var selectImage: String = "" // 선택된 이미지 명
-        val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
-        val capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
+
+        //val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
+        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
         //코디 저장 버튼 클릭시
+        /*
         btn_save_codi.setOnClickListener {
             //캡쳐
             capture_target.buildDrawingCache();
@@ -76,8 +82,38 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                 e.printStackTrace();
             }
             Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
-        }
+        }*/
 
+    }
+
+    // 상단바와 메뉴를 연결하는 메소드
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.add_codi_menu, menu)
+        return true
+    }
+
+    // 상단바의 메뉴 클릭시 호출되는 메소드
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.item_finishCodi -> {
+                //캡쳐
+                capture_target.buildDrawingCache();
+                val captureView : Bitmap = capture_target.getDrawingCache();
+                val fos: FileOutputStream?
+
+                //저장
+                try {
+                    fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
+                    captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                } catch (e : Exception) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
+
+                return true
+            }
+            else -> {return super.onOptionsItemSelected(item)}
+        }
     }
 
     // 클릭 이벤트 처리 메소드
@@ -89,13 +125,21 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_onepiece,
             R.id.btn_shoes,
             R.id.btn_accessary -> {
-                val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
+                val inflater =
+                    getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
                 val view = inflater.inflate(R.layout.activity_add_codi_popup, null) // 팝업창을 띄울 뷰
 
-                var clothList = arrayListOf<Cloth>( Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth")) // 테스트용 데이터
+                var clothList = arrayListOf<Cloth>(
+                    Cloth("sample_cloth"),
+                    Cloth("sample_cloth"),
+                    Cloth("sample_cloth"),
+                    Cloth("sample_cloth"),
+                    Cloth("sample_cloth")
+                ) // 테스트용 데이터
                 val rv_cloth: RecyclerView = view.findViewById(R.id.rv_cloth) // 팝업창의 옷 리사이클러뷰
                 val clothAdapter = ClothAdapter(this, clothList) // 팝업창의 옷 리사이클러뷰의 어댑터
-                val layoutManager: GridLayoutManager = GridLayoutManager(view.context, 3) // 그리드 레이아웃 매니저
+                val layoutManager: GridLayoutManager =
+                    GridLayoutManager(view.context, 3) // 그리드 레이아웃 매니저
 
                 rv_cloth.adapter = clothAdapter // 리사이클러뷰와 어댑터 연결
                 rv_cloth.layoutManager = layoutManager // 리사이클러뷰와 레이아웃 매니저 연결
@@ -111,9 +155,13 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                 val alertDialog = AlertDialog.Builder(this)
                     .setTitle("추가할 옷을 선택해주세요.") // 타이틀 설정
                     .setPositiveButton("선택") { dialog, which -> // 오른쪽 버튼 설정
-                        val resourceId = this.resources.getIdentifier(selectImage, "drawable", this.packageName) // 선택된 이미지의 리소스 아이디를 가져옴
+                        val resourceId = this.resources.getIdentifier(
+                            selectImage,
+                            "drawable",
+                            this.packageName
+                        ) // 선택된 이미지의 리소스 아이디를 가져옴
                         val cloth = ContextCompat.getDrawable(this, resourceId)
-                        cloth?.let{
+                        cloth?.let {
                             canvasEditor.addDrawableSticker(cloth)
                         }
                     }
@@ -123,7 +171,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                 alertDialog.setView(view) // 다이얼로그에 뷰 배치
                 alertDialog.show() // 다이얼로그를 보여줌
             }
-            
-        
+
+        }
     }
 }
