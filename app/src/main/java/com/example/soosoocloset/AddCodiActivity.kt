@@ -24,8 +24,7 @@ import java.io.FileOutputStream
 
 //설명: 코디 만들기 화면
 // author: Sumin
-// author: Soohyun, created: 21.06.29
-
+// author: Soohyun, created: 21.06.13
 class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var canvasEditor: CanvasEditorView // 코디 편집 뷰
     lateinit var capture_target: View
@@ -70,14 +69,14 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         /*
         btn_save_codi.setOnClickListener {
             //캡쳐
-            capture_target.buildDrawingCache();
-            val captureView : Bitmap = capture_target.getDrawingCache();
+            capture_target.buildDrawingCache(); //뷰의 이미지를 DrawingCache에 저장
+            val captureView : Bitmap = capture_target.getDrawingCache(); //DrawingCache에 저장된 이미지를 반환
             val fos: FileOutputStream?
 
             //저장
             try {
                 fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
-                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos); //bitmap을 jpeg로 변환
             } catch (e : Exception) {
                 e.printStackTrace();
             }
