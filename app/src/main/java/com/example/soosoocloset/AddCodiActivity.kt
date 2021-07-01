@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +52,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
-        
+
         // 카테고리 버튼과 클릭 리스너 연결
         btn_outer.setOnClickListener(this)
         btn_top.setOnClickListener(this)
@@ -62,27 +61,28 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
 
-        //val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
+        val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
         capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
         //코디 저장 버튼 클릭시
-        /*
         btn_save_codi.setOnClickListener {
             //캡쳐
             capture_target.buildDrawingCache(); //뷰의 이미지를 DrawingCache에 저장
-            val captureView : Bitmap = capture_target.getDrawingCache(); //DrawingCache에 저장된 이미지를 반환
-            val fos: FileOutputStream?
+            val captureView: Bitmap = capture_target.getDrawingCache(); //DrawingCache에 저장된 이미지를 반환
+            //val fos: FileOutputStream?
 
             //저장
-            try {
-                fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
+            /*try {
+                fos = FileOutputStream(
+                    Environment.getExternalStorageDirectory().toString() + "/capture.jpeg"
+                );
                 captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos); //bitmap을 jpeg로 변환
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace();
-            }
-            Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
-        }*/
-
+            }*/
+            Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG)
+                .show(); //테스트용 확인 메시지
+        }
     }
 
     // 상단바와 메뉴를 연결하는 메소드
