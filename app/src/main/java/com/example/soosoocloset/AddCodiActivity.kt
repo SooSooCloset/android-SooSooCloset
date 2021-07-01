@@ -26,14 +26,12 @@ import java.io.FileOutputStream
 // author: Sumin
 // author: Soohyun, created: 21.06.13
 class AddCodiActivity : AppCompatActivity() {
-    private lateinit var canvasEditor: CanvasEditorView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_codi)
 
-        //Image Drag, Rotate, Scale, Remove
-        canvasEditor = findViewById(R.id.canvasEditor)
+        //Image Drag, Rotate, Scale, Remove, 21.06.29
+        val canvasEditor: CanvasEditorView = findViewById(R.id.canvasEditor)
         canvasEditor.setPaintColor(0)
         val drawable = ContextCompat.getDrawable(this, R.drawable.check)
         drawable?.let {
@@ -51,17 +49,17 @@ class AddCodiActivity : AppCompatActivity() {
         val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
         val capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
-        //코디 저장 버튼 클릭시
+        //코디 저장 버튼 클릭시, 21.06.30
         btn_save_codi.setOnClickListener {
             //캡쳐
-            capture_target.buildDrawingCache();
-            val captureView : Bitmap = capture_target.getDrawingCache();
+            capture_target.buildDrawingCache(); //뷰의 이미지를 DrawingCache에 저장
+            val captureView : Bitmap = capture_target.getDrawingCache(); //DrawingCache에 저장된 이미지를 반환
             val fos: FileOutputStream?
 
             //저장
             try {
                 fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
-                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos); //bitmap을 jpeg로 변환
             } catch (e : Exception) {
                 e.printStackTrace();
             }
