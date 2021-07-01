@@ -24,8 +24,7 @@ import java.io.FileOutputStream
 
 //설명: 코디 만들기 화면
 // author: Sumin
-// author: Soohyun, created: 21.06.29
-
+// author: Soohyun, created: 21.06.13
 class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var canvasEditor: CanvasEditorView // 코디 편집 뷰
     lateinit var capture_target: View
@@ -63,7 +62,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-
+        
     }
 
     // 상단바와 메뉴를 연결하는 메소드
