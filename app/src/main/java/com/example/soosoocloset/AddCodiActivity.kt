@@ -2,11 +2,15 @@ package com.example.soosoocloset
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.core.content.ContextCompat
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
+import java.io.FileOutputStream
 
 //설명: 코디 만들기 화면
 // author: Sumin
@@ -33,7 +38,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
 
         // 테스트 이미지
         val drawable = ContextCompat.getDrawable(this, R.drawable.codi_default)
-        drawable?.let{
+        drawable?.let {
             canvasEditor.addDrawableSticker(drawable)
         }
 
@@ -43,7 +48,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
-
+        
         // 카테고리 버튼과 클릭 리스너 연결
         btn_outer.setOnClickListener(this)
         btn_top.setOnClickListener(this)
@@ -51,6 +56,27 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
+        
+        var selectImage: String = "" // 선택된 이미지 명
+        val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
+        val capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
+
+        //코디 저장 버튼 클릭시
+        btn_save_codi.setOnClickListener {
+            //캡쳐
+            capture_target.buildDrawingCache();
+            val captureView : Bitmap = capture_target.getDrawingCache();
+            val fos: FileOutputStream?
+
+            //저장
+            try {
+                fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
+                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            } catch (e : Exception) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
+        }
 
     }
 
@@ -97,7 +123,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                 alertDialog.setView(view) // 다이얼로그에 뷰 배치
                 alertDialog.show() // 다이얼로그를 보여줌
             }
-        }
+            
+        
     }
-
 }

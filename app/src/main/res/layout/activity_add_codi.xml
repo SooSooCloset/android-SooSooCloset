@@ -115,11 +115,16 @@
     <com.outsbook.libs.canvaseditor.CanvasEditorView
         android:id="@+id/canvasEditor"
         android:layout_width="380dp"
+                                                     
+    <!-- 코디 영역 -->
+    <LinearLayout
+        android:id="@+id/capture_target"
+        android:layout_width="384dp"
         android:layout_height="380dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_cloth">
+        app:layout_constraintTop_toBottomOf="@id/sv_cloth"/>
 
     </com.outsbook.libs.canvaseditor.CanvasEditorView>
 
@@ -144,5 +149,18 @@
         app:layout_constraintTop_toBottomOf="@+id/canvasEditor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- 코디 저장 버튼 -->
+    <Button
+        android:id="@+id/btn_save_codi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="652dp"
+        android:text="저장"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
