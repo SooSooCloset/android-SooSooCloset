@@ -36,6 +36,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
 
         canvasEditor = findViewById(R.id.canvasEditor)
         canvasEditor.setPaintColor(0) // 브러쉬 색상 투명으로 설정
+        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
         // 테스트 이미지
         val drawable = ContextCompat.getDrawable(this, R.drawable.codi_default)
@@ -61,28 +62,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-
-        //val btn_save_codi = findViewById<Button>(R.id.btn_save_codi) // 코디 저장 버튼
-        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
-
-        //코디 저장 버튼 클릭시
-        /*
-        btn_save_codi.setOnClickListener {
-            //캡쳐
-            capture_target.buildDrawingCache(); //뷰의 이미지를 DrawingCache에 저장
-            val captureView : Bitmap = capture_target.getDrawingCache(); //DrawingCache에 저장된 이미지를 반환
-            val fos: FileOutputStream?
-
-            //저장
-            try {
-                fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
-                captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos); //bitmap을 jpeg로 변환
-            } catch (e : Exception) {
-                e.printStackTrace();
-            }
-            Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
-        }*/
-
+        
     }
 
     // 상단바와 메뉴를 연결하는 메소드
@@ -98,12 +78,10 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                 //캡쳐
                 capture_target.buildDrawingCache();
                 val captureView : Bitmap = capture_target.getDrawingCache();
-                val fos: FileOutputStream?
 
                 //저장
                 try {
-                    fos = FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/capture.jpeg");
-                    captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    canvasEditor.addBitmapSticker(captureView)
                 } catch (e : Exception) {
                     e.printStackTrace();
                 }
