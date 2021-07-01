@@ -1,7 +1,9 @@
 package com.example.soosoocloset
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -19,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bottom_navi : BottomNavigationView = findViewById(R.id.bottom_navi) // 메인 화면의 하단바
+
+        // 첫 화면은 홈 화면으로 보이게 설정
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction() // 화면 교체를 도와주는 트랜잭션 시작
+        transaction.replace(R.id.main_frameLayout, homeFragment) // 트랜잭션 설정(홈 화면으로 교체)
+        transaction.commit() // 트랜잭션 마무리
 
         // 하단바 선택시 수행할 작업을 정의한 부분
         bottom_navi.setOnNavigationItemSelectedListener { item ->
