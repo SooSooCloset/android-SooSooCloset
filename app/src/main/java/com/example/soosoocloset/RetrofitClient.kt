@@ -8,7 +8,7 @@ object RetrofitClient {
 
     private fun initApi(): RetrofitApi =
         Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000")
+            .baseUrl("http://10.0.2.2:3000") // localhost
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RetrofitApi::class.java)

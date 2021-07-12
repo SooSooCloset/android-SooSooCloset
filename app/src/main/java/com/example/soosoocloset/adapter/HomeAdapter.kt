@@ -1,18 +1,13 @@
 package com.example.soosoocloset.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soosoocloset.AddClosetActivity
-import com.example.soosoocloset.CodiActivity
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
-import kotlin.coroutines.coroutineContext
 
 // author: Sumin, created: 21.05.19
 class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){

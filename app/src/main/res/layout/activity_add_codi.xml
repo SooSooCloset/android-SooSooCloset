@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCodiActivity"
+    tools:context=".activity.AddCodiActivity"
     android:id="@+id/layout_add_codi">
 
     <!-- 코디 만드는 화면 -->

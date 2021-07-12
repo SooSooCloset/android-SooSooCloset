@@ -20,19 +20,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SooSooCloset">
-        <activity android:name=".LoginService"></activity>
-        <activity android:name=".MycodiActivity" />
-        <activity android:name=".ClothActivity" />
-        <activity android:name=".MyinfoActivity" />
-        <activity android:name=".AddCodiActivity" />
-        <activity android:name=".CodiActivity" />
-        <activity android:name=".FindIdActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".AddClosetActivity" />
-        <activity android:name=".FindPwActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activity.MycodiActivity" />
+        <activity android:name=".activity.ClothActivity" />
+        <activity android:name=".activity.MyinfoActivity" />
+        <activity android:name=".activity.AddCodiActivity" />
+        <activity android:name=".activity.CodiActivity" />
+        <activity android:name=".activity.FindIdActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.AddClosetActivity" />
+        <activity android:name=".activity.FindPwActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

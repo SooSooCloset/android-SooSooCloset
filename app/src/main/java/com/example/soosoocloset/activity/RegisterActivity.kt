@@ -1,24 +1,21 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.soosoocloset.R
+import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.signupResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 // 설명: 회원가입 화면
 // author: Soohyun, created: 21.07.11
 class RegisterActivity  : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
