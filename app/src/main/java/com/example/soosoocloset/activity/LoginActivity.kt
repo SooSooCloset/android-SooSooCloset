@@ -1,5 +1,8 @@
 package com.example.soosoocloset.activity
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +45,21 @@ class LoginActivity : AppCompatActivity() {
                     dialog.show()
                 }
             })
+        }
+
+        // 아이디 찾기 클릭시
+        tv_find_id.setOnClickListener {
+            startActivity(Intent(this, FindIdActivity::class.java))
+        }
+
+        // 비밀번호 찾기 클릭시
+        tv_find_password.setOnClickListener {
+            startActivity(Intent(this, FindPwActivity::class.java))
+        }
+
+        // 회원가입 클릭시
+        tv_signup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }
