@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -13,14 +12,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
-import java.io.FileOutputStream
 
 //설명: 코디 만들기 화면
 // author: Sumin
@@ -54,7 +51,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
         val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
         val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
-        
+
         // 카테고리 버튼과 클릭 리스너 연결
         btn_outer.setOnClickListener(this)
         btn_top.setOnClickListener(this)
@@ -62,7 +59,8 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-        
+
+        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
     }
 
     // 상단바와 메뉴를 연결하는 메소드
