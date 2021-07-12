@@ -1,4 +1,4 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.R
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
@@ -36,7 +37,9 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
         // 테스트 이미지
-        val drawable = ContextCompat.getDrawable(this, R.drawable.codi_default)
+        val drawable = ContextCompat.getDrawable(this,
+            R.drawable.codi_default
+        )
         drawable?.let {
             canvasEditor.addDrawableSticker(drawable)
         }

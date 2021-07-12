@@ -1,15 +1,16 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.fragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.activity.ClothActivity
+import com.example.soosoocloset.R
+import com.example.soosoocloset.activity.AddClosetActivity
 import com.example.soosoocloset.adapter.ClothAdapter
-import com.example.soosoocloset.adapter.HomeAdapter
 import com.example.soosoocloset.domain.Cloth
 
 // 설명: 메인 화면 하단바의 옷장 클릭 -> 옷장 화면

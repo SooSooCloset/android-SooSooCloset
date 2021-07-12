@@ -1,9 +1,10 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.soosoocloset.R
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {

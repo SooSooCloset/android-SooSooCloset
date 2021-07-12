@@ -1,4 +1,4 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.SimpleAdapter
+import com.example.soosoocloset.activity.MyinfoActivity
+import com.example.soosoocloset.R
 
 // 설명: 메인 화면 하단바의 마이페이지 클릭 -> 마이페이지 화면
 // author: Soohyun, created: 21.05.05

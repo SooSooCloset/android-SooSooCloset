@@ -1,10 +1,12 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import com.example.soosoocloset.R
+import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.loginResponse
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
