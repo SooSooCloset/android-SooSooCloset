@@ -1,10 +1,12 @@
 package com.example.soosoocloset.activity
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.loginResponse
@@ -26,20 +28,25 @@ class LoginActivity : AppCompatActivity() {
 
             RetrofitClient.api.requestLogin(id, pw).enqueue(object: Callback<loginResponse> {
                 override fun onFailure(call: Call<loginResponse>, t: Throwable) {
-                    var dialog = AlertDialog.Builder(this@LoginActivity)
-                    dialog.setTitle("error")
-                    dialog.setMessage("호출 실패")
-                    dialog.show()
+                    Toast.makeText(this@LoginActivity, "Network error", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>) {
-                    var login = response.body()
-                    Log.d("LOGIN","msg : "+login?.message)
-                    Log.d("LOGIN","code : "+login?.code)
-                    var dialog = AlertDialog.Builder(this@LoginActivity)
-                    dialog.setTitle(login?.message)
-                    dialog.setMessage(login?.code)
-                    dialog.show()
+                    var result: loginResponse = response.body()!! // 응답 결과
+                    if(result.code.equals("404")) { // 에러 발생 시
+                        Toast.makeText(this@LoginActivity, "Error", Toast.LENGTH_SHORT).show()
+                    } else if(result.code.equals("204") or result.code.equals("208")) { // Id나 PW를 잘못 입력한 경우
+                        Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
+                    } else if(result.code.equals("200")) { // 로그인 성공
+                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
+                        val editor : SharedPreferences.Editor = prefs.edit()
+                        editor.putString("id", id)
+                        editor.commit()
+
+                        Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
+                    }
                 }
             })
         }
