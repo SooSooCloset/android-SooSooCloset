@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter
 // 설명: 회원가입 화면
 // author: Soohyun, created: 21.07.11
 class RegisterActivity  : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)

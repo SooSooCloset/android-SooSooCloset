@@ -1,5 +1,6 @@
 package com.example.soosoocloset
 
+import com.example.soosoocloset.data.loginResponse
 import com.example.soosoocloset.data.signupResponse
 import retrofit2.Call
 import retrofit2.http.Field
@@ -16,4 +17,12 @@ interface RetrofitApi {
                       @Field("birth") birth: String,
                       @Field("user_id") id: String,
                       @Field("user_pw") pw: String): Call<signupResponse>
+
+    // 로그인 API
+    @FormUrlEncoded
+    @POST("/user/login/")
+    fun requestLogin(
+        @Field("user_id") userid:String,
+        @Field("user_pw") userpw:String
+    ) : Call<loginResponse>
 }
