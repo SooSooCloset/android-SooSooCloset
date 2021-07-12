@@ -10,16 +10,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 // 설명: 메인 화면 - 하단바를 통해 여러 화면으로 이동
 // author: Soohyun, created: 21.05.05
 class MainActivity : AppCompatActivity() {
-    val homeFragment : HomeFragment =
-        HomeFragment() // 홈 화면 프래그먼트
-    val closetFragment : ClosetFragment =
-        ClosetFragment() // 옷장 화면 프래그먼트
-    val codiFragment : CodiFragment =
-        CodiFragment() // 코디 화면 프래그먼트
-    val likeFragment : LikeFragment =
-        LikeFragment() // 좋아요 화면 프래그먼트
-    val mypageFragment : MypageFragment =
-        MypageFragment() // 마이페이지 화면 프래그먼트
+    val homeFragment : HomeFragment = HomeFragment() // 홈 화면 프래그먼트
+    val closetFragment : ClosetFragment = ClosetFragment() // 옷장 화면 프래그먼트
+    val codiFragment : CodiFragment = CodiFragment() // 코디 화면 프래그먼트
+    val likeFragment : LikeFragment = LikeFragment() // 좋아요 화면 프래그먼트
+    val mypageFragment : MypageFragment = MypageFragment() // 마이페이지 화면 프래그먼트
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

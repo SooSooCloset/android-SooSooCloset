@@ -19,6 +19,7 @@ import com.example.soosoocloset.R
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
+import kotlinx.android.synthetic.main.activity_add_codi.*
 
 //설명: 코디 만들기 화면
 // author: Sumin
@@ -47,13 +48,6 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
         setSupportActionBar(toolbar) // 상단바를 액션바로 사용
         supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
-
-        val btn_outer = findViewById<Button>(R.id.btn_outer) // 아우터 버튼
-        val btn_top = findViewById<Button>(R.id.btn_top) // 상의 버튼
-        val btn_bottom = findViewById<Button>(R.id.btn_bottom) // 하의 버튼
-        val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
-        val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
-        val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
 
         // 카테고리 버튼과 클릭 리스너 연결
         btn_outer.setOnClickListener(this)

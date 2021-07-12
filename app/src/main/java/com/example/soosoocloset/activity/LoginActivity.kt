@@ -50,5 +50,20 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
         }
+
+        // 아이디 찾기 클릭시
+        tv_find_id.setOnClickListener {
+            startActivity(Intent(this, FindIdActivity::class.java))
+        }
+
+        // 비밀번호 찾기 클릭시
+        tv_find_password.setOnClickListener {
+            startActivity(Intent(this, FindPwActivity::class.java))
+        }
+
+        // 회원가입 클릭시
+        tv_signup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 }
