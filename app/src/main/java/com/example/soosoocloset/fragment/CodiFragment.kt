@@ -1,4 +1,4 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.activity.MycodiActivity
+import com.example.soosoocloset.R
+import com.example.soosoocloset.activity.AddCodiActivity
 import com.example.soosoocloset.adapter.CodiAdapter
 import com.example.soosoocloset.domain.Codi
 

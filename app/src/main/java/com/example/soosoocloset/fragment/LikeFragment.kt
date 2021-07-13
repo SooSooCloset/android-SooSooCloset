@@ -1,4 +1,4 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soosoocloset.adapter.CodiAdapter
-import com.example.soosoocloset.adapter.HomeAdapter
+import com.example.soosoocloset.activity.CodiActivity
+import com.example.soosoocloset.R
 import com.example.soosoocloset.adapter.LikeAdapter
-import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.domain.Like
 
 // author: Sumin, created: 21.05.19

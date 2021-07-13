@@ -1,11 +1,12 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.soosoocloset.R
 
-class FindIdActivity : AppCompatActivity() {
+class MycodiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_id)
+        setContentView(R.layout.activity_mycodi)
     }
 }

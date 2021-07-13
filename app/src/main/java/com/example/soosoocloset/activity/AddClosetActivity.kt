@@ -1,10 +1,9 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -16,10 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.example.soosoocloset.R
 import com.github.gabrielbb.cutout.CutOut
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.activity_add_closet.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -30,17 +31,11 @@ import java.util.*
 class AddClosetActivity : AppCompatActivity() {
     val REQUEST_CAMERA = 100 // 카메라 요청 코드
     val REQUEST_GALLERY = 101 // 갤러리 요청 코드
-    lateinit var iv_closet: ImageView // 편집된 이미지가 보이는 이미지뷰
     lateinit var currentPhotoPath : String  // 카메라를 통해 가져온 이미지 경로
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_closet)
-
-        iv_closet = findViewById(R.id.iv_closet)
-        var btn_select_image: FloatingActionButton = findViewById(R.id.btn_select_image) // 사진을 선택할 수 있는 버튼
-        var spinner_closet: Spinner = findViewById(R.id.spinner_closet) // 옷 종류를 선택하는 스피너
-        var et_content: EditText = findViewById(R.id.et_content) // 옷 설명을 입력하는 칸
 
         val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
         setSupportActionBar(toolbar) // 상단바를 액션바로 사용
@@ -64,15 +59,15 @@ class AddClosetActivity : AppCompatActivity() {
 
         }
 
-        // 사진 선택 버튼 클릭시
-        btn_select_image.setOnClickListener({ view ->
+        // 사진을 선택할 수 있는 버튼 클릭시
+        btn_select_image.setOnClickListener{ view ->
             val items = arrayOf("카메라", "갤러리")
             // 사진을 가져올 방법을 선택하는 팝업창 생성 후 보여줌
             val builder = AlertDialog.Builder(this)
                     .setTitle("사진을 선택해주세요")
                     .setItems(items) { dialog, which -> settingPermission(which)} // 방법 선택시 권한을 설정하는 메소드 실행
                     .show()
-        })
+        }
     }
 
     // 상단바와 메뉴를 연결하는 메소드

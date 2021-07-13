@@ -1,10 +1,9 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -13,14 +12,14 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.soosoocloset.R
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
-import java.io.FileOutputStream
+import kotlinx.android.synthetic.main.activity_add_codi.*
 
 //설명: 코디 만들기 화면
 // author: Sumin
@@ -39,7 +38,9 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
 
         // 테스트 이미지
-        val drawable = ContextCompat.getDrawable(this, R.drawable.codi_default)
+        val drawable = ContextCompat.getDrawable(this,
+            R.drawable.codi_default
+        )
         drawable?.let {
             canvasEditor.addDrawableSticker(drawable)
         }
@@ -48,13 +49,6 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         setSupportActionBar(toolbar) // 상단바를 액션바로 사용
         supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
 
-        val btn_outer = findViewById<Button>(R.id.btn_outer) // 아우터 버튼
-        val btn_top = findViewById<Button>(R.id.btn_top) // 상의 버튼
-        val btn_bottom = findViewById<Button>(R.id.btn_bottom) // 하의 버튼
-        val btn_onepiece = findViewById<Button>(R.id.btn_onepiece) // 원피스 버튼
-        val btn_shoes = findViewById<Button>(R.id.btn_shoes) // 신발 버튼
-        val btn_accessary = findViewById<Button>(R.id.btn_accessary) // 악세서리 버튼
-        
         // 카테고리 버튼과 클릭 리스너 연결
         btn_outer.setOnClickListener(this)
         btn_top.setOnClickListener(this)
@@ -62,7 +56,8 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-        
+
+        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
     }
 
     // 상단바와 메뉴를 연결하는 메소드

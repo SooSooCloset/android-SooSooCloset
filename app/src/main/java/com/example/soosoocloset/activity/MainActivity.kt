@@ -1,10 +1,10 @@
-package com.example.soosoocloset
+package com.example.soosoocloset.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.FragmentTransaction
+import com.example.soosoocloset.R
+import com.example.soosoocloset.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // 설명: 메인 화면 - 하단바를 통해 여러 화면으로 이동
