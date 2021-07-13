@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
                     } else if(result.code.equals("204") or result.code.equals("208")) { // Id나 PW를 잘못 입력한 경우
                         Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 로그인 성공
-                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
+                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) 
                         val editor : SharedPreferences.Editor = prefs.edit()
                         editor.putString("id", id)
                         editor.commit()
