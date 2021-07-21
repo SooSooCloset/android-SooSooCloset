@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
-import com.example.soosoocloset.data.homeResponse
 
 // author: Sumin, created: 21.05.19
 class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){
@@ -21,8 +20,8 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-       // val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
-       // holder.cloth.setImageResource(resourceId)
+        //val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
+        //holder.cloth.setImageResource(resourceId)
         holder.nickname.text = homeList[position].nickname
         holder.likeCount.text = homeList[position].likeCount
 
@@ -47,7 +46,7 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
 }
 
 class HomeViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-    var cloth = view.findViewById<ImageView>(R.id.home_item_cloth)
+    var codi = view.findViewById<ImageView>(R.id.home_item_codi)
     var nickname = view.findViewById<TextView>(R.id.home_item_nickname)
     var likeCount = view.findViewById<TextView>(R.id.home_item_likeCount)
 }
