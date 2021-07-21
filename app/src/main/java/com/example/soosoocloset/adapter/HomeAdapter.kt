@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
+import com.example.soosoocloset.data.homeResponse
 
 // author: Sumin, created: 21.05.19
 class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){

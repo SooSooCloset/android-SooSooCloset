@@ -1,6 +1,8 @@
 package com.example.soosoocloset
 
 import com.example.soosoocloset.data.findpwResponse
+import com.example.soosoocloset.data.findidResponse
+import com.example.soosoocloset.data.homeResponse
 import com.example.soosoocloset.data.loginResponse
 import com.example.soosoocloset.data.signupResponse
 import retrofit2.Call
@@ -23,10 +25,10 @@ interface RetrofitApi {
 
     // 로그인 API
     @FormUrlEncoded
-    @POST("/user/login/")
-    fun requestLogin(
-        @Field("user_id") userid:String,
-        @Field("user_pw") userpw:String
+    @POST("/user/login")
+    fun loginRequest(
+        @Field("user_id") id: String,
+        @Field("user_pw") pw: String
     ) : Call<loginResponse>
 
     // 비밀번호 찾기 API
@@ -36,4 +38,17 @@ interface RetrofitApi {
         @Field("user_id") id:String,
         @Field("user_email") email:String
     ) : Call<findpwResponse>
+
+    // 아이디 찾기 API
+    @FormUrlEncoded
+    @POST("/user/findid")
+    fun findidRequest(
+        @Field("user_name") name: String,
+        @Field("birth") birth: String
+    ) : Call<findidResponse>
+
+    // 홈 화면 API
+    @POST("/user/home")
+    fun homeRequest(
+    ) : Call<homeResponse>
 }
