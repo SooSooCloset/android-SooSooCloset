@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -72,11 +71,11 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             R.id.item_finishCodi -> {
                 //캡쳐
                 capture_target.buildDrawingCache();
-                val captureView : Bitmap = capture_target.getDrawingCache();
+                val captureView : Bitmap? = capture_target.getDrawingCache();
 
                 //저장
                 try {
-                    canvasEditor.addBitmapSticker(captureView)
+
                 } catch (e : Exception) {
                     e.printStackTrace();
                 }

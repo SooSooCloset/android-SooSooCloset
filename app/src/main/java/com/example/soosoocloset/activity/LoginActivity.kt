@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
@@ -20,13 +19,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val btn_login = findViewById<Button>(R.id.btn_login)
+        val btn_login = btn_login
 
         btn_login.setOnClickListener{
             var id = et_id.text.toString()
             var pw = et_password.text.toString()
 
-            RetrofitClient.api.requestLogin(id, pw).enqueue(object: Callback<loginResponse> {
+            RetrofitClient.api.loginRequest(id, pw).enqueue(object : Callback<loginResponse> {
                 override fun onFailure(call: Call<loginResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "Network error", Toast.LENGTH_SHORT).show()
                 }
@@ -38,10 +37,11 @@ class LoginActivity : AppCompatActivity() {
                     } else if(result.code.equals("204") or result.code.equals("208")) { // Id나 PW를 잘못 입력한 경우
                         Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 로그인 성공
-                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
+                        //자동 로그인
+                        /*val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
                         val editor : SharedPreferences.Editor = prefs.edit()
                         editor.putString("id", id)
-                        editor.commit()
+                        editor.commit()*/
 
                         Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
