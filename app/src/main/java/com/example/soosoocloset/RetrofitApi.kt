@@ -7,6 +7,7 @@ import com.example.soosoocloset.data.loginResponse
 import com.example.soosoocloset.data.signupResponse
 import com.example.soosoocloset.data.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -53,4 +54,13 @@ interface RetrofitApi {
     fun homeRequest(
     ) : Call<homeResponse>
 
+    // 옷 추가 API
+    @Multipart
+    @POST("/cloth/addcloth")
+    fun addclothRequest(
+        @Part("user_id") id: RequestBody,
+        @Part("category") category: RequestBody,
+        @Part cloth_img: MultipartBody.Part,
+        @Part("description") description: RequestBody
+    ) : Call<addclothResponse>
 }
