@@ -21,8 +21,8 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
-        holder.cloth.setImageResource(resourceId)
+       // val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
+       // holder.cloth.setImageResource(resourceId)
         holder.nickname.text = homeList[position].nickname
         holder.likeCount.text = homeList[position].likeCount
 

@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        var homeList = arrayListOf<Home>(Home("k", "100", "sample_cloth"))
+        var homeList = arrayListOf<Home>()//(Home("k", "100", "sample_cloth"))
         val rv_home : RecyclerView = view.findViewById(R.id.rv_home)
         val homeAdapter = HomeAdapter(context!!, homeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
@@ -38,8 +38,6 @@ class HomeFragment : Fragment() {
         rv_home.adapter = homeAdapter
 
         //홈화면 서버와 통신
-        var nickname : String
-        var likes : String
         RetrofitClient.api.homeRequest().enqueue(object : Callback<homeResponse> {
             override fun onFailure(call: Call<homeResponse>, t: Throwable) {
                 //  Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show()
@@ -50,9 +48,10 @@ class HomeFragment : Fragment() {
                 if(result.code.equals("404")) { // 에러 발생 시
                     //Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show()
                 } else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
-                    var jObj = result.resultArray[0]
-                    nickname = jObj.getString("nickname")
-                    likes = jObj.getInt("likes").toString()
+                    var jObj = result.resultArray.getJSONObject(0)
+                    var user_id = jObj.getString("user_id")
+                    var likes = jObj.getInt("likes").toString()
+                    homeList.add(Home(user_id, likes))
                    // homeList.add(Home(nickname, likes, "sample_cloth"))
                     homeAdapter.notifyDataSetChanged()
                 }
