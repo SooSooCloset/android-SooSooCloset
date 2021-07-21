@@ -20,10 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SooSooCloset">
-        <activity android:name=".data.codiResponse"></activity>
-        <activity android:name=".data.homeResponse" />
-        <activity android:name=".activity.FindIdResultActivity" />
-        <activity android:name=".data.findidResponse" />
         <activity android:name=".activity.MycodiActivity" />
         <activity android:name=".activity.ClothActivity" />
         <activity android:name=".activity.MyinfoActivity" />

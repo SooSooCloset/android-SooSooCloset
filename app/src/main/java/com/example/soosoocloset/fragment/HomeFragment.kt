@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.activity.CodiActivity
@@ -15,10 +14,6 @@ import com.example.soosoocloset.adapter.HomeAdapter
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.homeResponse
-import kotlinx.android.synthetic.main.activity_codi.*
-import kotlinx.android.synthetic.main.home_item.*
-import org.json.JSONArray
-import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +24,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        var homeList = arrayListOf<Home>()//(Home("k", "100", "sample_cloth"))
+        var homeList = arrayListOf<Home>()
         val rv_home : RecyclerView = view.findViewById(R.id.rv_home)
         val homeAdapter = HomeAdapter(context!!, homeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
@@ -40,19 +35,20 @@ class HomeFragment : Fragment() {
         //홈화면 서버와 통신
         RetrofitClient.api.homeRequest().enqueue(object : Callback<homeResponse> {
             override fun onFailure(call: Call<homeResponse>, t: Throwable) {
-                //  Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show()
+                //  Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<homeResponse>, response: Response<homeResponse>) {
                 var result: homeResponse = response.body()!! // 응답 결과
+
                 if(result.code.equals("404")) { // 에러 발생 시
-                    //Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_SHORT).show()
-                } else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
-                    var jObj = result.resultArray.getJSONObject(0)
-                    var user_id = jObj.getString("user_id")
-                    var likes = jObj.getInt("likes").toString()
-                    homeList.add(Home(user_id, likes))
-                   // homeList.add(Home(nickname, likes, "sample_cloth"))
+                    // Toast.makeText(context ,"Error", Toast.LENGTH_SHORT).show()
+                }  else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
+
+                    var nickname = result.resultArray.get(0).nickname
+                    var likes = result.resultArray.get(0).likeCount
+                    homeList.add(Home(nickname, likes))
+
                     homeAdapter.notifyDataSetChanged()
                 }
             }

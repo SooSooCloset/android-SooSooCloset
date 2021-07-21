@@ -24,7 +24,7 @@ class RegisterActivity  : AppCompatActivity() {
         rGroup_gender.setOnCheckedChangeListener{ group, checkedId ->
             when(checkedId) {
                 R.id.rButton_men -> gender = "남성"
-                R.id.rButton_women -> gender = "여"
+                R.id.rButton_women -> gender = "여성"
             }
         }
 
@@ -53,7 +53,7 @@ class RegisterActivity  : AppCompatActivity() {
                 Toast.makeText(this, "비밀번호와 비밀번호 확인이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 // 회원가입 서버와 네트워크 통신하는 부분
-                RetrofitClient.api.signupRequest(user_name, nickname, gender, birth, user_id, user_pw).enqueue(object : Callback<signupResponse> {
+                RetrofitClient.api.requestSignup(user_name, nickname, gender, birth, user_id, user_pw).enqueue(object : Callback<signupResponse> {
                     // 네트워크 통신 성공한 경우
                     override fun onResponse(call: Call<signupResponse>, response: Response<signupResponse>) {
 
