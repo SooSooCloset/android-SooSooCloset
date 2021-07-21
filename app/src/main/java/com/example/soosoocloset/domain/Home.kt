@@ -4,10 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 // author: Sumin, created: 21.05.19
 class Home(
-    @SerializedName("nickname")
+    @SerializedName("user_id")
     val nickname: String,
-    @SerializedName("likeCount")
+    @SerializedName("likes")
     val likeCount: String
-    //@SerializedName("codi_img")
-    //val codi_img: String
 )
