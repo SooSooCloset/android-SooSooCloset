@@ -1,6 +1,8 @@
 package com.example.soosoocloset.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -36,10 +38,10 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 로그인 성공
                         //자동 로그인
-                        /*val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
+                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
                         val editor : SharedPreferences.Editor = prefs.edit()
                         editor.putString("id", id)
-                        editor.commit()*/
+                        editor.commit()
 
                         Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))

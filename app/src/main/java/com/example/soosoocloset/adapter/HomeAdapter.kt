@@ -1,5 +1,6 @@
 package com.example.soosoocloset.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.soosoocloset.R
 import com.example.soosoocloset.data.homeResponse
 
 // author: Sumin, created: 21.05.19
-class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){
+class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         // 레이아웃 생성
@@ -20,6 +21,8 @@ class HomeAdapter (val homeList: ArrayList<Home>) : RecyclerView.Adapter<HomeVie
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
+        holder.cloth.setImageResource(resourceId)
         holder.nickname.text = homeList[position].nickname
         holder.likeCount.text = homeList[position].likeCount
 

@@ -1,13 +1,9 @@
 package com.example.soosoocloset
 
-import com.example.soosoocloset.data.findidResponse
-import com.example.soosoocloset.data.homeResponse
-import com.example.soosoocloset.data.loginResponse
-import com.example.soosoocloset.data.signupResponse
+import com.example.soosoocloset.data.*
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RetrofitApi {
     // 회원가입 API
@@ -37,8 +33,9 @@ interface RetrofitApi {
     ) : Call<findidResponse>
 
     // 홈 화면 API
-    @FormUrlEncoded
+    //@FormUrlEncoded
     @POST("/user/home")
     fun homeRequest(
     ) : Call<homeResponse>
+
 }
