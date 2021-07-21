@@ -21,6 +21,7 @@ class FindIdActivity : AppCompatActivity() {
             var name = et_name.text.toString()
             var birth = et_birth.text.toString()
 
+            //아이디찾기 서버와 통신
             RetrofitClient.api.findidRequest(name, birth).enqueue(object : Callback<findidResponse> {
                 override fun onFailure(call: Call<findidResponse>, t: Throwable) {
                     tv_findid.setText("Network error")

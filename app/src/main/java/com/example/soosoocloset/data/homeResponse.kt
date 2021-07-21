@@ -1,16 +1,12 @@
 package com.example.soosoocloset.data
 
+import com.example.soosoocloset.domain.Home
 import com.google.gson.annotations.SerializedName
+import org.json.JSONObject
 
 data class homeResponse(
-    val data: List<homeData>, //json 결과 여러 개를 모두 받음
+    @SerializedName("resultArray")
+    val resultArray: List<Home>,
+    @SerializedName("code")
     val code: String
 )
-{
-    data class homeData (
-        @SerializedName("id")
-        val id: String,
-        @SerializedName("likes")
-        val likes: Int
-    )
-}
