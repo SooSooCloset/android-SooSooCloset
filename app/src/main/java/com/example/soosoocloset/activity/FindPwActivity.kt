@@ -33,7 +33,7 @@ class FindPwActivity : AppCompatActivity() {
                 Toast.makeText(this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show()
             } else {
                 // 회원가입 서버와 네트워크 통신하는 부분
-                RetrofitClient.api.requestFindpw(user_id, user_email).enqueue(object : Callback<findpwResponse> {
+                RetrofitClient.api.findpwRequest(user_id, user_email).enqueue(object : Callback<findpwResponse> {
                     // 네트워크 통신 성공한 경우
                     override fun onResponse(call: Call<findpwResponse>, response: Response<findpwResponse>) {
 

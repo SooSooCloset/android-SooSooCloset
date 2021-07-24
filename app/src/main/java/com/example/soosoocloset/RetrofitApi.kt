@@ -15,7 +15,7 @@ interface RetrofitApi {
     // 회원가입 API
     @FormUrlEncoded
     @POST("/user/signup")
-    fun requestSignup(
+    fun signupRequest(
         @Field("user_name") name: String,
         @Field("nickname") nickname: String,
         @Field("gender") gender: String,
@@ -35,7 +35,7 @@ interface RetrofitApi {
     // 비밀번호 찾기 API
     @FormUrlEncoded
     @POST("/user/findpw")
-    fun requestFindpw(
+    fun findpwRequest(
         @Field("user_id") id:String,
         @Field("user_email") email:String
     ) : Call<findpwResponse>
@@ -63,4 +63,11 @@ interface RetrofitApi {
         @Part cloth_img: MultipartBody.Part,
         @Part("description") description: RequestBody
     ) : Call<addclothResponse>
+
+    // 옷 가져오기 API
+    @FormUrlEncoded
+    @POST("/cloth/getcloth")
+    fun getclothRequest(
+        @Field("user_id") id: String
+    ) : Call<getclothResponse>
 }

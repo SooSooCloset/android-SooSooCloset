@@ -20,8 +20,9 @@ class ClothAdapter(val context: Context, val clothList : ArrayList<Cloth>) : Rec
     }
 
     override fun onBindViewHolder(holder: ClothViewHolder, position: Int) {
-        val resourceId = context.resources.getIdentifier(clothList[position].image, "drawable", context.packageName)
-        holder.cloth.setImageResource(resourceId)
+        //val resourceId = context.resources.getIdentifier(clothList[position].image, "drawable", context.packageName)
+        //holder.cloth.setImageResource(resourceId)
+        holder.cloth.setImageBitmap(clothList[position].image)
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
