@@ -68,6 +68,7 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST("/cloth/getcloth")
     fun getclothRequest(
-        @Field("user_id") id: String
+        @Field("user_id") id: String,
+        @Field("category") category: String
     ) : Call<getclothResponse>
 }

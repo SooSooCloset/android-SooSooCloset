@@ -5,17 +5,21 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.soosoocloset.activity.ClothActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.activity.AddClosetActivity
+import com.example.soosoocloset.activity.ClothActivity
 import com.example.soosoocloset.adapter.ClothAdapter
 import com.example.soosoocloset.data.getclothResponse
 import com.example.soosoocloset.domain.Cloth
@@ -24,16 +28,16 @@ import kotlinx.android.synthetic.main.fragment_closet.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+
 
 // 설명: 메인 화면 하단바의 옷장 클릭 -> 옷장 화면
 // author: Soohyun, created: 21.07.24
 class ClosetFragment : Fragment() {
-    var outerList = arrayListOf<Bitmap>() // 아우터 이미지 리스트
-    var topList = arrayListOf<Bitmap>() // 상의 이미지 리스트
-    var bottomList = arrayListOf<Bitmap>() // 하의 이미지 리스트
-    var onepieceList = arrayListOf<Bitmap>() // 원피스 이미지 리스트
-    var shoesList = arrayListOf<Bitmap>() // 신발 이미지 리스트
-    var accessaryList = arrayListOf<Bitmap>() // 악세서리 이미지 리스트
+    var clothIdList = arrayListOf<Double>() // 옷 아이디 리스트
+    var clothList = arrayListOf<Cloth>() // 옷 이미지 리스트
+    var descriptionList = arrayListOf<String>() // 옷 설명 리스트
+    lateinit var clothAdapter: ClothAdapter// 옷 리사이클러뷰의 어댑터
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_closet, container, false)
@@ -53,16 +57,69 @@ class ClosetFragment : Fragment() {
         val prefs : SharedPreferences = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
         val user_id = prefs.getString("id", null)!! // 사용자 아이디
 
-        var clothList = arrayListOf<Cloth>() // 옷 리스트
         val rv_closet : RecyclerView = view.findViewById(R.id.rv_closet) // 옷 리사이클러뷰
-        val clothAdapter = ClothAdapter(context!!, clothList) // 옷 리사이클러뷰의 어댑터
+        clothAdapter = ClothAdapter(context!!, clothList) // 옷 리사이클러뷰의 어댑터
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 3) // 그리드 레이아웃 매니저
 
         rv_closet.adapter = clothAdapter // 리사이클러뷰와 어댑터 연결
         rv_closet.layoutManager = layoutManager // 리사이클러뷰와 레이아웃 매니저 연결
 
+        getCloth(user_id, "outer") // 처음 화면에 보여지는 데이터 초기화
+
+        // 옷 리스트의 아이템 클릭시
+        clothAdapter.setItemClickListener(object : ClothAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                // 비트맵 이미지를 Uri로 변환
+                val stream = ByteArrayOutputStream();
+                clothList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), clothList[position].image, "Title", null)
+                val uri: Uri = Uri.parse(path);
+
+                val intent = Intent(context, ClothActivity::class.java)
+                intent.putExtra("cloth_id",clothIdList[position]) // 옷 아이디 값 넘기기
+                intent.putExtra("cloth_img", uri) // 이미지 Uri 값 넘기기
+                intent.putExtra("description",descriptionList[position]) // 옷 설명 값 넘기기
+                startActivity(intent) // 액티비티 실행
+            }
+        })
+
+        // 아우터 버튼 클릭시
+        view.btn_outer.setOnClickListener{
+            getCloth(user_id, "outer")
+        }
+
+        // 상의 버튼 클릭시
+        view.btn_top.setOnClickListener {
+            getCloth(user_id, "top")
+        }
+
+        // 하의 버튼 클릭시
+        view.btn_bottom.setOnClickListener{
+            getCloth(user_id, "bottom")
+        }
+
+        // 원피스 클릭시
+        view.btn_onepiece.setOnClickListener{
+            getCloth(user_id, "onepiece")
+        }
+
+        // 신발 버튼 클릭시
+        view.btn_shoes.setOnClickListener{
+            getCloth(user_id, "shoes")
+        }
+
+        // 악세서리 버튼 클릭시
+        view.btn_accessary.setOnClickListener{
+            getCloth(user_id, "accessary")
+        }
+
+        return view
+    }
+
+    // 서버에서 옷 가져오는 메서드
+    private fun getCloth(user_id: String, category: String){
         // 옷 가져오기 서버와 네트워크 통신하는 부분
-        RetrofitClient.api.getclothRequest(user_id).enqueue(object : Callback<getclothResponse> {
+        RetrofitClient.api.getclothRequest(user_id, category).enqueue(object : Callback<getclothResponse> {
             // 네트워크 통신 성공한 경우
             override fun onResponse(call: Call<getclothResponse>, response: Response<getclothResponse>) {
                 if(response.isSuccessful) {
@@ -72,20 +129,21 @@ class ClosetFragment : Fragment() {
                         Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }  else if(result.code.equals("200")) { // 옷 가져오기 조회 성공시
 
-                        // 서버로부터 받은 데이터를 비트맵으로 변환해 리스트로 저장
-                        outerList = getImg(result.outer)
-                        topList = getImg(result.top)
-                        bottomList = getImg(result.bottom)
-                        onepieceList = getImg(result.onepiece)
-                        shoesList = getImg(result.shoes)
-                        accessaryList = getImg(result.accessary)
+                        var imageList = getImg(result.cloth) // 서버로부터 받은 데이터를 비트맵으로 변환해 리스트로 저장
 
-                        // 프래그먼트의 첫 화면 리스트 초기화하는 부분
-                        clothList.clear()
-                        for(i in outerList.indices) {
-                            clothList.add(Cloth(outerList[i]))
+                        clothList.clear() // 옷 이미지 리스트 초기화
+                        // 옷 관련 리스트에 값을 채우는 부분
+                        for(i in imageList.indices) {
+                            clothIdList.add(result.cloth[i]["cloth_id"] as Double)
+                            clothList.add(Cloth(imageList[i]))
+                            if(result.cloth[i]["description"] == null) {
+                                descriptionList.add("")
+                            } else {
+                                descriptionList.add(result.cloth[i]["description"] as String)
+                            }
                         }
-                        clothAdapter.notifyDataSetChanged()
+
+                        clothAdapter.notifyDataSetChanged() // 리사이클러뷰 갱신
                     }
                 }
             }
@@ -96,69 +154,6 @@ class ClosetFragment : Fragment() {
                 System.out.println(t)
             }
         })
-
-        // 옷 리스트의 아이템 클릭시
-        clothAdapter.setItemClickListener(object : ClothAdapter.OnItemClickListener{
-            override fun onClick(v: View, position: Int) {
-                startActivity(Intent(context, ClothActivity::class.java))
-            }
-        })
-
-        // 아우터 버튼 클릭시
-        view.btn_outer.setOnClickListener{
-            clothList.clear()
-            for(i in outerList.indices) {
-                clothList.add(Cloth(outerList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        // 상의 버튼 클릭시
-        view.btn_top.setOnClickListener {
-            clothList.clear()
-            for(i in topList.indices) {
-                clothList.add(Cloth(topList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        // 하의 버튼 클릭시
-        view.btn_bottom.setOnClickListener{
-            clothList.clear()
-            for(i in bottomList.indices) {
-                clothList.add(Cloth(bottomList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        // 원피스 클릭시
-        view.btn_onepiece.setOnClickListener{
-            clothList.clear()
-            for(i in onepieceList.indices) {
-                clothList.add(Cloth(onepieceList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        // 신발 버튼 클릭시
-        view.btn_shoes.setOnClickListener{
-            clothList.clear()
-            for(i in shoesList.indices) {
-                clothList.add(Cloth(shoesList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        // 악세서리 버튼 클릭시
-        view.btn_accessary.setOnClickListener{
-            clothList.clear()
-            for(i in accessaryList.indices) {
-                clothList.add(Cloth(accessaryList[i]))
-            }
-            clothAdapter.notifyDataSetChanged()
-        }
-
-        return view
     }
 
     // 이미지를 가져오는 메서드
