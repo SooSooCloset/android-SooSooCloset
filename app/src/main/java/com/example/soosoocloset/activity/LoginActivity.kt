@@ -14,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 설명: 로그인 화면
+// author: Sumin, created: 21.07.11
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,21 +33,23 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>) {
-                    var result: loginResponse = response.body()!! // 응답 결과
-                    if(result.code.equals("404")) { // 에러 발생 시
-                        Toast.makeText(this@LoginActivity, "Error", Toast.LENGTH_SHORT).show()
-                    } else if(result.code.equals("204") or result.code.equals("208")) { // Id나 PW를 잘못 입력한 경우
-                        Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
-                    } else if(result.code.equals("200")) { // 로그인 성공
-                        //자동 로그인
-                        val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
-                        val editor : SharedPreferences.Editor = prefs.edit()
-                        editor.putString("id", id)
-                        editor.commit()
+                    if(response.isSuccessful){
+                        var result: loginResponse = response.body()!! // 응답 결과
+                        if(result.code.equals("404")) { // 에러 발생 시
+                            Toast.makeText(this@LoginActivity, "Error", Toast.LENGTH_SHORT).show()
+                        } else if(result.code.equals("204") or result.code.equals("208")) { // Id나 PW를 잘못 입력한 경우
+                            Toast.makeText(this@LoginActivity, "Id or password is not correct.", Toast.LENGTH_SHORT).show()
+                        } else if(result.code.equals("200")) { // 로그인 성공
+                            //자동 로그인
+                            val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE)
+                            val editor : SharedPreferences.Editor = prefs.edit()
+                            editor.putString("id", id)
+                            editor.commit()
 
-                        Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        finish()
+                            Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        }
                     }
                 }
             })

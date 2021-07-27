@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
 
@@ -20,9 +21,8 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        //val resourceId = context.resources.getIdentifier(homeList[position].image, "drawable", context.packageName)
-        //holder.cloth.setImageResource(resourceId)
         holder.nickname.text = homeList[position].nickname
+        Glide.with(context).load(homeList[position].image).into(holder.codi)
         holder.likeCount.text = homeList[position].likeCount
 
         holder.itemView.setOnClickListener {

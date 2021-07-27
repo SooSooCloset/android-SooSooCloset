@@ -1,9 +1,8 @@
 package com.example.soosoocloset.data
 
-import com.example.soosoocloset.domain.Home
 import com.google.gson.annotations.SerializedName
 
-data class homeResponse(
+data class getcodiResponse(
     @SerializedName("codi")
     val codi: List<Map<*, *>>,
     @SerializedName("code")
