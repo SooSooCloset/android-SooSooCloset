@@ -129,17 +129,11 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_onepiece,
             R.id.btn_shoes,
             R.id.btn_accessary -> {
-                val inflater =
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
+                /*
+                val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
                 val view = inflater.inflate(R.layout.activity_add_codi_popup, null) // 팝업창을 띄울 뷰
 
-                var clothList = arrayListOf<Cloth>(
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth")
-                ) // 테스트용 데이터
+                var clothList = arrayListOf<Cloth>(Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth")) // 테스트용 데이터
                 val rv_cloth: RecyclerView = view.findViewById(R.id.rv_cloth) // 팝업창의 옷 리사이클러뷰
                 val clothAdapter = ClothAdapter(this, clothList) // 팝업창의 옷 리사이클러뷰의 어댑터
                 val layoutManager: GridLayoutManager =
@@ -173,7 +167,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                     .create()
 
                 alertDialog.setView(view) // 다이얼로그에 뷰 배치
-                alertDialog.show() // 다이얼로그를 보여줌
+                alertDialog.show() // 다이얼로그를 보여줌*/
             }
 
         }

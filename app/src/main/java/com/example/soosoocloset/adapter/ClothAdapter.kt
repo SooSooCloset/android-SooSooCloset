@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Cloth
 
@@ -20,8 +21,7 @@ class ClothAdapter(val context: Context, val clothList : ArrayList<Cloth>) : Rec
     }
 
     override fun onBindViewHolder(holder: ClothViewHolder, position: Int) {
-        val resourceId = context.resources.getIdentifier(clothList[position].image, "drawable", context.packageName)
-        holder.cloth.setImageResource(resourceId)
+        Glide.with(context).load(clothList[position].image).into(holder.cloth)
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
