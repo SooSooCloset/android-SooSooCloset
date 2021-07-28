@@ -3,9 +3,9 @@ package com.example.soosoocloset.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.loginResponse
@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
             RetrofitClient.api.loginRequest(id, pw).enqueue(object : Callback<loginResponse> {
                 override fun onFailure(call: Call<loginResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "Network error", Toast.LENGTH_SHORT).show()
+                    System.out.println(t)
                 }
 
                 override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>) {
