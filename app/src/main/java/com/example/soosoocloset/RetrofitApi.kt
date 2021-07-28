@@ -70,13 +70,6 @@ interface RetrofitApi {
         @Part ("codi_description") codi_description: RequestBody,
         @Part ("codi_date") codi_date: RequestBody
     ) : Call<addcodiResponse>
-
-    // 나의 코디 화면 API
-    @FormUrlEncoded
-    @POST("/codi/mycodi")
-    fun mycodiRequest(
-        @Field("user_id") id: String
-    ) : Call<mycodiResponse>
   
     // 옷 추가 API
     @Multipart
