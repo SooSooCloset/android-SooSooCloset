@@ -20,9 +20,9 @@ class LikeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_like, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        var likeList = arrayListOf<Like>(Like(), Like(), Like())
+        var likeList = arrayListOf<Like>(Like("nickname1", "10"), Like("nickname2", "30"), Like("nickname3", "50"))
         val rv_like : RecyclerView = view.findViewById(R.id.rv_like)
-        val likeAdapater = LikeAdapter(likeList)
+        val likeAdapater = LikeAdapter(context!!, likeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
 
         rv_like.adapter = likeAdapater

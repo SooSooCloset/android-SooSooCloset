@@ -14,14 +14,15 @@
         android:theme="@style/Theme.SooSooCloset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/cloth_menu">
 
         <!-- 상단바 타이틀 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="옷장"
+            android:text="나의 옷"
             android:textSize="20sp" />
 
     </androidx.appcompat.widget.Toolbar>

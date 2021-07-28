@@ -15,7 +15,8 @@
         android:theme="@style/Theme.SooSooCloset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/mycodi_menu">
 
         <!-- 상단바 타이틀 -->
         <TextView
