@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -18,12 +20,12 @@ import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.activity.AddCodiActivity
 import com.example.soosoocloset.adapter.CodiAdapter
 import com.example.soosoocloset.data.getcodiResponse
-import com.example.soosoocloset.data.mycodiResponse
 import com.example.soosoocloset.domain.Codi
 import com.google.gson.internal.LinkedTreeMap
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 // author: Sumin, created: 21.05.19, last modified 21.07.26
 class CodiFragment : Fragment() {
@@ -56,46 +58,37 @@ class CodiFragment : Fragment() {
                     var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
                     codiList.clear() //초기화
                     for (i in imageList.indices)
-                        codiList.add(Codi(imageList[i])) //변환된 비트맵 이미지들을 리사이클러뷰 코디 아이템에 저장
+                        codiList.add(Codi((result.codi[i])["codi_id"] as Double, imageList[i],
+                            (result.codi[i])["codi_description"] as String, (result.codi[i])["likes"] as Double,
+                            (result.codi[i])["codi_date"] as String
+                        )) //변환된 비트맵 이미지들을 리사이클러뷰 코디 아이템에 저장
                     codiAdapater.notifyDataSetChanged() //리사이클러뷰 갱신
                 }
             }
         })
 
         //화면전환
-        val intent = Intent(context, MycodiActivity::class.java)
+
         codiAdapater.setItemClickListener(object : CodiAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                RetrofitClient.api.mycodiRequest(user_id).enqueue(object : Callback<mycodiResponse> {
-                    override fun onFailure(call: Call<mycodiResponse>, t: Throwable) {
-                        Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
-                    }
+                val intent = Intent(context, MycodiActivity::class.java)
+                val stream = ByteArrayOutputStream();
+                codiList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), codiList[position].image, "Title", null)
+                val uri: Uri = Uri.parse(path);
 
-                    override fun onResponse(call: Call<mycodiResponse>, response: Response<mycodiResponse>) {
-                        var result: mycodiResponse = response.body()!! // 응답 결과
-                        if(result.code.equals("400")) { // 에러 발생 시
-                            Toast.makeText(context ,"Error", Toast.LENGTH_SHORT).show()
-                        } else if(result.code.equals("200")) {
-                            //서버에서 데이터 받아오기
-                            var data = (result.mycodi[position])["codi_img"] as LinkedTreeMap<*, *>
-                            var array = data["data"] as ArrayList<Double>
-                            val bytearray = exByte(array) //코디 이미지를 ByteArray로 변환
+                val codi_description = codiList[position].codi_description //코디 설명
+                val likes = codiList[position].likes //좋아요 수
+                val codi_date = codiList[position].codi_date //코디 생성 날짜
 
-                            var codi_description = (result.mycodi[position])["codi_description"].toString() //코디 설명
-                            var likes = (result.mycodi[position])["likes"].toString() //좋아요 수
-                            var codi_date = (result.mycodi[position])["codi_date"].toString() //코디 생성 날짜
-
-                            //MycodiActivity로 데이터 전달
-                            intent.apply {
-                                this.putExtra("codi_img", bytearray)
-                                this.putExtra("codi_description", codi_description)
-                                this.putExtra("likes", likes)
-                                this.putExtra("codi_date", codi_date)
-                            }
-                        }
-                    }
-                })
-                startActivity(intent)
+                //MycodiActivity로 데이터 전달
+                intent.apply {
+                    this.putExtra("codi_img", uri)
+                    this.putExtra("codi_description", codi_description)
+                    this.putExtra("likes", likes)
+                    this.putExtra("codi_date", codi_date)
+                    startActivity(intent)
+                }
             }
         })
 
