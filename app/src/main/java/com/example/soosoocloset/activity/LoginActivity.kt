@@ -19,11 +19,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val btn_login = btn_login
-
         btn_login.setOnClickListener{
-            var id = et_id.text.toString()
-            var pw = et_password.text.toString()
+            var id = et_id.text.toString().trim()
+            var pw = et_password.text.toString().trim()
 
             RetrofitClient.api.loginRequest(id, pw).enqueue(object : Callback<loginResponse> {
                 override fun onFailure(call: Call<loginResponse>, t: Throwable) {
