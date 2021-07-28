@@ -12,7 +12,7 @@ import com.example.soosoocloset.R
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_codi)
+        setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
             val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
