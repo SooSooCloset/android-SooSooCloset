@@ -10,6 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// 설명: 로그인 화면에서 아이디 찾기 -> 아이디 찾기 화면
+// author: Sumin, created: 21.07.13
 class FindIdActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +30,15 @@ class FindIdActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<findidResponse>, response: Response<findidResponse>) {
-                    var result: findidResponse = response.body()!! // 응답 결과
-                    if(result.code.equals("404")) { // 에러 발생 시
-                        tv_findid.setText("Error")
-                    } else if(result.code.equals("204")) { // 가입하지 않은 사용자인 경우
-                        tv_findid.setText("Never registered")
-                    } else if(result.code.equals("200")) { // 가입한 사용자의 경우
-                        tv_findid.setText(result.id)
+                    if(response.isSuccessful){
+                        var result: findidResponse = response.body()!! // 응답 결과
+                        if(result.code.equals("404")) { // 에러 발생 시
+                            tv_findid.setText("Error")
+                        } else if(result.code.equals("204")) { // 가입하지 않은 사용자인 경우
+                            tv_findid.setText("Never registered")
+                        } else if(result.code.equals("200")) { // 가입한 사용자의 경우
+                            tv_findid.setText(result.id)
+                        }
                     }
                 }
             })
