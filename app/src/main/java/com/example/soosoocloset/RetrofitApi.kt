@@ -89,6 +89,13 @@ interface RetrofitApi {
         @Field("category") category: String
     ) : Call<getclothResponse>
 
+    // 좋아요한 코디 가져오기 API
+    @FormUrlEncoded
+    @POST("/codi/getLikecodi")
+    fun getLikecodiRequest(
+        @Field("user_id") id: String
+    ) : Call<getLikecodiResponse>
+
     // 마이페이지 화면 API
     @FormUrlEncoded
     @POST("/user/mypage")
@@ -96,7 +103,7 @@ interface RetrofitApi {
         @Field("user_id") id: String
     ) : Call<mypageResponse>
 
-    // 회원탈 API
+    // 회원탈퇴 API
     @FormUrlEncoded
     @POST("/user/deleteUser")
     fun deleteUserRequest(
