@@ -17,12 +17,9 @@ class MycodiActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mycodi)
 
         //CodiFragment 데이터 받아오기
-        /*val bytearray = intent.getByteArrayExtra("codi_img")
-        val codi_img = bytearray?.let { convertBitmap(it) } //ByteArray를 Bitmap으로 변환*/
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
-
         val codi_description = intent.getStringExtra("codi_description")
-        val likes = intent.getStringExtra("likes")
+        val likes = intent.getDoubleExtra("likes", 0.0).toInt().toString()
         val codi_date = intent.getStringExtra("codi_date")
 
         //나의 코디 화면 값들 재설정
@@ -30,16 +27,6 @@ class MycodiActivity : AppCompatActivity() {
         tv_codi_description.setText(codi_description)
         tv_likes_num.setText(likes)
         tv_codi_date.setText(codi_date)
-    }
-
-    //ByteArray를 Bitmap으로 변환하는 메서드
-    fun convertBitmap(arr: ByteArray): Bitmap {
-        try {
-            var bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.size)
-            return bitmap
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
     }
 
     // 상단바와 메뉴를 연결하는 메소드

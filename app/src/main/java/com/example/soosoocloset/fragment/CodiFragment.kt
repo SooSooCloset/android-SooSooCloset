@@ -57,21 +57,20 @@ class CodiFragment : Fragment() {
                 } else if(result.code.equals("200")) { // 코디화면: 내코디 목록 조회 성공
                     var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
                     codiList.clear() //초기화
-                    for (i in imageList.indices)
-                        codiList.add(Codi((result.codi[i])["codi_id"] as Double, imageList[i],
-                            (result.codi[i])["codi_description"] as String, (result.codi[i])["likes"] as Double,
-                            (result.codi[i])["codi_date"] as String
-                        )) //변환된 비트맵 이미지들을 리사이클러뷰 코디 아이템에 저장
+                    for (i in result.codi.indices)
+                        codiList.add(Codi(imageList[i], (result.codi[i])["codi_description"] as String,
+                            (result.codi[i])["likes"] as Double, (result.codi[i])["codi_date"] as String))
                     codiAdapater.notifyDataSetChanged() //리사이클러뷰 갱신
                 }
             }
         })
 
         //화면전환
-
         codiAdapater.setItemClickListener(object : CodiAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
                 val intent = Intent(context, MycodiActivity::class.java)
+
+                //코디 이미지
                 val stream = ByteArrayOutputStream();
                 codiList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), codiList[position].image, "Title", null)
@@ -122,7 +121,7 @@ class CodiFragment : Fragment() {
     //ByteArray 생성 메서드
     fun exByte(list: ArrayList<Double>): ByteArray {
         var list2: MutableList<Byte> = mutableListOf()
-        for (i in 0..list.size - 1) {
+        for (i in list.indices) {
             list2.add(list[i].toInt().toByte())
         }
         var arr = list2.toByteArray()
