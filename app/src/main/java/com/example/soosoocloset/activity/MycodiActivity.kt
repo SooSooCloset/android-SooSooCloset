@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
@@ -24,6 +25,10 @@ class MycodiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mycodi)
+
+        val toolBar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar) // 커스텀 툴바로 설정
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 기존 상단바 타이틀 없애기
 
         //CodiFragment 데이터 받아오기
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
