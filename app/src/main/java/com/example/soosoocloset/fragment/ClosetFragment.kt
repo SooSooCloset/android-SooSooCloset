@@ -34,9 +34,7 @@ import java.io.ByteArrayOutputStream
 // 설명: 메인 화면 하단바의 옷장 클릭 -> 옷장 화면
 // author: Soohyun, created: 21.07.24
 class ClosetFragment : Fragment() {
-    var clothIdList = arrayListOf<Double>() // 옷 아이디 리스트
-    var clothList = arrayListOf<Cloth>() // 옷 이미지 리스트
-    var descriptionList = arrayListOf<String>() // 옷 설명 리스트
+    var clothList = arrayListOf<Cloth>() // 옷 객체 리스트
     lateinit var clothAdapter: ClothAdapter// 옷 리사이클러뷰의 어댑터
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,9 +74,9 @@ class ClosetFragment : Fragment() {
                 val uri: Uri = Uri.parse(path);
 
                 val intent = Intent(context, ClothActivity::class.java)
-                intent.putExtra("cloth_id",clothIdList[position]) // 옷 아이디 값 넘기기
+                intent.putExtra("cloth_id",clothList[position].cloth_id) // 옷 아이디 값 넘기기
                 intent.putExtra("cloth_img", uri) // 이미지 Uri 값 넘기기
-                intent.putExtra("description",descriptionList[position]) // 옷 설명 값 넘기기
+                intent.putExtra("description",clothList[position].description) // 옷 설명 값 넘기기
                 startActivity(intent) // 액티비티 실행
             }
         })
@@ -125,7 +123,7 @@ class ClosetFragment : Fragment() {
                 if(response.isSuccessful) {
                     var result: getclothResponse = response.body()!! // 응답 결과
 
-                    if(result.code.equals("404")) { // 에러 발생 시
+                    if(result.code.equals("400")) { // 에러 발생 시
                         Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }  else if(result.code.equals("200")) { // 옷 가져오기 조회 성공시
 
@@ -134,12 +132,11 @@ class ClosetFragment : Fragment() {
                         clothList.clear() // 옷 이미지 리스트 초기화
                         // 옷 관련 리스트에 값을 채우는 부분
                         for(i in imageList.indices) {
-                            clothIdList.add(result.cloth[i]["cloth_id"] as Double)
-                            clothList.add(Cloth(imageList[i]))
+                            var obj = result.cloth[i]
                             if(result.cloth[i]["description"] == null) {
-                                descriptionList.add("")
+                                clothList.add(Cloth(obj["cloth_id"] as Double, imageList[i], ""))
                             } else {
-                                descriptionList.add(result.cloth[i]["description"] as String)
+                                clothList.add(Cloth(obj["cloth_id"] as Double, imageList[i], obj["description"] as String))
                             }
                         }
 

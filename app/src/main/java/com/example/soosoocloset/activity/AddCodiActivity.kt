@@ -83,9 +83,9 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                     captureView.compress(Bitmap.CompressFormat.PNG, 100, fos) //캡쳐 이미지 Bitmap에서 png형식으로 변환
 
                     //캡쳐 이미지를 코디 이미지 파일로 변환
-                    var file = File("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/codi_img.png")
-                    var requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                    var codi_img = MultipartBody.Part.createFormData("codi_img", file.name, requestFile)
+                    val file = File("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/codi_img.png")
+                    val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    val codi_img = MultipartBody.Part.createFormData("codi_img", file.name, requestFile)
 
                     val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
                     val user_id = RequestBody.create(MediaType.parse("text/plain"), prefs.getString("id", null)!!) //사용자 아이디

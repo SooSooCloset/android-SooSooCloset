@@ -23,7 +23,7 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         holder.nickname.text = homeList[position].nickname
         Glide.with(context).load(homeList[position].image).into(holder.codi)
-        holder.likeCount.text = homeList[position].likes.toString()
+        holder.likeCount.text = homeList[position].likes.toInt().toString()
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)

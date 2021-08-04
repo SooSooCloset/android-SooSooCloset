@@ -18,7 +18,7 @@ class MyinfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_myinfo)
 
-        //et_nickname.setText(intent.getStringExtra("nickname"))
+        et_nickname.setText(intent.getStringExtra("nickname"))
 
         btn_update.setOnClickListener {
             val nickname = et_nickname.text.toString().trim()

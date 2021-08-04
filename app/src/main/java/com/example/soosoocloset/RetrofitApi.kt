@@ -70,7 +70,7 @@ interface RetrofitApi {
         @Part ("codi_description") codi_description: RequestBody,
         @Part ("codi_date") codi_date: RequestBody
     ) : Call<addcodiResponse>
-  
+
     // 옷 추가 API
     @Multipart
     @POST("/cloth/addcloth")
@@ -97,4 +97,33 @@ interface RetrofitApi {
         @Field("user_pw") pw: String,
         @Field("user_id") id: String
     ) : Call<myinfoResponse>
+
+    // 좋아요한 코디 가져오기 API
+    @FormUrlEncoded
+    @POST("/codi/getLikecodi")
+    fun getLikecodiRequest(
+        @Field("user_id") id: String
+    ) : Call<getLikecodiResponse>
+
+    // 마이페이지 화면 API
+    @FormUrlEncoded
+    @POST("/user/mypage")
+    fun mypageRequest(
+        @Field("user_id") id: String
+    ) : Call<mypageResponse>
+
+    // 회원탈퇴 API
+    @FormUrlEncoded
+    @POST("/user/deleteUser")
+    fun deleteUserRequest(
+        @Field("user_id") id: String
+    ) : Call<deleteUserResponse>
+
+    // 코디 삭제 API
+    @FormUrlEncoded
+    @POST("/codi/deleteCodi")
+    fun deleteCodiRequest(
+        @Field("user_id") id: String,
+        @Field("codi_id") codi_id: Int
+    ) : Call<deleteCodiResponse>
 }
