@@ -22,8 +22,8 @@ class LikeAdapter (val context: Context, val likeList: ArrayList<Like>) : Recycl
 
     override fun onBindViewHolder(holder: LikeViewHolder, position: Int) {
         holder.nickname.text = likeList[position].nickname
-        //Glide.with(context).load(likeList[position].image).into(holder.codi)
-        holder.likeCount.text = likeList[position].likeCount
+        Glide.with(context).load(likeList[position].image).into(holder.codi)
+        holder.likeCount.text = likeList[position].likeCount.toInt().toString()
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
