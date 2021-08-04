@@ -29,6 +29,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 // 설명: 메인 화면 하단바의 옷장 클릭 -> 옷장 화면
@@ -70,7 +72,7 @@ class ClosetFragment : Fragment() {
                 // 비트맵 이미지를 Uri로 변환
                 val stream = ByteArrayOutputStream();
                 clothList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), clothList[position].image, "Title", null)
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), clothList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
                 val uri: Uri = Uri.parse(path);
 
                 val intent = Intent(context, ClothActivity::class.java)

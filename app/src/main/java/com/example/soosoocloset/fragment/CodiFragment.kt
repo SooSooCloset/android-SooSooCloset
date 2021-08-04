@@ -26,6 +26,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 // author: Sumin, created: 21.05.19, last modified 21.07.26
 class CodiFragment : Fragment() {
@@ -76,7 +78,7 @@ class CodiFragment : Fragment() {
                 //코디 이미지
                 val stream = ByteArrayOutputStream();
                 codiList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), codiList[position].image, "Title", null)
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), codiList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
                 val uri: Uri = Uri.parse(path);
 
                 val codi_id = codiList[position].codi_id //코디 아이디

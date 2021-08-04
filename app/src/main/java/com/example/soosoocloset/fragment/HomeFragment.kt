@@ -24,6 +24,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 // author: Sumin, created: 21.05.19, last modified : 21.07.13
 class HomeFragment : Fragment() {
@@ -53,10 +55,17 @@ class HomeFragment : Fragment() {
                     } else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
                         var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 Bitmap으로 변환하여 리스트에 저장
                         homeList.clear() //초기화
-                        for(i in result.codi.indices)
-                            homeList.add(Home((result.codi[i])["nickname"] as String, imageList[i],
-                                (result.codi[i])["codi_description"] as String, (result.codi[i])["likes"] as Double,
-                                (result.codi[i])["codi_date"] as String))
+                        for(i in result.codi.indices) {
+                            if((result.codi[i])["codi_description"] == null) {
+                                homeList.add(Home((result.codi[i])["nickname"] as String, imageList[i],
+                                    "", (result.codi[i])["likes"] as Double,
+                                    (result.codi[i])["codi_date"] as String))
+                            } else {
+                                homeList.add(Home((result.codi[i])["nickname"] as String, imageList[i],
+                                    (result.codi[i])["codi_description"] as String, (result.codi[i])["likes"] as Double,
+                                    (result.codi[i])["codi_date"] as String))
+                            }
+                        }
                         homeAdapter.notifyDataSetChanged()
                     }
                 }
@@ -72,7 +81,7 @@ class HomeFragment : Fragment() {
                 //코디 이미지
                 val stream = ByteArrayOutputStream();
                 homeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), homeList[position].image, "Title", null)
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), homeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
                 val uri: Uri = Uri.parse(path);
 
                 val nickname = homeList[position].nickname //사용자 닉네임

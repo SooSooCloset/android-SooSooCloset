@@ -29,6 +29,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 // 설명: 메인 화면 하단바의 좋아요 클릭 -> 좋아요 화면
 // author: Sumin, created: 21.05.19
@@ -91,16 +93,16 @@ class LikeFragment : Fragment() {
                 // 비트맵 이미지를 Uri로 변환
                 val stream = ByteArrayOutputStream();
                 likeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), likeList[position].image, "Title", null)
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), likeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
                 val uri: Uri = Uri.parse(path);
 
                 val intent = Intent(context, CodiActivity::class.java)
-                intent.putExtra("codi_id",likeList[position].codi_id) // 코디 아이디 값 넘기기
+                //intent.putExtra("codi_id",likeList[position].codi_id) // 코디 아이디 값 넘기기
                 intent.putExtra("codi_img", uri) // 이미지 Uri 값 넘기기
                 intent.putExtra("nickname", likeList[position].nickname) // 닉네임 값 넘기기
-                intent.putExtra("likeCount", likeList[position].likeCount) // 좋아요 수 값 넘기기
-                intent.putExtra("date", likeList[position].date) // 코디 작성 날짜 값 넘기기
-                intent.putExtra("description",likeList[position].description) // 코디 설명 값 넘기기
+                intent.putExtra("likes", likeList[position].likeCount) // 좋아요 수 값 넘기기
+                intent.putExtra("codi_date", likeList[position].date) // 코디 작성 날짜 값 넘기기
+                intent.putExtra("codi_description",likeList[position].description) // 코디 설명 값 넘기기
                 startActivity(intent) // 액티비티 실행
             }
         })

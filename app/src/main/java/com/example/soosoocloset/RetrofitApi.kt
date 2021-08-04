@@ -127,12 +127,4 @@ interface RetrofitApi {
         @Field("codi_id") codi_id: Int
     ) : Call<deleteCodiResponse>
 
-    //내정보 가져오기 API
-    @FormUrlEncoded
-    @POST("user/myinfo")
-    fun myinfoRequest(
-        @Field("nickname") nickname: String,
-        @Field("user_pw") pw: String,
-        @Field("user_id") id: String
-    ) : Call<myinfoResponse>
 }
