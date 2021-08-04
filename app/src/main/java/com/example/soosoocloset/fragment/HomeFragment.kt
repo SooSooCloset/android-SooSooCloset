@@ -3,7 +3,9 @@ package com.example.soosoocloset.fragment
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +19,11 @@ import com.example.soosoocloset.adapter.HomeAdapter
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.homeResponse
-import com.example.soosoocloset.domain.Codi
 import com.google.gson.internal.LinkedTreeMap
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 // author: Sumin, created: 21.05.19, last modified : 21.07.13
 class HomeFragment : Fragment() {
@@ -44,20 +46,17 @@ class HomeFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<homeResponse>, response: Response<homeResponse>) {
-                var result: homeResponse = response.body()!! // 응답 결과
                 if(response.isSuccessful) {
+                    val result: homeResponse = response.body()!! // 응답 결과
                     if(result.code.equals("400")) { // 에러 발생 시
                         Toast.makeText(context ,"Error", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
                         var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 Bitmap으로 변환하여 리스트에 저장
                         homeList.clear() //초기화
-                        for(i in result.codi.indices) {
-                            //서버에서 데이터 받아오기
-                            var nickname = (result.codi[i])["user_id"].toString() //사용자 닉네임
-                            var likes = (result.codi[i])["likes"].toString() //좋아요 수
-
-                            homeList.add(Home(imageList[i], nickname, likes)) //변환된 Bitmap 이미지들을 리사이클러뷰 코디 아이템에 저장
-                        }
+                        for(i in result.codi.indices)
+                            homeList.add(Home((result.codi[i])["nickname"] as String, imageList[i],
+                                (result.codi[i])["codi_description"] as String, (result.codi[i])["likes"] as Double,
+                                (result.codi[i])["codi_date"] as String))
                         homeAdapter.notifyDataSetChanged()
                     }
                 }
@@ -68,8 +67,28 @@ class HomeFragment : Fragment() {
         // 홈 화면의 코디리스트 아이템 클릭시
         homeAdapter.setItemClickListener(object : HomeAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                startActivity(Intent(context, CodiActivity::class.java))
+                val intent = Intent(context, CodiActivity::class.java)
 
+                //코디 이미지
+                val stream = ByteArrayOutputStream();
+                homeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), homeList[position].image, "Title", null)
+                val uri: Uri = Uri.parse(path);
+
+                val nickname = homeList[position].nickname //사용자 닉네임
+                val codi_description = homeList[position].codi_description //코디 설명
+                val likes = homeList[position].likes //좋아요 수
+                val codi_date = homeList[position].codi_date //코디 생성 날짜
+
+                //CodiActivity로 데이터 전달
+                intent.apply {
+                    this.putExtra("nickname", nickname)
+                    this.putExtra("codi_img", uri)
+                    this.putExtra("codi_description", codi_description)
+                    this.putExtra("likes", likes)
+                    this.putExtra("codi_date", codi_date)
+                    startActivity(intent)
+                }
             }
         })
         return view
@@ -90,7 +109,7 @@ class HomeFragment : Fragment() {
     //ByteArray 생성 메서드
     fun exByte(list: ArrayList<Double>): ByteArray {
         var list2: MutableList<Byte> = mutableListOf()
-        for (i in 0..list.size - 1) {
+        for (i in list.indices) {
             list2.add(list[i].toInt().toByte())
         }
         var arr = list2.toByteArray()
