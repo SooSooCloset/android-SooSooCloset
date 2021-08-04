@@ -56,12 +56,20 @@ class CodiFragment : Fragment() {
                     if(result.code.equals("400")) { // 에러 발생 시
                         Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 코디화면: 내코디 목록 조회 성공
-                        var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
+                        val imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
+                        var description = ""
                         codiList.clear() //초기화
-                        for (i in result.codi.indices)
-                            codiList.add(Codi((result.codi[i])["codi_id"] as Double, imageList[i],
-                                (result.codi[i])["codi_description"] as String,
-                                (result.codi[i])["likes"] as Double, (result.codi[i])["codi_date"] as String))
+                        for (i in result.codi.indices) {
+                            description = (result.codi[i])["codi_description"].toString()
+                            codiList.add(
+                                Codi(
+                                    (result.codi[i])["codi_id"] as Double,
+                                    imageList[i], description,
+                                    (result.codi[i])["likes"] as Double,
+                                    (result.codi[i])["codi_date"] as String
+                                )
+                            )
+                        }
                         codiAdapater.notifyDataSetChanged() //리사이클러뷰 갱신
                     }
                 }

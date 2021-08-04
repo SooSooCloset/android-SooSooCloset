@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
                     if(result.code.equals("400")) { // 에러 발생 시
                         Toast.makeText(context ,"Error", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 홈화면 코디들 조회 성공
-                        var imageList = getImg(result.codi) //서버에서 받아온 이미지들을 Bitmap으로 변환하여 리스트에 저장
+                        val imageList = getImg(result.codi) //서버에서 받아온 이미지들을 Bitmap으로 변환하여 리스트에 저장
                         homeList.clear() //초기화
                         for(i in result.codi.indices)
                             homeList.add(Home((result.codi[i])["nickname"] as String, imageList[i],
