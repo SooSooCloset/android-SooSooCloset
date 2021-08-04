@@ -19,7 +19,7 @@ class MyinfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_myinfo)
 
         et_nickname.setText(intent.getStringExtra("nickname"))
-
+        
         btn_update.setOnClickListener {
             val nickname = et_nickname.text.toString().trim()
             val user_pw = et_pw.text.toString().trim()
