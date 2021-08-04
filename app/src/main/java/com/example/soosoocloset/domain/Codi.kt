@@ -1,11 +1,9 @@
 package com.example.soosoocloset.domain
 
 import android.graphics.Bitmap
-import com.google.gson.annotations.SerializedName
 
 // author: Sumin, created: 21.05.19
 class Codi (
-    val codi_id : Double,
     val image : Bitmap,
     val codi_description : String,
     val likes : Double,

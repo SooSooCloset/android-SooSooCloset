@@ -109,4 +109,13 @@ interface RetrofitApi {
     fun deleteUserRequest(
         @Field("user_id") id: String
     ) : Call<deleteUserResponse>
+
+    //내정보 가져오기 API
+    @FormUrlEncoded
+    @POST("user/myinfo")
+    fun myinfoRequest(
+        @Field("nickname") nickname: String,
+        @Field("user_pw") pw: String,
+        @Field("user_id") id: String
+    ) : Call<myinfoResponse>
 }
