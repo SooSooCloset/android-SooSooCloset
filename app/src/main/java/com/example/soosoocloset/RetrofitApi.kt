@@ -89,6 +89,15 @@ interface RetrofitApi {
         @Field("category") category: String
     ) : Call<getclothResponse>
 
+    //내정보 가져오기 API
+    @FormUrlEncoded
+    @POST("user/myinfo")
+    fun myinfoRequest(
+        @Field("nickname") nickname: String,
+        @Field("user_pw") pw: String,
+        @Field("user_id") id: String
+    ) : Call<myinfoResponse>
+
     // 좋아요한 코디 가져오기 API
     @FormUrlEncoded
     @POST("/codi/getLikecodi")
@@ -109,6 +118,14 @@ interface RetrofitApi {
     fun deleteUserRequest(
         @Field("user_id") id: String
     ) : Call<deleteUserResponse>
+
+    // 코디 삭제 API
+    @FormUrlEncoded
+    @POST("/codi/deleteCodi")
+    fun deleteCodiRequest(
+        @Field("user_id") id: String,
+        @Field("codi_id") codi_id: Int
+    ) : Call<deleteCodiResponse>
 
     //내정보 가져오기 API
     @FormUrlEncoded

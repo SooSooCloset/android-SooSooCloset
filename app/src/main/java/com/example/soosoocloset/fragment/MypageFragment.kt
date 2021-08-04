@@ -46,6 +46,7 @@ class MypageFragment : Fragment() {
 
         prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
         user_id = prefs.getString("id", null)!! // 사용자 아이디
+        var nickname = ""
 
         // 마이페이지 서버와 네트워크 통신하는 부분
         RetrofitClient.api.mypageRequest(user_id).enqueue(object : Callback<mypageResponse> {
@@ -57,7 +58,7 @@ class MypageFragment : Fragment() {
                     if(result.code.equals("404")) { // 에러 발생 시
                         Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }  else if(result.code.equals("200")) { // 사용자 정보 조회 성공시
-                        var nickname = result.nickname
+                        nickname = result.nickname
                         var profile = result.profile
 
                         tv_nickname.setText(nickname)
@@ -79,7 +80,9 @@ class MypageFragment : Fragment() {
         lv_mypage.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             when(position) {
                 0 -> { // 내 정보 수정
-                    startActivity(Intent(context, MyinfoActivity::class.java)) // 내 정보 수정 화면으로 이동
+                    val intent = Intent(context, MyinfoActivity::class.java)
+                    intent.putExtra("nickname", nickname)
+                    startActivity(intent) // 내 정보 수정 화면으로 이동
                 }
                 1 -> { // 로그아웃
                     // 자동 로그인 정보 삭제
