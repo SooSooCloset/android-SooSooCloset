@@ -65,6 +65,8 @@ class LikeFragment : Fragment() {
 
                         var imageList = getImg(result.like) // 서버로부터 받은 데이터를 비트맵으로 변환해 리스트로 저장
 
+                        likeList.clear() // 좋아요 리스트 초기화
+
                         // 좋아요한 코디 관련 리스트에 값을 채우는 부분
                         for(i in imageList.indices) {
                             var obj = result.like[i]
