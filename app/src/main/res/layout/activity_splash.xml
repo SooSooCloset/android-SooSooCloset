@@ -7,10 +7,11 @@
     android:background="#FCCACA"
     tools:context=".activity.SplashActivity">
 
+    <!-- 로고 -->
     <ImageView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="97.38dp"
+        android:layout_height="103.8dp"
         android:background="@drawable/logo_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
