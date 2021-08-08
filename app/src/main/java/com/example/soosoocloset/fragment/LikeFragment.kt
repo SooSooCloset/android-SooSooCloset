@@ -15,20 +15,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.soosoocloset.activity.CodiActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.activity.ClothActivity
 import com.example.soosoocloset.adapter.LikeAdapter
+import com.example.soosoocloset.data.changeProfileResponse
 import com.example.soosoocloset.data.getLikecodiResponse
 import com.example.soosoocloset.data.getclothResponse
+import com.example.soosoocloset.data.likeResponse
 import com.example.soosoocloset.domain.Cloth
 import com.example.soosoocloset.domain.Like
 import com.google.gson.internal.LinkedTreeMap
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -85,7 +92,6 @@ class LikeFragment : Fragment() {
             // 네트워크 통신 실패한 경우
             override fun onFailure(call: Call<getLikecodiResponse>, t: Throwable) {
                 Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
-                System.out.println(t)
             }
         })
 
@@ -148,4 +154,11 @@ class LikeFragment : Fragment() {
         }
     }
 
+    fun addLike() {
+
+    }
+
+    public fun deleteLike() {
+
+    }
 }

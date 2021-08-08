@@ -25,6 +25,7 @@ import com.example.soosoocloset.activity.MyinfoActivity
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.activity.LoginActivity
+import com.example.soosoocloset.data.changeProfileResponse
 import com.example.soosoocloset.data.deleteUserResponse
 import com.example.soosoocloset.data.mypageResponse
 import com.google.gson.internal.LinkedTreeMap
@@ -33,6 +34,9 @@ import com.gun0912.tedpermission.TedPermission
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_mypage.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,7 +88,7 @@ class MypageFragment : Fragment() {
                         if(profile == null) {
                             iv_profile.setImageResource(R.drawable.user)
                         } else {
-                            //Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
+                            Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
                         }
                     }
                 }
@@ -256,7 +260,7 @@ class MypageFragment : Fragment() {
     fun cropImage(uri: Uri?){
         activity?.let {
             CropImage.activity(uri)
-                .setCropShape(CropImageView.CropShape.OVAL) // 원형으로 자르기
+                .setCropShape(CropImageView.CropShape.RECTANGLE) // 원형으로 자르기
                 .start(it, this@MypageFragment)
         }
     }
@@ -274,27 +278,55 @@ class MypageFragment : Fragment() {
 
         // 갤러리 실행 후 돌아온 경우
         if(requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK){
-            //val image = data?.data // 갤러리에서 선택한 이미지의 경로
-
             data?.data?.let { uri ->
-                cropImage(uri) //이미지를 선택하면 여기가 실행됨
+                cropImage(uri) // 크롭 액티비티 실행
             }
-            //photoUri = data?.data
         }
 
         // 이미지 크롭 후 돌아온 경우
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
+            val result = CropImage.getActivityResult(data) // 크롭된 이미지
 
             if(resultCode == Activity.RESULT_OK){
                 result.uri?.let {
-                    iv_profile.setImageURI(result.uri) // 프로필 사진 변경
-                    photoUri = result.uri
+                    changeProfile(result.uri) // 프로필 사진 변경 메서드 실행
                 }
             } else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
                 val error = result.error
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // 프로필 사진 변경 메서드
+    fun changeProfile(uri: Uri) {
+        val prefs : SharedPreferences = context!!.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
+        val user_id = RequestBody.create(MediaType.parse("text/plain"), prefs.getString("id", null)!!) // 사용자 아이디
+
+        // 프로필 사진 파일로 변환
+        var file = File(uri.path)
+        var requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        var profile_img = MultipartBody.Part.createFormData("profile_img", file.name, requestFile)
+
+        // 프로필 사진 변경 서버와 네트워크 통신하는 부분
+        RetrofitClient.api.changeProfileRequest(user_id, profile_img).enqueue(object : Callback<changeProfileResponse> {
+            // 네트워크 통신 성공한 경우
+            override fun onResponse(call: Call<changeProfileResponse>, response: Response<changeProfileResponse>) {
+                if(response.isSuccessful) {
+                    var result: changeProfileResponse = response.body()!! // 응답 결과
+
+                    if(result.code.equals("400")) { // 에러 발생 시
+                        Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    }  else if(result.code.equals("200")) { // 회원탈퇴 성공시
+                        Glide.with(context!!).load(uri).circleCrop().into(iv_profile) // 프로필 사진 변경
+                    }
+                }
+            }
+
+            // 네트워크 통신 실패한 경우
+            override fun onFailure(call: Call<changeProfileResponse>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
