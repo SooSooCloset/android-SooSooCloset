@@ -24,7 +24,6 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
         holder.nickname.text = homeList[position].nickname
         Glide.with(context).load(homeList[position].image).into(holder.codi)
         holder.likeCount.text = homeList[position].likes.toInt().toString()
-        holder.likeCount.text = homeList[position].likes.toString()
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
