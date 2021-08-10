@@ -153,12 +153,4 @@ class LikeFragment : Fragment() {
             throw RuntimeException(e)
         }
     }
-
-    fun addLike() {
-
-    }
-
-    public fun deleteLike() {
-
-    }
 }

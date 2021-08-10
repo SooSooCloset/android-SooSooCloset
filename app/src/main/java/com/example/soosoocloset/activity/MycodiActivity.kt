@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,13 +23,16 @@ import retrofit2.Response
 //설명: 나의 코디 상세 화면
 // Author : Sumin, Last Modified : 2021.07.30
 class MycodiActivity : AppCompatActivity() {
+    var update_codi = false // 코디 수정 선택 여부를 저장하는 변수
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mycodi)
 
-        val toolBar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar) // 커스텀 툴바로 설정
         supportActionBar?.setDisplayShowTitleEnabled(false) // 기존 상단바 타이틀 없애기
+        et_codi_description.visibility = View.INVISIBLE
 
         //CodiFragment 데이터 받아오기
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
@@ -45,14 +49,18 @@ class MycodiActivity : AppCompatActivity() {
 
     // 상단바와 메뉴를 연결하는 메소드
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.mycodi_menu, menu)
+        if(update_codi) { // 코디 수정 선택한 경우
+            menuInflater.inflate(R.menu.cloth_mycodi_menu, menu)
+        } else { // 코디 수정 선택하지 않은 경우
+            menuInflater.inflate(R.menu.mycodi_menu, menu)
+        }
         return true
     }
 
     // 상단바의 메뉴 클릭시 호출되는 메소드
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.item_delete_codi -> {
+            R.id.item_delete_codi -> { // 코디 삭제 클릭
                 val dialog: AlertDialog.Builder = AlertDialog.Builder(this) //경고 팝업창
                 dialog.setTitle("코디를 삭제 하시겠습니까?") //제목
                 dialog.setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
@@ -62,7 +70,23 @@ class MycodiActivity : AppCompatActivity() {
                 dialog.show()
                 return true
             }
-            R.id.item_update_codi -> {
+            R.id.item_update_codi -> { // 코디 수정 클릭
+                et_codi_description.visibility = View.VISIBLE // 코디 설명 입력창 보이게
+                tv_codi_description.visibility = View.INVISIBLE // 코디 설명 안보이게
+                et_codi_description.setText(tv_codi_description.text)
+
+                update_codi = true
+                invalidateOptionsMenu() // 메뉴 갱신
+
+                return true
+            }
+            R.id.item_update_description -> { // 체크버튼 클릭
+                et_codi_description.visibility = View.INVISIBLE // 옷 설명 입력창 안보이게
+                tv_codi_description.visibility = View.VISIBLE // 옷 설명 보이게
+
+                update_codi = false
+                invalidateOptionsMenu() // 메뉴 갱신
+
                 return true
             }
             else -> {return super.onOptionsItemSelected(item)}
