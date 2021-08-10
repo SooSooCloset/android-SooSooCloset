@@ -2,9 +2,9 @@ package com.example.soosoocloset.data
 
 import com.google.gson.annotations.SerializedName
 
-data class mypageResponse(
+data class checkLikeResponse (
+    @SerializedName("codi_id")
+    val codi_id: List<Map<*, *>>,
     @SerializedName("code")
-    val code: String,
-    @SerializedName("info")
-    val info: List<Map<*, *>>
+    val code: String
 )

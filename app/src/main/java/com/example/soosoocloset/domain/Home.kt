@@ -4,9 +4,11 @@ import android.graphics.Bitmap
 
 // author: Sumin, created: 21.05.19
 class Home(
+    val codi_id: Double,
     val nickname: String,
     val image: Bitmap,
     val codi_description: String,
-    val likes: Double,
+    var likes: Double,
+    //var isChecked: String,
     val codi_date: String
 )

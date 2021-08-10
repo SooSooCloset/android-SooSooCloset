@@ -26,17 +26,19 @@
         android:text="nickname"/>
 
     <!-- 하트 이미지 -->
-    <ImageView
+    <CheckBox
+        android:id="@+id/home_item_cb_like"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_below="@+id/home_item_nickname"
-        android:background="@drawable/heart"/>
+        android:button="@android:color/transparent"
+        android:background="@drawable/selector_btn_like"/>
 
     <!-- 좋아요 숫자 -->
     <TextView
-        android:id="@+id/home_item_likeCount"
+        android:id="@+id/home_item_likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

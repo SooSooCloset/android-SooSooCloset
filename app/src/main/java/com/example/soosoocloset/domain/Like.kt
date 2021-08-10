@@ -8,7 +8,7 @@ class Like (
     val codi_id : Double, // 코디 아이디
     val image : Bitmap, // 코디 이미지
     val nickname: String, // 코디 작성자 닉네임
-    val likeCount: Double, // 좋아요 수
+    var likeCount: Double, // 좋아요 수
     val date : String, // 코디 작성 날짜
     val description : String // 코디 설명
 )
