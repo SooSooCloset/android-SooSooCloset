@@ -28,7 +28,10 @@ class LikeAdapter (val context: Context, var likeList: ArrayList<Like>) : Recycl
     override fun onBindViewHolder(holder: LikeViewHolder, position: Int) {
         holder.nickname.text = likeList[position].nickname
         Glide.with(context).load(likeList[position].image).into(holder.codi)
-        holder.btn_like.isChecked = true
+        if(likeList[position].isChecked == "true")
+            holder.btn_like.isChecked = true
+        else if(likeList[position].isChecked == "false")
+            holder.btn_like.isChecked = false
         holder.likeCount.text = likeList[position].likeCount.toInt().toString()
 
         holder.itemView.setOnClickListener {
@@ -52,6 +55,7 @@ class LikeAdapter (val context: Context, var likeList: ArrayList<Like>) : Recycl
                                 Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                             } else if(result.code.equals("200")) { // 회원탈퇴 성공시
                                 likeList[position].likeCount += 1 // 좋아요 수 변경
+                                likeList[position].isChecked = "true"
                                 holder.likeCount.text = likeList[position].likeCount.toInt().toString() // 좋아요 수 텍스트 변경
                             }
                         }
@@ -74,6 +78,7 @@ class LikeAdapter (val context: Context, var likeList: ArrayList<Like>) : Recycl
                                 Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                             }  else if(result.code.equals("200")) { // 회원탈퇴 성공시
                                 likeList[position].likeCount -= 1 // 좋아요 수 변경
+                                likeList[position].isChecked = "false"
                                 holder.likeCount.text = likeList[position].likeCount.toInt().toString() // 좋아요 수 텍스트 변경
                             }
                         }

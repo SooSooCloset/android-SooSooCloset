@@ -22,6 +22,7 @@ class CodiAdapter(val context: Context, val codiList: ArrayList<Codi>) : Recycle
     override fun onBindViewHolder(holder: CodiViewHolder, position: Int) {
         Glide.with(context).load(codiList[position].image).into(holder.codi)
 
+
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }

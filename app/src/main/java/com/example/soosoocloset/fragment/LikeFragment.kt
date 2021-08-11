@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -78,9 +79,9 @@ class LikeFragment : Fragment() {
                         for(i in imageList.indices) {
                             var obj = result.like[i]
                             if(obj["description"] == null) {
-                                likeList.add(Like(obj["codi_id"] as Double, imageList[i], obj["nickname"] as String, obj["likes"] as Double, obj["codi_date"] as String, ""))
+                                likeList.add(Like(obj["codi_id"] as Double, imageList[i], obj["nickname"] as String, obj["likes"] as Double, "true", obj["codi_date"] as String, ""))
                             } else {
-                                likeList.add(Like(obj["codi_id"] as Double, imageList[i], obj["nickname"] as String, obj["likes"] as Double, obj["codi_date"] as String, obj["codi_description"] as String))
+                                likeList.add(Like(obj["codi_id"] as Double, imageList[i], obj["nickname"] as String, obj["likes"] as Double, "true", obj["codi_date"] as String, obj["codi_description"] as String))
                             }
                         }
 
