@@ -4,86 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
     android:layout_gravity="center_vertical"
     tools:context=".activity.LoginActivity">
 
-    <!-- 로고 들어갈 부분 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- 로고 -->
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="73.38dp"
+        android:layout_height="78.24dp"
         android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="수수한 옷장"
-        android:textSize="40sp"/>
+        android:background="@drawable/logo_pink"/>
+
+    <!-- 아이디 입력창 배경 -->
+    <ImageView
+        android:id="@+id/iv_id"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="54dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo"
+        android:background="@drawable/bg_edittext"/>
 
     <!-- 아이디 입력창 -->
     <EditText
         android:id="@+id/et_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="아이디"/>
+        android:layout_marginStart="16.5dp"
+        android:layout_marginEnd="16.5dp"
+        android:layout_marginTop="61dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo"
+        android:hint="아이디"
+        android:background="@null"/>
+
+    <!-- 비밀번호 입력창 배경 -->
+    <ImageView
+        android:id="@+id/iv_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_id"
+        android:background="@drawable/bg_edittext"/>
 
     <!-- 비밀번호 입력창 -->
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="비밀번호"/>
+        android:layout_marginStart="16.5dp"
+        android:layout_marginEnd="16.5dp"
+        android:layout_marginTop="19dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_id"
+        android:hint="비밀번호"
+        android:background="@null"/>
 
     <!-- 로그인 버튼 -->
-    <Button
+    <ImageButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="로그인"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_password"
+        android:background="@drawable/login_btn_login"/>
 
     <!-- 아이디 찾기 -->
     <TextView
         android:id="@+id/tv_find_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="35dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintRight_toLeftOf="@id/tv_find_password"
         android:text="아이디 찾기"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#66000000"/>
 
     <!-- 비밀번호 찾기 -->
     <TextView
         android:id="@+id/tv_find_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintHorizontal_bias="0.5"
         android:text="비밀번호 찾기"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#66000000"/>
 
     <!-- 회원가입 -->
     <TextView
         android:id="@+id/tv_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintLeft_toRightOf="@id/tv_find_password"
         android:text="회원가입"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#66000000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

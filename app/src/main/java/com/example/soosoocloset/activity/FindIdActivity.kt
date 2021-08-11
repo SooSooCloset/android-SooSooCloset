@@ -2,6 +2,8 @@ package com.example.soosoocloset.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.findidResponse
@@ -17,7 +19,11 @@ class FindIdActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_id)
 
-        val btn_findid = btn_findid
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar) // toolbar를 액션바로 설정
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 기본 타이틀 삭제
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_icon) // 뒤로가기 버튼 아이콘 변경
 
         btn_findid.setOnClickListener{
             var name = et_name.text.toString()
@@ -43,5 +49,15 @@ class FindIdActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼 클릭한 경우
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

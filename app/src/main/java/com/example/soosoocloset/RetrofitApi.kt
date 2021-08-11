@@ -112,6 +112,14 @@ interface RetrofitApi {
         @Field("user_id") id: String
     ) : Call<mypageResponse>
 
+    // 프로필 사진 변경 API
+    @Multipart
+    @POST("/user/changeProfile")
+    fun changeProfileRequest(
+        @Part("user_id") id: RequestBody,
+        @Part profile_img: MultipartBody.Part
+    ) : Call<changeProfileResponse>
+
     // 회원탈퇴 API
     @FormUrlEncoded
     @POST("/user/deleteUser")
@@ -126,5 +134,23 @@ interface RetrofitApi {
         @Field("user_id") id: String,
         @Field("codi_id") codi_id: Int
     ) : Call<deleteCodiResponse>
+
+    // 좋아요 추가 API
+    @FormUrlEncoded
+    @POST("/codi/addLike")
+    fun addLikeRequest(
+        @Field("user_id") id: String,
+        @Field("codi_id") codi_id: Int,
+        @Field("likes") likes: Int
+    ) : Call<likeResponse>
+
+    // 좋아요 삭제 API
+    @FormUrlEncoded
+    @POST("/codi/deleteLike")
+    fun deleteLikeRequest(
+        @Field("user_id") id: String,
+        @Field("codi_id") codi_id: Int,
+        @Field("likes") likes: Int
+    ) : Call<likeResponse>
 
 }
