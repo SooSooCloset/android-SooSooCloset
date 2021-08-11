@@ -29,6 +29,7 @@ class CodiActivity : AppCompatActivity() {
         val codi_description = intent.getStringExtra("codi_description")
         var likes = intent.getDoubleExtra("likes", -1.0).toInt()
         val codi_date = intent.getStringExtra("codi_date")
+        val isChecked = intent.getStringExtra("isChecked")
 
         //홈 코디 상세 화면 값들 재설정
         tv_nickname.text = nickname
@@ -37,10 +38,10 @@ class CodiActivity : AppCompatActivity() {
         tv_likes_num.text = likes.toString()
         tv_codi_date.text = codi_date
 
-        /*if(isChecked.equals("true"))
+        if(isChecked.equals("true"))
         codi_cb_like.isChecked = true
         else if(isChecked.equals("false"))
-            codi_cb_like.isChecked = false*/
+            codi_cb_like.isChecked = false
 
         val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장 장소
         val user_id = prefs.getString("id", null)!! // 아이디 값 가져오기

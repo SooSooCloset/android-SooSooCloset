@@ -32,6 +32,7 @@ import kotlin.collections.ArrayList
 // author: Sumin, created: 21.05.19, last modified : 21.07.13
 class HomeFragment : Fragment() {
     var homeList = arrayListOf<Home>()
+    var likeIdList = arrayListOf<Int>()
     lateinit var prefs : SharedPreferences
     lateinit var user_id: String // 사용자 아이디
 
@@ -49,9 +50,8 @@ class HomeFragment : Fragment() {
         prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
         user_id = prefs.getString("id", null)!! //사용자 아이디
 
-
         //홈화면 서버와 통신
-        RetrofitClient.api.homeRequest().enqueue(object : Callback<homeResponse> {
+        RetrofitClient.api.homeRequest(user_id).enqueue(object : Callback<homeResponse> {
             override fun onFailure(call: Call<homeResponse>, t: Throwable) {
                 Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
             }
@@ -69,13 +69,13 @@ class HomeFragment : Fragment() {
                             if((result.codi[i])["codi_description"] == null) {
                                 homeList.add(Home((result.codi[i])["codi_id"] as Double,
                                     (result.codi[i])["nickname"] as String, imageList[i],
-                                    "", (result.codi[i])["likes"] as Double, //"",
+                                    "", (result.codi[i])["likes"] as Double, (result.likes[i]),
                                     (result.codi[i])["codi_date"] as String))
                             } else {
                                 homeList.add(Home((result.codi[i])["codi_id"] as Double,
                                     (result.codi[i])["nickname"] as String, imageList[i],
                                     (result.codi[i])["codi_description"] as String,
-                                    (result.codi[i])["likes"] as Double, //"",
+                                    (result.codi[i])["likes"] as Double, (result.likes[i]),
                                     (result.codi[i])["codi_date"] as String))
                             }
                         }
@@ -101,6 +101,7 @@ class HomeFragment : Fragment() {
                 val codi_description = homeList[position].codi_description //코디 설명
                 val likes = homeList[position].likes //좋아요 수
                 val codi_date = homeList[position].codi_date //코디 생성 날짜
+                val isChecked = homeList[position].isChecked //좋아요 여부
 
                 //CodiActivity로 데이터 전달
                 intent.apply {
@@ -110,14 +111,13 @@ class HomeFragment : Fragment() {
                     this.putExtra("codi_description", codi_description)
                     this.putExtra("likes", likes)
                     this.putExtra("codi_date", codi_date)
+                    this.putExtra("isChecked", isChecked)
                     startActivity(intent)
                 }
             }
         })
         return view
     }
-
-
 
     //이미지를 가져오는 메서드
     private fun getImg(input: List<Map<*, *>>): ArrayList<Bitmap>{
@@ -152,5 +152,4 @@ class HomeFragment : Fragment() {
             throw RuntimeException(e)
         }
     }
-
 }
