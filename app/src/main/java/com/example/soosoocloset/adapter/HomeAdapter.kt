@@ -14,9 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.soosoocloset.domain.Home
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
-import com.example.soosoocloset.data.checkLikeResponse
 import com.example.soosoocloset.data.likeResponse
-import kotlinx.android.synthetic.main.home_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +34,11 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
+
+        if(homeList[position].isChecked == "true")
+            holder.cb_like.isChecked = true
+        else if(homeList[position].isChecked == "false")
+            holder.cb_like.isChecked = false
 
         val prefs : SharedPreferences = context!!.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장 장소
         val user_id = prefs.getString("id", null)!! // 사용자 아이디
