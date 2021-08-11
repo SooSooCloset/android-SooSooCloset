@@ -2,24 +2,36 @@ package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.R
+import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.adapter.ClothAdapter
+import com.example.soosoocloset.data.addcodiResponse
 import com.example.soosoocloset.domain.Cloth
 import com.outsbook.libs.canvaseditor.CanvasEditorView
 import kotlinx.android.synthetic.main.activity_add_codi.*
+import okhttp3.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.time.LocalDate
 
 //설명: 코디 만들기 화면
 // author: Sumin
@@ -35,15 +47,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
 
         canvasEditor = findViewById(R.id.canvasEditor)
         canvasEditor.setPaintColor(0) // 브러쉬 색상 투명으로 설정
-        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
-
-        // 테스트 이미지
-        val drawable = ContextCompat.getDrawable(this,
-            R.drawable.codi_default
-        )
-        drawable?.let {
-            canvasEditor.addDrawableSticker(drawable)
-        }
+        capture_target = findViewById<View>(R.id.canvasEditor) // 캡쳐할 영역
 
         val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
         setSupportActionBar(toolbar) // 상단바를 액션바로 사용
@@ -56,8 +60,6 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
         btn_onepiece.setOnClickListener(this)
         btn_shoes.setOnClickListener(this)
         btn_accessary.setOnClickListener(this)
-
-        capture_target = findViewById<View>(R.id.capture_target) // 캡쳐할 영역
     }
 
     // 상단바와 메뉴를 연결하는 메소드
@@ -67,6 +69,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     // 상단바의 메뉴 클릭시 호출되는 메소드
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.item_finishCodi -> {
@@ -76,11 +79,40 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
 
                 //저장
                 try {
-                    canvasEditor.addBitmapSticker(captureView)
+                    val fos = FileOutputStream("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/codi_img.png") //캡쳐 이미지 저장 경로
+                    captureView.compress(Bitmap.CompressFormat.PNG, 100, fos) //캡쳐 이미지 Bitmap에서 png형식으로 변환
+
+                    //캡쳐 이미지를 코디 이미지 파일로 변환
+                    val file = File("${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/codi_img.png")
+                    val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    val codi_img = MultipartBody.Part.createFormData("codi_img", file.name, requestFile)
+
+                    val prefs : SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
+                    val user_id = RequestBody.create(MediaType.parse("text/plain"), prefs.getString("id", null)!!) //사용자 아이디
+                    val codi_description = RequestBody.create(MediaType.parse("text/plain"), et_codi_description.text.toString().trim()) //코디 설명
+                    val codi_date = RequestBody.create(MediaType.parse("text/plain"), LocalDate.now().toString()) //코디 생성 날짜
+
+                    //코디 추가 서버와 통신
+                    RetrofitClient.api.addcodiRequest(user_id, codi_img, codi_description, codi_date).enqueue(object : Callback<addcodiResponse> {
+                        override fun onFailure(call: Call<addcodiResponse>, t: Throwable) {
+                            Toast.makeText(this@AddCodiActivity, "Network error", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onResponse(call: Call<addcodiResponse>, response: Response<addcodiResponse>) {
+                            var result: addcodiResponse = response.body()!! // 응답 결과
+                            if(response.isSuccessful) {
+                                if(result.code.equals("400")) { // 에러 발생 시
+                                    Toast.makeText(this@AddCodiActivity ,"Error", Toast.LENGTH_SHORT).show()
+                                } else if(result.code.equals("200")) { //코디 추가 성공 시
+                                    Toast.makeText(this@AddCodiActivity ,"Addcodi Success", Toast.LENGTH_SHORT).show()
+                                    finish() //activity 종료
+                                }
+                            }
+                        }
+                    })
                 } catch (e : Exception) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(), "Captured", Toast.LENGTH_LONG).show(); //테스트용 확인 메시지
 
                 return true
             }
@@ -97,17 +129,11 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_onepiece,
             R.id.btn_shoes,
             R.id.btn_accessary -> {
-                val inflater =
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
+                /*
+                val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater // 뷰를 팝업창으로 띄울 수 있게 해주는 역할
                 val view = inflater.inflate(R.layout.activity_add_codi_popup, null) // 팝업창을 띄울 뷰
 
-                var clothList = arrayListOf<Cloth>(
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth"),
-                    Cloth("sample_cloth")
-                ) // 테스트용 데이터
+                var clothList = arrayListOf<Cloth>(Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth"), Cloth("sample_cloth")) // 테스트용 데이터
                 val rv_cloth: RecyclerView = view.findViewById(R.id.rv_cloth) // 팝업창의 옷 리사이클러뷰
                 val clothAdapter = ClothAdapter(this, clothList) // 팝업창의 옷 리사이클러뷰의 어댑터
                 val layoutManager: GridLayoutManager =
@@ -141,7 +167,7 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                     .create()
 
                 alertDialog.setView(view) // 다이얼로그에 뷰 배치
-                alertDialog.show() // 다이얼로그를 보여줌
+                alertDialog.show() // 다이얼로그를 보여줌*/
             }
 
         }

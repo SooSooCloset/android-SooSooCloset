@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MycodiActivity">
 
-    //나의 코디 상세화면
+    <!-- 나의 코디 상세화면 -->
     <!-- 상단바 -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,7 +15,8 @@
         android:theme="@style/Theme.SooSooCloset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/mycodi_menu">
 
         <!-- 상단바 타이틀 -->
         <TextView
@@ -29,25 +30,25 @@
 
     <ImageView
         android:id="@+id/iv_mycodi"
-        android:layout_width="377dp"
-        android:layout_height="378dp"
-        android:layout_marginTop="120dp"
-        android:background="#D3D3D3"
+        android:layout_width="394dp"
+        android:layout_height="394dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/iv_heart"
-        android:layout_width="16dp"
-        android:layout_height="19dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginTop="520dp"
-        android:background="@drawable/heart"
+        android:background="@drawable/selector_btn_like"
+        android:button="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/tv_likes_num"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
     <TextView
         android:id="@+id/tv_likes_num"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="520dp"
         android:text="0"
@@ -67,20 +68,20 @@
 
     <TextView
         android:id="@+id/tv_codi_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
+        android:layout_width="106dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="288dp"
         android:layout_marginTop="520dp"
         android:text="2021-05-25"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="right"/>
 
     <TextView
-        android:id="@+id/tv_codi_description"
-        android:layout_width="338dp"
-        android:layout_height="78dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="564dp"
         android:text="코디 설명"
@@ -89,5 +90,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_codi_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="584dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_codi_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="584dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

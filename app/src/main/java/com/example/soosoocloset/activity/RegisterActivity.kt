@@ -24,7 +24,7 @@ class RegisterActivity  : AppCompatActivity() {
         rGroup_gender.setOnCheckedChangeListener{ group, checkedId ->
             when(checkedId) {
                 R.id.rButton_men -> gender = "남성"
-                R.id.rButton_women -> gender = "여"
+                R.id.rButton_women -> gender = "여성"
             }
         }
 

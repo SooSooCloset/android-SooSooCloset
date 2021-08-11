@@ -1,5 +1,6 @@
 package com.example.soosoocloset.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.R
 import com.example.soosoocloset.domain.Codi
+import com.bumptech.glide.Glide
 
 // author: Sumin, created: 21.05.19
-class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<CodiViewHolder>(){
+class CodiAdapter(val context: Context, val codiList: ArrayList<Codi>) : RecyclerView.Adapter<CodiViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CodiViewHolder {
         // 레이아웃 생성
@@ -18,6 +20,9 @@ class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<CodiVie
     }
 
     override fun onBindViewHolder(holder: CodiViewHolder, position: Int) {
+        Glide.with(context).load(codiList[position].image).into(holder.codi)
+
+
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
@@ -39,5 +44,5 @@ class CodiAdapter (val codiList: ArrayList<Codi>) : RecyclerView.Adapter<CodiVie
 }
 
 class CodiViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-    var cloth = view.findViewById<ImageView>(R.id.codi_item_cloth)
+    var codi = view.findViewById<ImageView>(R.id.codi_item_codi)
 }
