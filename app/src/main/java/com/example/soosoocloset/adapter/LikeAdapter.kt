@@ -28,11 +28,11 @@ class LikeAdapter (val context: Context, var likeList: ArrayList<Like>) : Recycl
     override fun onBindViewHolder(holder: LikeViewHolder, position: Int) {
         holder.nickname.text = likeList[position].nickname
         Glide.with(context).load(likeList[position].image).into(holder.codi)
+        holder.likeCount.text = likeList[position].likeCount.toInt().toString()
         if(likeList[position].isChecked == "true")
             holder.btn_like.isChecked = true
         else if(likeList[position].isChecked == "false")
             holder.btn_like.isChecked = false
-        holder.likeCount.text = likeList[position].likeCount.toInt().toString()
 
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)

@@ -112,6 +112,7 @@ class LikeFragment : Fragment() {
                 intent.putExtra("likes", likeList[position].likeCount) // 좋아요 수 값 넘기기
                 intent.putExtra("codi_date", likeList[position].date) // 코디 작성 날짜 값 넘기기
                 intent.putExtra("codi_description",likeList[position].description) // 코디 설명 값 넘기기
+                intent.putExtra("isChecked", likeList[position].isChecked) // 좋아요 여부 값 넘기기
                 startActivity(intent) // 액티비티 실행
             }
         })
