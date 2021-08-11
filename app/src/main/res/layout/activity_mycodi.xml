@@ -40,14 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <CheckBox
         android:id="@+id/iv_heart"
-        android:layout_width="16dp"
-        android:layout_height="19dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginTop="520dp"
-        android:background="@drawable/heart"
+        android:background="@drawable/selector_btn_like"
+        android:button="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/tv_likes_num"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +56,8 @@
 
     <TextView
         android:id="@+id/tv_likes_num"
-        android:layout_width="47dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="520dp"
         android:text="0"

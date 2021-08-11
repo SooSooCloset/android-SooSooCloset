@@ -153,4 +153,10 @@ interface RetrofitApi {
         @Field("likes") likes: Int
     ) : Call<likeResponse>
 
+    // 좋아요 유/무 확인 API
+    @FormUrlEncoded
+    @POST("/codi/checkLike")
+    fun checkLikeRequest(
+        @Field("user_id") id: String
+    ) : Call<checkLikeResponse>
 }

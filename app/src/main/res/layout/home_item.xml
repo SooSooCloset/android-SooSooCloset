@@ -27,6 +27,7 @@
 
     <!-- 하트 이미지 -->
     <CheckBox
+        android:id="@+id/home_item_cb_like"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="5dp"
@@ -37,7 +38,7 @@
 
     <!-- 좋아요 숫자 -->
     <TextView
-        android:id="@+id/home_item_likeCount"
+        android:id="@+id/home_item_likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
