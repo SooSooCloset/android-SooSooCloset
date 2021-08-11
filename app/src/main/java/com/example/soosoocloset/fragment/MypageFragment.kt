@@ -86,7 +86,7 @@ class MypageFragment : Fragment() {
                         if(result.info[0]["user_profile"] == null) {
                             iv_profile.setImageResource(R.drawable.user)
                         } else {
-                            var profile = getImg(result.info) // 서버로부터 받은 프로필 이미지를 Bitmap 으로 변환
+                            var profile = getImg(result.info)
                             Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
                         }
                     }

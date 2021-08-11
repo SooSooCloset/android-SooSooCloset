@@ -65,6 +65,7 @@ class CodiActivity : AppCompatActivity() {
                             }
                             else if(result.code.equals("200")) { // 통신 성공 시
                                 tv_likes_num.text = likes.toString()
+                                codi_cb_like.isChecked = true
                                 Toast.makeText(this@CodiActivity ,"addLike success", Toast.LENGTH_SHORT).show()
                             }
                         }
@@ -88,6 +89,7 @@ class CodiActivity : AppCompatActivity() {
                             }
                             else if(result.code.equals("200")) { // 통신 성공 시
                                 tv_likes_num.text = likes.toString()
+                                codi_cb_like.isChecked = false
                                 Toast.makeText(this@CodiActivity ,"deleteLike success", Toast.LENGTH_SHORT).show()
                             }
                         }

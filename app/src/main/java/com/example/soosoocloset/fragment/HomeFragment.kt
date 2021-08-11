@@ -33,8 +33,6 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
     var homeList = arrayListOf<Home>()
     var likeIdList = arrayListOf<Int>()
-    lateinit var prefs : SharedPreferences
-    lateinit var user_id: String // 사용자 아이디
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
@@ -47,8 +45,8 @@ class HomeFragment : Fragment() {
         rv_home.layoutManager = layoutManager
         rv_home.adapter = homeAdapter
 
-        prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
-        user_id = prefs.getString("id", null)!! //사용자 아이디
+        val prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
+        val user_id = prefs.getString("id", null)!! //사용자 아이디
 
         //홈화면 서버와 통신
         RetrofitClient.api.homeRequest(user_id).enqueue(object : Callback<homeResponse> {
