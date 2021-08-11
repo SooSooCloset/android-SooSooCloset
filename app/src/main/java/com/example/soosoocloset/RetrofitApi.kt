@@ -49,9 +49,10 @@ interface RetrofitApi {
     ) : Call<findidResponse>
 
     // 홈 화면 API
-    //@FormUrlEncoded
+    @FormUrlEncoded
     @POST("/user/home")
     fun homeRequest(
+        @Field("user_id") id: String
     ) : Call<homeResponse>
 
     // 코디 화면 API
@@ -153,10 +154,4 @@ interface RetrofitApi {
         @Field("likes") likes: Int
     ) : Call<likeResponse>
 
-    // 좋아요 유/무 확인 API
-    @FormUrlEncoded
-    @POST("/codi/checkLike")
-    fun checkLikeRequest(
-        @Field("user_id") id: String
-    ) : Call<checkLikeResponse>
 }

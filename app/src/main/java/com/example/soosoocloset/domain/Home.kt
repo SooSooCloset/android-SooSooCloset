@@ -9,6 +9,6 @@ class Home(
     val image: Bitmap,
     val codi_description: String,
     var likes: Double,
-    //var isChecked: String,
+    var isChecked: String,
     val codi_date: String
 )
