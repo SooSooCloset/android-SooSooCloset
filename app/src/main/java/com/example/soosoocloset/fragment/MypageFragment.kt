@@ -80,14 +80,20 @@ class MypageFragment : Fragment() {
                         Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }  else if(result.code.equals("200")) { // 사용자 정보 조회 성공시
                         var nickname = result.info[0]["nickname"] as String
-                        var profile = getImg(result.info) // 서버로부터 받은 프로필 이미지를 Bitmap 으로 변환
+                        //var profile = getImg(result.info) // 서버로부터 받은 프로필 이미지를 Bitmap 으로 변환
 
                         tv_nickname.setText(nickname) // 닉네임 세팅
 
                         // 프로필 사진 세팅
-                        if(profile == null) {
+                        /*if(profile == null) {
                             iv_profile.setImageResource(R.drawable.user)
                         } else {
+                            Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
+                        }*/
+                        if(result.info[0]["user_profile"] == null) {
+                            iv_profile.setImageResource(R.drawable.user)
+                        } else {
+                            var profile = getImg(result.info)
                             Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
                         }
                     }

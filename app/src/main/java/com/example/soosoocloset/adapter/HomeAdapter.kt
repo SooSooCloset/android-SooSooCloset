@@ -59,6 +59,7 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
                                 Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                             } else if(result.code.equals("200")) {
                                 homeList[position].likes += 1
+                                homeList[position].isChecked = "true"
                                 holder.likes.text = homeList[position].likes.toInt().toString()
                                 Toast.makeText(context, "addLike Success", Toast.LENGTH_SHORT).show()
                             }
@@ -80,6 +81,7 @@ class HomeAdapter (val context: Context, val homeList: ArrayList<Home>) : Recycl
                                 Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                             } else if(result.code.equals("200")) { // 통신 성공 시
                                 homeList[position].likes -= 1
+                                homeList[position].isChecked = "false"
                                 holder.likes.text = homeList[position].likes.toInt().toString()
                                 Toast.makeText(context, "addLike Success", Toast.LENGTH_SHORT).show()
                             }
