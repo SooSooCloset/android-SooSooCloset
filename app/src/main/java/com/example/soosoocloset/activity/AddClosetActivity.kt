@@ -55,6 +55,8 @@ class AddClosetActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
         setSupportActionBar(toolbar) // 상단바를 액션바로 사용
         supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_icon) // 뒤로가기 버튼 아이콘 변경
 
         var categoryArray = arrayOf("아우터", "상의", "하의", "원피스", "신발", "악세서리") // 옷 종류 리스트
         var catogoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryArray) // 스피너 어댑터 생성
@@ -94,6 +96,10 @@ class AddClosetActivity : AppCompatActivity() {
     // 상단바의 메뉴 클릭시 호출되는 메소드
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            android.R.id.home -> { // 뒤로가기 버튼 클릭한 경우
+                finish()
+                return true
+            }
             R.id.item_finishCloset -> {
                 // 입력 양식 확인 후 조치, 입력 양식 맞으면 서버와 통신
                 if(selectCategory == -1) {
