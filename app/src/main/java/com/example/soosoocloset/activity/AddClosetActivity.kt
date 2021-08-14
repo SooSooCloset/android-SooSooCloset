@@ -21,13 +21,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
-import com.example.soosoocloset.data.addclothResponse
+import com.example.soosoocloset.data.clothResponse
 import com.github.gabrielbb.cutout.CutOut
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_add_closet.*
-import kotlinx.android.synthetic.main.fragment_mypage.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -121,12 +119,12 @@ class AddClosetActivity : AppCompatActivity() {
                     var cloth_img = MultipartBody.Part.createFormData("cloth_img", file.name, requestFile)
 
                     // 옷 추가 서버와 네트워크 통신하는 부분
-                    RetrofitClient.api.addclothRequest(user_id, category, cloth_img, description).enqueue(object : Callback<addclothResponse> {
+                    RetrofitClient.api.addclothRequest(user_id, category, cloth_img, description).enqueue(object : Callback<clothResponse> {
                         // 네트워크 통신 성공한 경우
-                        override fun onResponse(call: Call<addclothResponse>, response: Response<addclothResponse>) {
+                        override fun onResponse(call: Call<clothResponse>, response: Response<clothResponse>) {
 
                             if(response.isSuccessful) {
-                                var result: addclothResponse = response.body()!! // 응답 결과
+                                var result: clothResponse = response.body()!! // 응답 결과
 
                                 if(result.code.equals("400")) {
                                     Toast.makeText(this@AddClosetActivity, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
@@ -139,7 +137,7 @@ class AddClosetActivity : AppCompatActivity() {
                         }
 
                         // 네트워크 통신 실패한 경우
-                        override fun onFailure(call: Call<addclothResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<clothResponse>, t: Throwable) {
                             Toast.makeText(this@AddClosetActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
                         }
                     })
