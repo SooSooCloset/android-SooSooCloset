@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
                                 homeList.add(Home((result.codi[i])["codi_id"] as Double,
                                     (result.codi[i])["nickname"] as String, imageList[i],
                                     (result.codi[i])["codi_description"] as String,
-                                    (result.codi[i])["likes"] as Double, (result.likes[i]),
+                                    (result.codi[i])["likes"] as Double, result.likes[i],
                                     (result.codi[i])["codi_date"] as String))
                             }
                         }
@@ -98,8 +98,8 @@ class HomeFragment : Fragment() {
                 val nickname = homeList[position].nickname //사용자 닉네임
                 val codi_description = homeList[position].codi_description //코디 설명
                 val likes = homeList[position].likes //좋아요 수
+                val isChecked = homeList[position].isChecked //좋아요 콤보박스 상태
                 val codi_date = homeList[position].codi_date //코디 생성 날짜
-                val isChecked = homeList[position].isChecked //좋아요 여부
 
                 //CodiActivity로 데이터 전달
                 intent.apply {
@@ -108,8 +108,8 @@ class HomeFragment : Fragment() {
                     this.putExtra("codi_img", uri)
                     this.putExtra("codi_description", codi_description)
                     this.putExtra("likes", likes)
-                    this.putExtra("codi_date", codi_date)
                     this.putExtra("isChecked", isChecked)
+                    this.putExtra("codi_date", codi_date)
                     startActivity(intent)
                 }
             }

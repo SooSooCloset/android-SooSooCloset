@@ -8,42 +8,42 @@
     <!-- 코디 이미지 -->
     <ImageView
         android:id="@+id/home_item_codi"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginBottom="12dp"
-        android:src="#D3D3D3" />
+        android:layout_marginBottom="4dp"
+        android:background="#D3D3D3" />
 
     <!-- 코디 만든 사람의 닉네임 -->
     <TextView
         android:id="@+id/home_item_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_below="@+id/home_item_codi"
-        android:text="nickname"/>
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="4dp"
+        android:text="nickname" />
 
     <!-- 하트 이미지 -->
     <CheckBox
         android:id="@+id/home_item_cb_like"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
         android:layout_below="@+id/home_item_nickname"
-        android:button="@android:color/transparent"
-        android:background="@drawable/selector_btn_like"/>
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/selector_btn_like"
+        android:button="@android:color/transparent" />
 
     <!-- 좋아요 숫자 -->
     <TextView
         android:id="@+id/home_item_likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="38dp"
         android:layout_below="@+id/home_item_nickname"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="3dp"
         android:text="0" />
 
 </RelativeLayout>

@@ -56,6 +56,7 @@ class MypageFragment : Fragment() {
     val REQUEST_GALLERY = 101 // 갤러리 요청 코드
     lateinit var currentPhotoPath : String  // 카메라/갤러리를 통해 가져온 이미지 경로
     var photoUri: Uri? = null
+    var nickname = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view : View = inflater.inflate(R.layout.fragment_mypage, container, false)
@@ -79,7 +80,7 @@ class MypageFragment : Fragment() {
                     if(result.code.equals("404")) { // 에러 발생 시
                         Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }  else if(result.code.equals("200")) { // 사용자 정보 조회 성공시
-                        var nickname = result.info[0]["nickname"] as String
+                        nickname = result.info[0]["nickname"] as String
                         tv_nickname.setText(nickname) // 닉네임 세팅
 
                         // 프로필 사진 세팅
@@ -113,6 +114,7 @@ class MypageFragment : Fragment() {
             when(position) {
                 0 -> { // 내 정보 수정
                     val intent = Intent(context, MyinfoActivity::class.java)
+                    intent.putExtra("nickname", nickname)
                     startActivity(intent) // 내 정보 수정 화면으로 이동
                 }
                 1 -> { // 로그아웃

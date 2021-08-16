@@ -17,17 +17,18 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <!-- 상단바 타이틀 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/iv_home"
+        android:background="@drawable/logo_pink"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="수수한 옷장"
-        android:textSize="20sp"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="160.2dp"
+        android:layout_marginEnd="160.2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/tv_home"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"
@@ -37,6 +38,40 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_home" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_home" />
+
+    <ImageView
+        android:layout_width="413dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="808dp"
+        android:background="@drawable/bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="31.5dp"
+        android:layout_marginTop="840dp"
+        android:layout_marginEnd="318.5dp"
+        android:background="@drawable/bottom_home_selected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="17.72dp"
+        android:layout_height="18.52dp"
+        android:layout_marginStart="27.1dp"
+        android:layout_marginTop="820dp"
+        android:layout_marginEnd="315.1dp"
+        android:background="@drawable/bottom_home_logo_selected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
