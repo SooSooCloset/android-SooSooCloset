@@ -21,9 +21,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
             android:layout_gravity="center"
             android:text="옷장"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#696969"
+            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,70 +46,77 @@
             android:layout_height="match_parent">
 
             <!-- 아우터 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_outer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="아우터"/>
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="아우터"
+                android:textColor="@color/white"/>
 
             <!-- 상의 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="상의"/>
+                android:layout_width="60dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="상의"
+                android:textColor="@color/white"/>
 
             <!-- 하의 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="하의"/>
+                android:layout_width="60dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="하의"
+                android:textColor="@color/white"/>
 
             <!-- 원피스 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_onepiece"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="원피스"/>
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="원피스"
+                android:textColor="@color/white"/>
 
             <!-- 신발 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_shoes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="신발"/>
+                android:layout_width="60dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="신발"
+                android:textColor="@color/white"/>
 
             <!-- 악세서리 버튼 -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_accessary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="악세서리"/>
+                android:layout_width="78dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_button_category"
+                android:text="악세서리"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

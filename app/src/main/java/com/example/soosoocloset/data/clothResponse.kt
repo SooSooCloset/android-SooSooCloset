@@ -2,7 +2,7 @@ package com.example.soosoocloset.data
 
 import com.google.gson.annotations.SerializedName
 
-data class addclothResponse (
+data class clothResponse (
     @SerializedName("code")
     val code: String
 )

@@ -3,22 +3,32 @@
 
     <item
         android:id="@+id/item_home"
-        android:title="홈"/>
+        android:title="홈"
+        android:icon="@drawable/bn_item_home"
+        android:enabled="true" />
 
     <item
         android:id="@+id/item_closet"
-        android:title="옷장"/>
+        android:title="옷장"
+        android:icon="@drawable/bn_item_closet"
+        android:enabled="true"/>
 
     <item
         android:id="@+id/item_codi"
-        android:title="코디"/>
+        android:title="코디"
+        android:icon="@drawable/bn_item_codi"
+        android:enabled="true"/>
 
     <item
         android:id="@+id/item_like"
-        android:title="좋아요"/>
+        android:title="좋아요"
+        android:icon="@drawable/bn_item_like"
+        android:enabled="true"/>
 
     <item
         android:id="@+id/item_mypage"
-        android:title="마이페이지"/>
+        android:title="마이페이지"
+        android:icon="@drawable/bn_item_mypage"
+        android:enabled="true"/>
 
 </menu>

@@ -16,9 +16,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation"
-        app:labelVisibilityMode="labeled"/>
+        app:labelVisibilityMode="labeled"
+        app:backgroundTint="#f7f7f9"
+        app:itemIconTint="@drawable/selector_bottom_navigation"
+        app:itemTextColor="@drawable/selector_bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
