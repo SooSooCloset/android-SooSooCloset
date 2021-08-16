@@ -18,16 +18,19 @@
 
     <!-- 상단바 타이틀 -->
     <TextView
+        android:id="@+id/tv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
         android:text="좋아요"
         android:textSize="20sp"
+        android:textColor="#696969"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/tv_like"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_like"

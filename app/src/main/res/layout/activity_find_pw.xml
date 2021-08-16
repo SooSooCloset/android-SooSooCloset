@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_id"
-        android:hint="생년월일"
+        android:hint="이메일"
         android:padding="10dp"
         android:background="@drawable/bg_edittext" />
 

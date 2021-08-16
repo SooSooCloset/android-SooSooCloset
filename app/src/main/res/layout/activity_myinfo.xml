@@ -54,6 +54,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/bg_edittext"
         android:hint="닉네임"
+        android:textColor="#696969"
         android:padding="10dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +65,8 @@
     <!-- 비밀번호 -->
     <TextView
         android:id="@+id/tv_pw"
-        android:layout_width="56dp"
-        android:layout_height="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="160dp"
         android:layout_marginEnd="286dp"
