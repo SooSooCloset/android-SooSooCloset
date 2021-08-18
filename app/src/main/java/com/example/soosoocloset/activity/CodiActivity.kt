@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
@@ -22,14 +24,20 @@ class CodiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_codi)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
+        setSupportActionBar(toolbar) // 상단바를 액션바로 사용
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_icon) // 뒤로가기 버튼 아이콘 변경
+
         // HomeFragment, LikeFragment 에서 데이터 받아오기
         val codi_id = intent.getDoubleExtra("codi_id", 0.0).toInt()
         val nickname = intent.getStringExtra("nickname")
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
         val codi_description = intent.getStringExtra("codi_description")
         var likes = intent.getDoubleExtra("likes", -1.0).toInt()
-        val codi_date = intent.getStringExtra("codi_date")
         val isChecked = intent.getStringExtra("isChecked")
+        val codi_date = intent.getStringExtra("codi_date")
 
         //홈 코디 상세 화면 값들 재설정
         tv_nickname.text = nickname
@@ -96,6 +104,17 @@ class CodiActivity : AppCompatActivity() {
                     }
                 })
             }
+        }
+    }
+
+    // 상단바의 메뉴 클릭시 호출되는 메소드
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼 클릭한 경우
+                finish()
+                return true
+            }
+            else -> {return super.onOptionsItemSelected(item)}
         }
     }
 }

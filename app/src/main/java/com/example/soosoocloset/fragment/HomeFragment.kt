@@ -32,22 +32,60 @@ import kotlin.collections.ArrayList
 // author: Sumin, created: 21.05.19, last modified : 21.07.13
 class HomeFragment : Fragment() {
     var homeList = arrayListOf<Home>()
-    var likeIdList = arrayListOf<Int>()
+    lateinit var homeAdapter: HomeAdapter
+    lateinit var user_id : String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
         val rv_home : RecyclerView = view.findViewById(R.id.rv_home)
-        val homeAdapter = HomeAdapter(context!!, homeList)
+        homeAdapter = HomeAdapter(context!!, homeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
 
         rv_home.layoutManager = layoutManager
         rv_home.adapter = homeAdapter
 
         val prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
-        val user_id = prefs.getString("id", null)!! //사용자 아이디
+        user_id = prefs.getString("id", null)!! //사용자 아이디
 
+        getCodi() // 데이터 초기화
+
+        // 홈 화면의 코디리스트 아이템 클릭시
+        homeAdapter.setItemClickListener(object : HomeAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                val intent = Intent(context, CodiActivity::class.java)
+
+                //코디 이미지
+                val stream = ByteArrayOutputStream();
+                homeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), homeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
+                val uri: Uri = Uri.parse(path);
+
+                val codi_id = homeList[position].codi_id //코디 아이디
+                val nickname = homeList[position].nickname //사용자 닉네임
+                val codi_description = homeList[position].codi_description //코디 설명
+                val likes = homeList[position].likes //좋아요 수
+                val isChecked = homeList[position].isChecked //좋아요 콤보박스 상태
+                val codi_date = homeList[position].codi_date //코디 생성 날짜
+
+                //CodiActivity로 데이터 전달
+                intent.apply {
+                    this.putExtra("codi_id", codi_id)
+                    this.putExtra("nickname", nickname)
+                    this.putExtra("codi_img", uri)
+                    this.putExtra("codi_description", codi_description)
+                    this.putExtra("likes", likes)
+                    this.putExtra("isChecked", isChecked)
+                    this.putExtra("codi_date", codi_date)
+                    startActivity(intent)
+                }
+            }
+        })
+        return view
+    }
+
+    private fun getCodi() {
         //홈화면 서버와 통신
         RetrofitClient.api.homeRequest(user_id).enqueue(object : Callback<homeResponse> {
             override fun onFailure(call: Call<homeResponse>, t: Throwable) {
@@ -73,7 +111,7 @@ class HomeFragment : Fragment() {
                                 homeList.add(Home((result.codi[i])["codi_id"] as Double,
                                     (result.codi[i])["nickname"] as String, imageList[i],
                                     (result.codi[i])["codi_description"] as String,
-                                    (result.codi[i])["likes"] as Double, (result.likes[i]),
+                                    (result.codi[i])["likes"] as Double, result.likes[i],
                                     (result.codi[i])["codi_date"] as String))
                             }
                         }
@@ -82,39 +120,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-
-        // 홈 화면의 코디리스트 아이템 클릭시
-        homeAdapter.setItemClickListener(object : HomeAdapter.OnItemClickListener{
-            override fun onClick(v: View, position: Int) {
-                val intent = Intent(context, CodiActivity::class.java)
-
-                //코디 이미지
-                val stream = ByteArrayOutputStream();
-                homeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), homeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
-                val uri: Uri = Uri.parse(path);
-
-                val codi_id = homeList[position].codi_id //코디 아이디
-                val nickname = homeList[position].nickname //사용자 닉네임
-                val codi_description = homeList[position].codi_description //코디 설명
-                val likes = homeList[position].likes //좋아요 수
-                val codi_date = homeList[position].codi_date //코디 생성 날짜
-                val isChecked = homeList[position].isChecked //좋아요 여부
-
-                //CodiActivity로 데이터 전달
-                intent.apply {
-                    this.putExtra("codi_id", codi_id)
-                    this.putExtra("nickname", nickname)
-                    this.putExtra("codi_img", uri)
-                    this.putExtra("codi_description", codi_description)
-                    this.putExtra("likes", likes)
-                    this.putExtra("codi_date", codi_date)
-                    this.putExtra("isChecked", isChecked)
-                    startActivity(intent)
-                }
-            }
-        })
-        return view
     }
 
     //이미지를 가져오는 메서드
@@ -149,5 +154,11 @@ class HomeFragment : Fragment() {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getCodi() // 데이터 초기화
     }
 }

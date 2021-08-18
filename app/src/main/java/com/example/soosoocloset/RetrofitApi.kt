@@ -70,7 +70,23 @@ interface RetrofitApi {
         @Part codi_img: MultipartBody.Part,
         @Part ("codi_description") codi_description: RequestBody,
         @Part ("codi_date") codi_date: RequestBody
-    ) : Call<addcodiResponse>
+    ) : Call<codiResponse>
+
+    // 코디 삭제 API
+    @FormUrlEncoded
+    @POST("/codi/delete")
+    fun deleteCodiRequest(
+        @Field("user_id") id: String,
+        @Field("codi_id") codi_id: Int
+    ) : Call<codiResponse>
+
+    // 코디 설명 수정 API
+    @FormUrlEncoded
+    @POST("/codi/update")
+    fun updateCodiRequest(
+        @Field("codi_id") codi_id: Int,
+        @Field("codi_description") codi_description: String
+    ) : Call<codiResponse>
 
     // 옷 추가 API
     @Multipart
@@ -80,7 +96,7 @@ interface RetrofitApi {
         @Part("category") category: RequestBody,
         @Part cloth_img: MultipartBody.Part,
         @Part("description") description: RequestBody
-    ) : Call<addclothResponse>
+    ) : Call<clothResponse>
 
     // 옷 가져오기 API
     @FormUrlEncoded
@@ -89,6 +105,21 @@ interface RetrofitApi {
         @Field("user_id") id: String,
         @Field("category") category: String
     ) : Call<getclothResponse>
+
+    // 옷 삭제하기 API
+    @FormUrlEncoded
+    @POST("/cloth/delete")
+    fun deleteClothequest(
+        @Field("cloth_id") id: Int
+    ) : Call<clothResponse>
+
+    // 옷 수정하기 API
+    @FormUrlEncoded
+    @POST("/cloth/update")
+    fun updateClothRequest(
+        @Field("cloth_id") id: Int,
+        @Field("description") description: String
+    ) : Call<clothResponse>
 
     //내정보 가져오기 API
     @FormUrlEncoded
@@ -127,14 +158,6 @@ interface RetrofitApi {
     fun deleteUserRequest(
         @Field("user_id") id: String
     ) : Call<deleteUserResponse>
-
-    // 코디 삭제 API
-    @FormUrlEncoded
-    @POST("/codi/deleteCodi")
-    fun deleteCodiRequest(
-        @Field("user_id") id: String,
-        @Field("codi_id") codi_id: Int
-    ) : Call<deleteCodiResponse>
 
     // 좋아요 추가 API
     @FormUrlEncoded

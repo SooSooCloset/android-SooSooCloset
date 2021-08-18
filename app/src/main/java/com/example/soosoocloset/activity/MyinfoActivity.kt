@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.data.myinfoResponse
@@ -17,6 +19,13 @@ class MyinfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_myinfo)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
+        setSupportActionBar(toolbar) // 상단바를 액션바로 사용
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_icon) // 뒤로가기 버튼 아이콘 변경
+
 
         et_nickname.setText(intent.getStringExtra("nickname"))
         
@@ -54,6 +63,17 @@ class MyinfoActivity : AppCompatActivity() {
                     }
                 })
             }
+        }
+    }
+
+    // 상단바의 메뉴 클릭시 호출되는 메소드
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼 클릭한 경우
+                finish()
+                return true
+            }
+            else -> {return super.onOptionsItemSelected(item)}
         }
     }
 }

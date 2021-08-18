@@ -2,7 +2,8 @@ package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -14,7 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
-import com.example.soosoocloset.data.deleteCodiResponse
+import com.example.soosoocloset.data.codiResponse
 import kotlinx.android.synthetic.main.activity_mycodi.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,15 +30,17 @@ class MycodiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mycodi)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar) // 커스텀 툴바로 설정
-        supportActionBar?.setDisplayShowTitleEnabled(false) // 기존 상단바 타이틀 없애기
-        et_codi_description.visibility = View.INVISIBLE
+        val toolbar: Toolbar = findViewById(R.id.toolbar) // 상단바
+        setSupportActionBar(toolbar) // 상단바를 액션바로 사용
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 액션바의 타이틀을 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_icon) // 뒤로가기 버튼 아이콘 변경
 
         //CodiFragment 데이터 받아오기
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
         val codi_description = intent.getStringExtra("codi_description")
         val likes = intent.getDoubleExtra("likes", 0.0).toInt().toString()
+        val isChecked = intent.getStringExtra("isChecked")
         val codi_date = intent.getStringExtra("codi_date")
 
         //나의 코디 화면 값들 재설정
@@ -45,6 +48,11 @@ class MycodiActivity : AppCompatActivity() {
         tv_codi_description.setText(codi_description)
         tv_likes_num.setText(likes)
         tv_codi_date.setText(codi_date)
+
+        if(isChecked.equals("true"))
+            mycodi_cb_like.isChecked = true
+        else if(isChecked.equals("false"))
+            mycodi_cb_like.isChecked = false
     }
 
     // 상단바와 메뉴를 연결하는 메소드
@@ -60,14 +68,26 @@ class MycodiActivity : AppCompatActivity() {
     // 상단바의 메뉴 클릭시 호출되는 메소드
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            android.R.id.home -> { // 뒤로가기 버튼 클릭한 경우
+                finish()
+                return true
+            }
             R.id.item_delete_codi -> { // 코디 삭제 클릭
-                val dialog: AlertDialog.Builder = AlertDialog.Builder(this) //경고 팝업창
-                dialog.setTitle("코디를 삭제 하시겠습니까?") //제목
-                dialog.setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
-                    deleteCodi() //코디 삭제
-                })
-                dialog.setNegativeButton("아니요", null)
-                dialog.show()
+                // 다이얼로그 생성
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("코디를 삭제하시겠습니까?") // 타이틀 설정
+                    .setPositiveButton("예") { dialog, which -> // 오른쪽 버튼 설정
+                        deleteCodi() //코디 삭제 메소드 호출
+                    }
+                    .setNegativeButton("아니오", null) // 왼쪽 버튼 설정 - 취소시 아무 것도 하지 않음
+                    .create()
+
+                alertDialog.setOnShowListener {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#FCCACA"))
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#696969"))
+                }
+
+                alertDialog.show() // 다이얼로그를 보여줌
                 return true
             }
             R.id.item_update_codi -> { // 코디 수정 클릭
@@ -81,12 +101,7 @@ class MycodiActivity : AppCompatActivity() {
                 return true
             }
             R.id.item_update_description -> { // 체크버튼 클릭
-                et_codi_description.visibility = View.INVISIBLE // 옷 설명 입력창 안보이게
-                tv_codi_description.visibility = View.VISIBLE // 옷 설명 보이게
-
-                update_codi = false
-                invalidateOptionsMenu() // 메뉴 갱신
-
+                updateCodiDescription() //코디 설명 수정 메소드 호출
                 return true
             }
             else -> {return super.onOptionsItemSelected(item)}
@@ -95,24 +110,53 @@ class MycodiActivity : AppCompatActivity() {
 
     //코디 삭제 메소드
     fun deleteCodi() {
-        val prefs = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장 장소
+        val prefs: SharedPreferences = applicationContext.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장 장소
         val user_id = prefs.getString("id", null)!! // 사용자 아이디
         val codi_id = intent.getDoubleExtra("codi_id", 0.0).toInt() //삭제할 코디의 아이디
 
         //코디 삭제 서버와 통신
-        RetrofitClient.api.deleteCodiRequest(user_id, codi_id).enqueue(object : Callback<deleteCodiResponse> {
-            override fun onFailure(call: Call<deleteCodiResponse>, t: Throwable) {
+        RetrofitClient.api.deleteCodiRequest(user_id, codi_id).enqueue(object : Callback<codiResponse> {
+            override fun onFailure(call: Call<codiResponse>, t: Throwable) {
                 Toast.makeText(this@MycodiActivity, "Network error", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<deleteCodiResponse>, response: Response<deleteCodiResponse>) {
+            override fun onResponse(call: Call<codiResponse>, response: Response<codiResponse>) {
                 if(response.isSuccessful) {
-                    val result: deleteCodiResponse = response.body()!! // 응답 결과
+                    val result: codiResponse = response.body()!! // 응답 결과
                     if(result.code.equals("400")) // 에러 발생 시
                         Toast.makeText(this@MycodiActivity,"Error", Toast.LENGTH_SHORT).show()
                     else if(result.code.equals("200")) {
                         Toast.makeText(this@MycodiActivity, "Success", Toast.LENGTH_SHORT).show()
                         finish()
+                    }
+                }
+            }
+        })
+    }
+
+    //코디 설명 메소드
+    fun updateCodiDescription() {
+        val codi_id = intent.getDoubleExtra("codi_id", 0.0).toInt() //코디 아이디
+        val codi_description = et_codi_description.text.toString().trim()
+
+        RetrofitClient.api.updateCodiRequest(codi_id, codi_description).enqueue(object : Callback<codiResponse> {
+            override fun onFailure(call: Call<codiResponse>, t: Throwable) {
+                Toast.makeText(this@MycodiActivity, "Network error", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<codiResponse>, response: Response<codiResponse>) {
+                if(response.isSuccessful) {
+                    val result: codiResponse = response.body()!! // 응답 결과
+                    if(result.code.equals("400")) // 에러 발생 시
+                        Toast.makeText(this@MycodiActivity,"Error", Toast.LENGTH_SHORT).show()
+                    else if(result.code.equals("200")) {
+                        et_codi_description.visibility = View.INVISIBLE // 옷 설명 입력창 안보이게
+                        tv_codi_description.visibility = View.VISIBLE // 옷 설명 보이게
+
+                        update_codi = false
+                        invalidateOptionsMenu() // 메뉴 갱신
+                        tv_codi_description.text = codi_description
+
                     }
                 }
             }

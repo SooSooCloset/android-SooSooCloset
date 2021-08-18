@@ -20,22 +20,23 @@
         <!-- 상단바 타이틀 -->
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
             android:layout_gravity="center"
             android:text="회원가입"
-            android:layout_marginStart="149dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="138dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#696969"
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- 이름 입력창 -->
+    <!-- 이름 -->
     <TextView
         android:layout_width="28dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="300dp"
         android:text="이름"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,32 +44,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="109dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+    <!-- 이름 입력창 -->
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="48.5dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="109dp"
-        android:layout_marginEnd="48.5dp"
+        android:layout_marginEnd="32dp"
+        android:hint="이름"
+        android:padding="10dp"
+        android:background="@drawable/bg_edittext"
         android:inputType="textPersonName"
-        android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 닉네임 -->
     <TextView
-        android:id="@+id/textView5"
         android:layout_width="42dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
@@ -76,6 +70,7 @@
         android:layout_marginEnd="286dp"
         android:text="닉네임"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,12 +82,16 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="184dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_nickname"
+        android:background="@drawable/bg_edittext"
+        android:hint="닉네임"
+        android:padding="10dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 성별 -->
     <TextView
         android:layout_width="28dp"
         android:layout_height="18dp"
@@ -101,9 +100,9 @@
         android:layout_marginEnd="300dp"
         android:text="성별"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <!-- 성별 선택 버튼 -->
     <RadioGroup
@@ -120,20 +119,20 @@
 
         <RadioButton
             android:id="@+id/rButton_men"
-            android:layout_width="24dp"
+            android:layout_width="95dp"
             android:layout_height="24dp"
             android:text="남자" />
 
         <RadioButton
             android:id="@+id/rButton_women"
-            android:layout_width="24dp"
+            android:layout_width="69dp"
             android:layout_height="24dp"
             android:text="여자" />
 
     </RadioGroup>
 
+    <!-- 생년월일 -->
     <TextView
-        android:id="@+id/textView6"
         android:layout_width="56dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
@@ -141,6 +140,7 @@
         android:layout_marginEnd="272dp"
         android:text="생년월일"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,14 +152,17 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="334dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_birth"
+        android:background="@drawable/bg_edittext"
+        android:hint="ex) 19990101"
+        android:padding="10dp"
         android:inputType="text|date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 아이디 -->
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="42dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
@@ -167,6 +170,7 @@
         android:layout_marginEnd="286dp"
         android:text="아이디"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -178,13 +182,16 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="409dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_id"
+        android:background="@drawable/bg_edittext"
+        android:hint="아이디"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- 비밀번호 -->
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="56dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
@@ -192,20 +199,23 @@
         android:layout_marginEnd="272dp"
         android:text="비밀번호"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 비밀번호 입력창 -->
     <EditText
         android:id="@+id/et_password"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="484dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_pw"
+        android:background="@drawable/bg_edittext"
+        android:hint="비밀번호(숫자,영문,특수문자 조합 최소 8자)"
+        android:padding="10dp"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,24 +227,29 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="536dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/register_et_check_pw"
+        android:background="@drawable/bg_edittext"
+        android:hint="비밀번호 확인"
+        android:padding="10dp"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 가입하기 버튼 -->
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="633dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/btn_register"
-        android:text="가입하기"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_button"
+        android:text="가입하기"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
