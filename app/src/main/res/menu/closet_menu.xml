@@ -4,6 +4,7 @@
 
     <item android:id="@+id/item_addCloth"
         android:title="옷 추가"
+        android:icon="@drawable/plus_icon"
         app:showAsAction="always" />
 
 </menu>

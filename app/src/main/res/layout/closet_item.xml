@@ -8,12 +8,11 @@
     <!-- 옷장 화면의 리사이클러뷰의 아이템 -->
     <ImageView
         android:id="@+id/closet_item_cloth"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:src="#D3D3D3" />
+        android:layout_width="106dp"
+        android:layout_height="106dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="#E3E3E3" />
 
 </RelativeLayout>

@@ -80,7 +80,7 @@ interface RetrofitApi {
         @Part("category") category: RequestBody,
         @Part cloth_img: MultipartBody.Part,
         @Part("description") description: RequestBody
-    ) : Call<addclothResponse>
+    ) : Call<clothResponse>
 
     // 옷 가져오기 API
     @FormUrlEncoded
@@ -89,6 +89,21 @@ interface RetrofitApi {
         @Field("user_id") id: String,
         @Field("category") category: String
     ) : Call<getclothResponse>
+
+    // 옷 삭제하기 API
+    @FormUrlEncoded
+    @POST("/cloth/delete")
+    fun deleteClothequest(
+        @Field("cloth_id") id: Int
+    ) : Call<clothResponse>
+
+    // 옷 수정하기 API
+    @FormUrlEncoded
+    @POST("/cloth/update")
+    fun updateClothRequest(
+        @Field("cloth_id") id: Int,
+        @Field("description") description: String
+    ) : Call<clothResponse>
 
     //내정보 가져오기 API
     @FormUrlEncoded

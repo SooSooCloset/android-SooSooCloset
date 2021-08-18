@@ -135,10 +135,10 @@ class ClosetFragment : Fragment() {
                         // 옷 관련 리스트에 값을 채우는 부분
                         for(i in imageList.indices) {
                             var obj = result.cloth[i]
-                            if(result.cloth[i]["description"] == null) {
+                            if(result.cloth[i]["cloth_description"] == null) {
                                 clothList.add(Cloth(obj["cloth_id"] as Double, imageList[i], ""))
                             } else {
-                                clothList.add(Cloth(obj["cloth_id"] as Double, imageList[i], obj["description"] as String))
+                                clothList.add(Cloth(obj["cloth_id"] as Double, imageList[i], obj["cloth_description"] as String))
                             }
                         }
 
