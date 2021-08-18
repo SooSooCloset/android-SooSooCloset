@@ -1,5 +1,7 @@
 package com.example.soosoocloset.activity
 
+import android.app.AlertDialog
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -60,7 +62,22 @@ class ClothActivity : AppCompatActivity() {
                 return true
             }
             R.id.item_delete_cloth -> { // 옷 삭제 클릭
-                deleteCloth() // 옷 삭제
+                // 다이얼로그 생성
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("옷을 삭제하시겠습니까?") // 타이틀 설정
+                    .setPositiveButton("예") { dialog, which -> // 오른쪽 버튼 설정
+                        deleteCloth() //옷 삭제 메소드 호출
+                    }
+                    .setNegativeButton("아니오", null) // 왼쪽 버튼 설정 - 취소시 아무 것도 하지 않음
+                    .create()
+
+                alertDialog.setOnShowListener {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#FCCACA"))
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#696969"))
+                }
+
+                alertDialog.show() // 다이얼로그를 보여줌
+                return true
                 return true
             }
             R.id.item_update_cloth -> { // 옷 수정 클릭
