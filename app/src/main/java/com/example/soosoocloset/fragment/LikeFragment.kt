@@ -45,21 +45,50 @@ import kotlin.collections.ArrayList
 // author: Soohyun, last modified: 21.07.31
 class LikeFragment : Fragment() {
     var likeList = arrayListOf<Like>() // 좋아요한 코디 객체 리스트
+    lateinit var likeAdapater: LikeAdapter
+    lateinit var user_id: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_like, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
         val rv_like : RecyclerView = view.findViewById(R.id.rv_like)
-        val likeAdapater = LikeAdapter(context!!, likeList)
+        likeAdapater = LikeAdapter(context!!, likeList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
 
         rv_like.adapter = likeAdapater
         rv_like.layoutManager = layoutManager
 
         val prefs : SharedPreferences = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
-        val user_id = prefs.getString("id", null)!! // 사용자 아이디
+        user_id = prefs.getString("id", null)!! // 사용자 아이디
 
+        getLikeCodi() // 데이터 초기화
+
+        // 좋아요한 코디 아이템 클릭시
+        likeAdapater.setItemClickListener(object : LikeAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                // 비트맵 이미지를 Uri로 변환
+                val stream = ByteArrayOutputStream();
+                likeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), likeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
+                val uri: Uri = Uri.parse(path);
+
+                val intent = Intent(context, CodiActivity::class.java)
+                intent.putExtra("codi_id",likeList[position].codi_id) // 코디 아이디 값 넘기기
+                intent.putExtra("codi_img", uri) // 이미지 Uri 값 넘기기
+                intent.putExtra("nickname", likeList[position].nickname) // 닉네임 값 넘기기
+                intent.putExtra("likes", likeList[position].likeCount) // 좋아요 수 값 넘기기
+                intent.putExtra("codi_date", likeList[position].date) // 코디 작성 날짜 값 넘기기
+                intent.putExtra("codi_description",likeList[position].description) // 코디 설명 값 넘기기
+                intent.putExtra("isChecked", likeList[position].isChecked) // 좋아요 여부 값 넘기기
+                startActivity(intent) // 액티비티 실행
+            }
+        })
+
+        return view
+    }
+
+    private fun getLikeCodi() {
         // 좋아요한 코디 가져오기 서버와 네트워크 통신하는 부분
         RetrofitClient.api.getLikecodiRequest(user_id).enqueue(object : Callback<getLikecodiResponse> {
             // 네트워크 통신 성공한 경우
@@ -95,29 +124,6 @@ class LikeFragment : Fragment() {
                 Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
             }
         })
-
-        // 좋아요한 코디 아이템 클릭시
-        likeAdapater.setItemClickListener(object : LikeAdapter.OnItemClickListener{
-            override fun onClick(v: View, position: Int) {
-                // 비트맵 이미지를 Uri로 변환
-                val stream = ByteArrayOutputStream();
-                likeList[position].image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                val path: String = MediaStore.Images.Media.insertImage(context!!.getContentResolver(), likeList[position].image, "IMG_" + Calendar.getInstance().getTime(), null)
-                val uri: Uri = Uri.parse(path);
-
-                val intent = Intent(context, CodiActivity::class.java)
-                //intent.putExtra("codi_id",likeList[position].codi_id) // 코디 아이디 값 넘기기
-                intent.putExtra("codi_img", uri) // 이미지 Uri 값 넘기기
-                intent.putExtra("nickname", likeList[position].nickname) // 닉네임 값 넘기기
-                intent.putExtra("likes", likeList[position].likeCount) // 좋아요 수 값 넘기기
-                intent.putExtra("codi_date", likeList[position].date) // 코디 작성 날짜 값 넘기기
-                intent.putExtra("codi_description",likeList[position].description) // 코디 설명 값 넘기기
-                intent.putExtra("isChecked", likeList[position].isChecked) // 좋아요 여부 값 넘기기
-                startActivity(intent) // 액티비티 실행
-            }
-        })
-
-        return view
     }
 
     // 이미지를 가져오는 메서드
@@ -154,5 +160,11 @@ class LikeFragment : Fragment() {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getLikeCodi() // 데이터 초기화
     }
 }

@@ -38,6 +38,7 @@ import kotlin.collections.ArrayList
 class ClosetFragment : Fragment() {
     var clothList = arrayListOf<Cloth>() // 옷 객체 리스트
     lateinit var clothAdapter: ClothAdapter// 옷 리사이클러뷰의 어댑터
+    lateinit var user_id: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_closet, container, false)
@@ -55,7 +56,7 @@ class ClosetFragment : Fragment() {
         }
 
         val prefs : SharedPreferences = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
-        val user_id = prefs.getString("id", null)!! // 사용자 아이디
+        user_id = prefs.getString("id", null)!! // 사용자 아이디
 
         val rv_closet : RecyclerView = view.findViewById(R.id.rv_closet) // 옷 리사이클러뷰
         clothAdapter = ClothAdapter(context!!, clothList) // 옷 리사이클러뷰의 어댑터
@@ -189,6 +190,12 @@ class ClosetFragment : Fragment() {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getCloth(user_id, "outer") // 처음 화면에 보여지는 데이터 초기화
     }
 
 }

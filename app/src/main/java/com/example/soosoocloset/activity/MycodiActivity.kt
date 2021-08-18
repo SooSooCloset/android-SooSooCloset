@@ -151,6 +151,7 @@ class MycodiActivity : AppCompatActivity() {
                         update_codi = false
                         invalidateOptionsMenu() // 메뉴 갱신
                         tv_codi_description.text = codi_description
+
                     }
                 }
             }
