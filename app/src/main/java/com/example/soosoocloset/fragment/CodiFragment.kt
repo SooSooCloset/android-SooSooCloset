@@ -35,7 +35,7 @@ class CodiFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_codi, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        var codiList = arrayListOf<Codi>()
+        val codiList = arrayListOf<Codi>()
         val rv_codi : RecyclerView = view.findViewById(R.id.rv_codi)
         val codiAdapater = CodiAdapter(context!!, codiList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
@@ -54,7 +54,7 @@ class CodiFragment : Fragment() {
 
             override fun onResponse(call: Call<getcodiResponse>, response: Response<getcodiResponse>) {
                 if(response.isSuccessful) {
-                    var result: getcodiResponse = response.body()!! // 응답 결과
+                    val result: getcodiResponse = response.body()!! // 응답 결과
                     if(result.code.equals("400")) { // 에러 발생 시
                         Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
                     } else if(result.code.equals("200")) { // 코디화면: 내코디 목록 조회 성공
@@ -68,6 +68,7 @@ class CodiFragment : Fragment() {
                                     (result.codi[i])["codi_id"] as Double,
                                     imageList[i], description,
                                     (result.codi[i])["likes"] as Double,
+                                    result.likes[i],
                                     (result.codi[i])["codi_date"] as String
                                 )
                             )
@@ -92,6 +93,7 @@ class CodiFragment : Fragment() {
                 val codi_id = codiList[position].codi_id //코디 아이디
                 val codi_description = codiList[position].codi_description //코디 설명
                 val likes = codiList[position].likes //좋아요 수
+                val isChecked = codiList[position].isChecked //좋아요 콤보박스 상태
                 val codi_date = codiList[position].codi_date //코디 생성 날짜
 
                 //MycodiActivity로 데이터 전달
@@ -100,6 +102,7 @@ class CodiFragment : Fragment() {
                     this.putExtra("codi_img", uri)
                     this.putExtra("codi_description", codi_description)
                     this.putExtra("likes", likes)
+                    this.putExtra("isChecked", isChecked)
                     this.putExtra("codi_date", codi_date)
                     startActivity(intent)
                 }

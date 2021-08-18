@@ -22,17 +22,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
             android:layout_gravity="center"
             android:text="나의 코디"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#696969"
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/iv_mycodi"
-        android:layout_width="394dp"
-        android:layout_height="394dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="355dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,25 +47,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/iv_heart"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="520dp"
+        android:id="@+id/mycodi_cb_like"
+        android:layout_width="15.56dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="466dp"
+        android:layout_marginEnd="316.4dp"
         android:background="@drawable/selector_btn_like"
         android:button="@android:color/transparent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_likes_num"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_likes_num"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="520dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="463dp"
+        android:layout_marginEnd="288dp"
         android:text="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -68,34 +75,25 @@
 
     <TextView
         android:id="@+id/tv_codi_date"
-        android:layout_width="106dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="288dp"
-        android:layout_marginTop="520dp"
-        android:text="2021-05-25"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="465dp"
+        android:layout_marginEnd="28dp"
+        android:text="yyyy-mm-dd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="right"/>
 
     <TextView
+        android:id="@+id/tv_codi_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="564dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="512dp"
         android:text="코디 설명"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_codi_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="584dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,8 +103,9 @@
         android:id="@+id/et_codi_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="584dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="535dp"
+        android:layout_marginEnd="28dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"

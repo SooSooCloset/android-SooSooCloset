@@ -2,10 +2,12 @@ package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +20,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.R
@@ -30,7 +31,9 @@ import com.example.soosoocloset.domain.Cloth
 import com.google.gson.internal.LinkedTreeMap
 import com.outsbook.libs.canvaseditor.CanvasEditorView
 import kotlinx.android.synthetic.main.activity_add_codi.*
-import okhttp3.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -223,6 +226,12 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
             .create()
 
         alertDialog.setView(view) // 다이얼로그에 뷰 배치
+
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#FCCACA"))
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#696969"))
+        }
+
         alertDialog.show() // 다이얼로그를 보여줌
     }
 

@@ -4,6 +4,7 @@
 
     <item android:id="@+id/item_addCodi"
         android:title="코디 추가"
+        android:icon="@drawable/plus_icon"
         app:showAsAction="always" />
 
 </menu>

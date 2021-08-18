@@ -8,5 +8,6 @@ class Codi (
     val image : Bitmap,
     val codi_description : String,
     val likes : Double,
+    var isChecked: String,
     val codi_date : String
 )

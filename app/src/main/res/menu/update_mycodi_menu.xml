@@ -4,7 +4,7 @@
 
     <item android:id="@+id/item_UpdateCodi"
         android:title="check"
-        android:icon="@drawable/check"
+        android:icon="@drawable/check_icon"
         app:showAsAction="always" />
 
 </menu>

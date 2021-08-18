@@ -28,8 +28,8 @@ class CodiActivity : AppCompatActivity() {
         val codi_img = intent.getParcelableExtra<Uri>("codi_img")
         val codi_description = intent.getStringExtra("codi_description")
         var likes = intent.getDoubleExtra("likes", -1.0).toInt()
-        val codi_date = intent.getStringExtra("codi_date")
         val isChecked = intent.getStringExtra("isChecked")
+        val codi_date = intent.getStringExtra("codi_date")
 
         //홈 코디 상세 화면 값들 재설정
         tv_nickname.text = nickname

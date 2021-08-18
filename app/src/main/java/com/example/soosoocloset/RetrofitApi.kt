@@ -169,4 +169,12 @@ interface RetrofitApi {
         @Field("likes") likes: Int
     ) : Call<likeResponse>
 
+    // 코디 설명 수정 API
+    @FormUrlEncoded
+    @POST("/codi/updateCodi")
+    fun updateCodiRequest(
+        @Field("codi_id") codi_id: Int,
+        @Field("codi_description") codi_description: String
+    ) : Call<updateCodiResponse>
+
 }
