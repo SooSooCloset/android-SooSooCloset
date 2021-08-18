@@ -65,9 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="463dp"
+        android:layout_marginTop="461dp"
         android:layout_marginEnd="288dp"
         android:text="0"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,12 +89,24 @@
         android:gravity="right"/>
 
     <TextView
-        android:id="@+id/tv_codi_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="512dp"
         android:text="코디 설명"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_codi_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="535dp"
+        android:textSize="16sp"
+        android:textColor="#707070"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"

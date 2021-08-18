@@ -146,6 +146,7 @@ class MycodiActivity : AppCompatActivity() {
                         Toast.makeText(this@MycodiActivity,"Error", Toast.LENGTH_SHORT).show()
                     else if(result.code.equals("200")) {
                         Toast.makeText(this@MycodiActivity, "updateCodi Success", Toast.LENGTH_SHORT).show()
+                        et_codi_description.visibility = View.VISIBLE
                     }
                 }
             }

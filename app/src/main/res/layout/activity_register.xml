@@ -237,16 +237,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 가입하기 버튼 -->
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="633dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_button"
+        android:text="가입하기"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
