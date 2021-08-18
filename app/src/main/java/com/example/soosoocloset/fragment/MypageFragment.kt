@@ -33,6 +33,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_mypage.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -55,7 +56,6 @@ class MypageFragment : Fragment() {
     val REQUEST_CAMERA = 100 // 카메라 요청 코드
     val REQUEST_GALLERY = 101 // 갤러리 요청 코드
     lateinit var currentPhotoPath : String  // 카메라/갤러리를 통해 가져온 이미지 경로
-    var photoUri: Uri? = null
     var nickname = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,35 +70,7 @@ class MypageFragment : Fragment() {
         prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
         user_id = prefs.getString("id", null)!! // 사용자 아이디
 
-        // 마이페이지 서버와 네트워크 통신하는 부분
-        RetrofitClient.api.mypageRequest(user_id).enqueue(object : Callback<mypageResponse> {
-            // 네트워크 통신 성공한 경우
-            override fun onResponse(call: Call<mypageResponse>, response: Response<mypageResponse>) {
-                if(response.isSuccessful) {
-                    var result: mypageResponse = response.body()!! // 응답 결과
-
-                    if(result.code.equals("404")) { // 에러 발생 시
-                        Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
-                    }  else if(result.code.equals("200")) { // 사용자 정보 조회 성공시
-                        nickname = result.info[0]["nickname"] as String
-                        tv_nickname.setText(nickname) // 닉네임 세팅
-
-                        // 프로필 사진 세팅
-                        if(result.info[0]["user_profile"] == null) {
-                            iv_profile.setImageResource(R.drawable.user)
-                        } else {
-                            var profile = getImg(result.info)
-                            Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
-                        }
-                    }
-                }
-            }
-
-            // 네트워크 통신 실패한 경우
-            override fun onFailure(call: Call<mypageResponse>, t: Throwable) {
-                Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
-            }
-        })
+        getMypage() // 데이터 초기화
 
         iv_profile.setOnClickListener{
             val items = arrayOf("카메라", "갤러리")
@@ -141,8 +113,40 @@ class MypageFragment : Fragment() {
         return view
     }
 
+    private fun getMypage() {
+        // 마이페이지 서버와 네트워크 통신하는 부분
+        RetrofitClient.api.mypageRequest(user_id).enqueue(object : Callback<mypageResponse> {
+            // 네트워크 통신 성공한 경우
+            override fun onResponse(call: Call<mypageResponse>, response: Response<mypageResponse>) {
+                if(response.isSuccessful) {
+                    var result: mypageResponse = response.body()!! // 응답 결과
+
+                    if(result.code.equals("404")) { // 에러 발생 시
+                        Toast.makeText(context, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    }  else if(result.code.equals("200")) { // 사용자 정보 조회 성공시
+                        nickname = result.info[0]["nickname"] as String
+                        tv_nickname.setText(nickname) // 닉네임 세팅
+
+                        // 프로필 사진 세팅
+                        if(result.info[0]["user_profile"] == null) {
+                            iv_profile.setImageResource(R.drawable.user)
+                        } else {
+                            var profile = getImg(result.info)
+                            Glide.with(context!!).load(profile).circleCrop().into(iv_profile)
+                        }
+                    }
+                }
+            }
+
+            // 네트워크 통신 실패한 경우
+            override fun onFailure(call: Call<mypageResponse>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     // 회원 탈퇴 메서드
-    fun deleteUser() {
+    private fun deleteUser() {
         // 회원탈퇴 서버와 네트워크 통신하는 부분
         RetrofitClient.api.deleteUserRequest(user_id).enqueue(object : Callback<deleteUserResponse> {
             // 네트워크 통신 성공한 경우
@@ -300,7 +304,7 @@ class MypageFragment : Fragment() {
     }
 
     // 프로필 사진 변경 메서드
-    fun changeProfile(uri: Uri) {
+    private fun changeProfile(uri: Uri) {
         val prefs : SharedPreferences = context!!.getSharedPreferences("User", Context.MODE_PRIVATE) // 자동로그인 정보 저장되어 있는 곳
         val user_id = RequestBody.create(MediaType.parse("text/plain"), prefs.getString("id", null)!!) // 사용자 아이디
 
@@ -329,5 +333,11 @@ class MypageFragment : Fragment() {
                 Toast.makeText(context, "네트워크 오류", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getMypage() // 데이터 초기화
     }
 }

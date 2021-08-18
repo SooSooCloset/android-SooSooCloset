@@ -93,6 +93,8 @@ class ClothActivity : AppCompatActivity() {
 
                     if(result.code.equals("400")) {
                         Toast.makeText(this@ClothActivity, "에러가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    } else if(result.code.equals("200")) {
+                        finish()
                     }
                 }
 
