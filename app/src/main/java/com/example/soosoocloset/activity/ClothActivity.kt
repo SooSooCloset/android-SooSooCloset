@@ -78,7 +78,6 @@ class ClothActivity : AppCompatActivity() {
 
                 alertDialog.show() // 다이얼로그를 보여줌
                 return true
-                return true
             }
             R.id.item_update_cloth -> { // 옷 수정 클릭
                 et_cloth_description.visibility = View.VISIBLE // 옷 설명 입력창 보이게
