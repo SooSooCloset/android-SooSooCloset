@@ -31,56 +31,30 @@ import kotlin.collections.ArrayList
 
 // author: Sumin, created: 21.05.19, last modified 21.07.26
 class CodiFragment : Fragment() {
+    lateinit var prefs : SharedPreferences
+    lateinit var user_id : String
+    var codiList = arrayListOf<Codi>()
+    lateinit var codiAdapter : CodiAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_codi, container, false)
         setHasOptionsMenu(true) // 상단바의 메뉴 허용
 
-        val codiList = arrayListOf<Codi>()
         val rv_codi : RecyclerView = view.findViewById(R.id.rv_codi)
-        val codiAdapater = CodiAdapter(context!!, codiList)
         val layoutManager : GridLayoutManager = GridLayoutManager(view.context, 2)
+        codiAdapter = CodiAdapter(context!!, codiList)
 
-        rv_codi.adapter = codiAdapater
+        rv_codi.adapter = codiAdapter
         rv_codi.layoutManager = layoutManager
 
         //코디화면 서버와 통신
-        val prefs : SharedPreferences = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
-        val user_id = prefs.getString("id", null)!! //사용자 아이디
+        prefs = view.context.getSharedPreferences("User", Context.MODE_PRIVATE) //자동로그인 정보 저장 장소
+        user_id = prefs.getString("id", null)!! //사용자 아이디
 
-        RetrofitClient.api.getcodiRequest(user_id).enqueue(object : Callback<getcodiResponse> {
-            override fun onFailure(call: Call<getcodiResponse>, t: Throwable) {
-                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<getcodiResponse>, response: Response<getcodiResponse>) {
-                if(response.isSuccessful) {
-                    val result: getcodiResponse = response.body()!! // 응답 결과
-                    if(result.code.equals("400")) { // 에러 발생 시
-                        Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
-                    } else if(result.code.equals("200")) { // 코디화면: 내코디 목록 조회 성공
-                        val imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
-                        var description = ""
-                        codiList.clear() //초기화
-                        for (i in result.codi.indices) {
-                            description = (result.codi[i])["codi_description"].toString()
-                            codiList.add(
-                                Codi(
-                                    (result.codi[i])["codi_id"] as Double,
-                                    imageList[i], description,
-                                    (result.codi[i])["likes"] as Double,
-                                    result.likes[i],
-                                    (result.codi[i])["codi_date"] as String
-                                )
-                            )
-                        }
-                        codiAdapater.notifyDataSetChanged() //리사이클러뷰 갱신
-                    }
-                }
-            }
-        })
+        getCodi(user_id)
 
         //화면전환
-        codiAdapater.setItemClickListener(object : CodiAdapter.OnItemClickListener{
+        codiAdapter.setItemClickListener(object : CodiAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
                 val intent = Intent(context, MycodiActivity::class.java)
 
@@ -156,5 +130,46 @@ class CodiFragment : Fragment() {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getCodi(user_id) // 처음 화면에 보여지는 데이터 초기화
+    }
+
+    fun getCodi(user_id : String) {
+        RetrofitClient.api.getcodiRequest(user_id).enqueue(object : Callback<getcodiResponse> {
+            override fun onFailure(call: Call<getcodiResponse>, t: Throwable) {
+                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<getcodiResponse>, response: Response<getcodiResponse>) {
+                if(response.isSuccessful) {
+                    val result: getcodiResponse = response.body()!! // 응답 결과
+                    if(result.code.equals("400")) { // 에러 발생 시
+                        Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show()
+                    } else if(result.code.equals("200")) { // 코디화면: 내코디 목록 조회 성공
+                        val imageList = getImg(result.codi) //서버에서 받아온 이미지들을 비트맵으로 변환하여 리스트에 저장
+                        var description = ""
+                        codiList.clear() //초기화
+                        for (i in result.codi.indices) {
+                            description = (result.codi[i])["codi_description"].toString()
+                            codiList.add(
+                                Codi(
+                                    (result.codi[i])["codi_id"] as Double,
+                                    imageList[i], description,
+                                    (result.codi[i])["likes"] as Double,
+                                    result.likes[i],
+                                    (result.codi[i])["codi_date"] as String
+                                )
+                            )
+                        }
+                        codiAdapter.notifyDataSetChanged() //리사이클러뷰 갱신
+                    }
+                }
+            }
+        })
+
     }
 }

@@ -2,7 +2,6 @@ package com.example.soosoocloset.activity
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -25,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.soosoocloset.R
 import com.example.soosoocloset.RetrofitClient
 import com.example.soosoocloset.adapter.ClothAdapter
-import com.example.soosoocloset.data.addcodiResponse
+import com.example.soosoocloset.data.codiResponse
 import com.example.soosoocloset.data.getclothResponse
 import com.example.soosoocloset.domain.Cloth
 import com.google.gson.internal.LinkedTreeMap
@@ -101,13 +100,13 @@ class AddCodiActivity : AppCompatActivity(), View.OnClickListener {
                     val codi_date = RequestBody.create(MediaType.parse("text/plain"), LocalDate.now().toString()) //코디 생성 날짜
 
                     //코디 추가 서버와 통신
-                    RetrofitClient.api.addcodiRequest(user_id, codi_img, codi_description, codi_date).enqueue(object : Callback<addcodiResponse> {
-                        override fun onFailure(call: Call<addcodiResponse>, t: Throwable) {
+                    RetrofitClient.api.addcodiRequest(user_id, codi_img, codi_description, codi_date).enqueue(object : Callback<codiResponse> {
+                        override fun onFailure(call: Call<codiResponse>, t: Throwable) {
                             Toast.makeText(this@AddCodiActivity, "Network error", Toast.LENGTH_SHORT).show()
                         }
 
-                        override fun onResponse(call: Call<addcodiResponse>, response: Response<addcodiResponse>) {
-                            var result: addcodiResponse = response.body()!! // 응답 결과
+                        override fun onResponse(call: Call<codiResponse>, response: Response<codiResponse>) {
+                            var result: codiResponse = response.body()!! // 응답 결과
                             if(response.isSuccessful) {
                                 if(result.code.equals("400")) { // 에러 발생 시
                                     Toast.makeText(this@AddCodiActivity ,"Error", Toast.LENGTH_SHORT).show()
